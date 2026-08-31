@@ -1,0 +1,8 @@
+{
+  "name": "TERMINAL.X Global Freight & Trade Terminal",
+  "description": "Bloomberg Terminal-esque financial and global trade intelligence workstation featuring real-time AIS shipping tracking, interactive freight lane heatmaps, multi-asset streaming order books, derivatives analytics, live newswire, instant IB chat network, and Excel modeling.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
