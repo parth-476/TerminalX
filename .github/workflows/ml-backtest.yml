@@ -1,0 +1,56 @@
+name: Freight ML Backtest
+
+on:
+  push:
+    branches: [sih-freight-v1]
+    paths-ignore:
+      - 'public/model/backtest_results.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install ML dependencies
+        run: pip install -r ml/requirements.txt
+      - name: Generate deterministic demo dataset
+        run: python ml/generate_demo_dataset.py
+      - name: Train candidate models
+        run: python ml/train_freight_model.py data/freight_history_demo.csv
+      - name: Run chronological backtest
+        run: python ml/backtest_freight_model.py data/freight_history_demo.csv
+      - name: Publish terminal artifact
+        run: |
+          mkdir -p public/model
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          source = Path('ml/backtest_results.json')
+          payload = json.loads(source.read_text(encoding='utf-8'))
+          payload['generated_at'] = __import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat()
+          payload['dataset'] = {
+              'source': 'DEMO SYNTHETIC DATASET',
+              'observations': sum(int(fold.get('test_samples', 0)) for fold in payload.get('folds', [])),
+              'lanes': 7,
+              'start_date': '2025-09-01',
+              'end_date': '2026-08-31',
+          }
+          Path('public/model/backtest_results.json').write_text(json.dumps(payload, indent=2), encoding='utf-8')
+          PY
+      - name: Commit published metrics
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/model/backtest_results.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'chore: publish freight ML backtest metrics'
+          git push
