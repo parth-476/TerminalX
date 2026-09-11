@@ -3,6 +3,7 @@ import { Anchor, ArrowRight, BrainCircuit, ShieldAlert, Ship, Target } from 'luc
 import { FreightLane, Port, Vessel } from '../../types';
 import { buildCharterRecommendation } from '../../utils/charterEngine';
 import { RouteOptimizationPanel } from './RouteOptimizationPanel';
+import { ProcurementIntelligencePanel } from './ProcurementIntelligencePanel';
 
 interface Props { freightLanes: FreightLane[]; ports: Port[]; vessels: Vessel[]; }
 
@@ -56,6 +57,7 @@ export const CharterRecommendationView: React.FC<Props> = ({ freightLanes, ports
     </div>
 
     <RouteOptimizationPanel lane={lane} freightLanes={freightLanes} ports={ports} />
+    <ProcurementIntelligencePanel freightLanes={freightLanes} ports={ports} />
   </div>;
 };
 
