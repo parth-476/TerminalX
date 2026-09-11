@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Bot, RefreshCw, Send } from 'lucide-react';
 import { TerminalHeader } from './components/TerminalHeader';
 import { DeskWorkspaceView } from './components/DeskWorkspaceView';
+import { SIHCommandCenterView } from './components/CommandCenter/SIHCommandCenterView';
 import { FreightTerminalView } from './components/FreightMap/FreightTerminalView';
 import { MarketDataView } from './components/MarketData/MarketDataView';
 import { AdvancedAnalyticsView } from './components/Analytics/AdvancedAnalyticsView';
@@ -79,7 +80,7 @@ export default function App() {
   return <div className="flex flex-col h-screen w-screen bg-black text-[#d1d1d1] font-mono text-[11px] overflow-hidden select-none">
     <TerminalHeader currentView={currentView} onViewChange={setCurrentView} theme={theme} onThemeChange={setTheme} assets={assets} onSelectTicker={setSelectedTicker} soundEnabled={soundEnabled} onToggleSound={()=>setSoundEnabled(v=>!v)} />
     <main className="flex-1 min-h-0 overflow-hidden relative">
-      {currentView === 'WORKSPACE' && <DeskWorkspaceView assets={assets} freightLanes={ALL_LANES} ports={ALL_PORTS} vessels={LIVE_VESSELS_SEED} onNavigateView={setCurrentView} onSelectTicker={setSelectedTicker} onOpenOrderTicket={openOrder} />}
+      {currentView === 'WORKSPACE' && <SIHCommandCenterView freightLanes={ALL_LANES} ports={ALL_PORTS} vessels={LIVE_VESSELS_SEED} onNavigateView={setCurrentView} />}
       {currentView === 'FRGT' && <FreightTerminalView freightLanes={ALL_LANES} ports={ALL_PORTS} vessels={LIVE_VESSELS_SEED} chokePoints={GLOBAL_CHOKEPOINTS} onSelectLane={lane=>setSelectedTicker(lane.code)} onAskAIAboutIncident={incident=>{setCurrentView('AI');askAI(`Explain the freight impact of ${incident.vesselName} / ${incident.title}`)}} />}
       {currentView === 'MARKET' && <MarketDataView assets={assets} selectedTicker={selectedTicker} onSelectTicker={setSelectedTicker} onOpenOrderTicket={openOrder} />}
       {currentView === 'FCST' && <FreightForecastView freightLanes={ALL_LANES} />}
@@ -94,6 +95,6 @@ export default function App() {
       {currentView === 'XL' && <ExcelIntegrationView assets={assets} freightLanes={ALL_LANES} ports={ALL_PORTS} />}
       {currentView === 'AI' && <div className="h-full flex flex-col p-3 bg-black"><div className="flex items-center justify-between border-b border-[#333] pb-2 mb-2"><div className="text-white font-bold text-sm"><Bot className="inline w-4 h-4 text-[#F27D26] mr-2"/>AI FREIGHT & CHARTERING ANALYST</div><span className="text-[9px] text-[#00FF41]">MODEL: GEMINI DECISION SUPPORT</span></div><div className="flex-1 overflow-y-auto space-y-2 bg-[#080808] border border-[#333] p-3">{aiHistory.map((m,i)=><div key={i} className={`p-2 border ${m.role==='user'?'ml-8 border-[#444] bg-[#141414]':'mr-8 border-[#222] bg-[#0d0d0d]'}`}><div className="text-[9px] text-[#F27D26] mb-1">{m.role==='user'?'DESK':'TERMINAL.AI'} <span className="text-gray-600 float-right">{m.time}</span></div><div className="whitespace-pre-line leading-relaxed">{m.text}</div></div>)}{aiLoading&&<div className="text-[#F27D26] p-2"><RefreshCw className="inline w-3 h-3 animate-spin mr-2"/>RUNNING GEMINI ANALYSIS...</div>}</div><div className="flex gap-2 mt-2"><input value={aiPrompt} onChange={e=>setAiPrompt(e.target.value)} onKeyDown={e=>{if(e.key==='Enter')askAI(aiPrompt)}} placeholder="Ask: should we charter now? Which India port is most congested?" className="flex-1 bg-[#111] border border-[#333] focus:border-[#F27D26] px-3 py-2 text-xs text-white outline-none"/><button onClick={()=>askAI(aiPrompt)} disabled={aiLoading} className="bg-[#F27D26] text-black font-bold px-4 disabled:opacity-50"><Send className="inline w-3 h-3 mr-1"/>ASK</button></div></div>}
     </main>
-    <footer className="h-6 shrink-0 bg-[#121212] border-t border-[#333] px-3 flex items-center text-[9px] text-gray-500"><span className="text-[#00FF41] mr-2">[ONLINE]</span> SIH26006 • FREIGHT INTELLIGENCE TERMINAL • Phase 2 functional prototype • decision-support data</footer>
+    <footer className="h-6 shrink-0 bg-[#121212] border-t border-[#333] px-3 flex items-center text-[9px] text-gray-500"><span className="text-[#00FF41] mr-2">[ONLINE]</span> SIH26006 • FREIGHT INTELLIGENCE TERMINAL • Phase 4 command center • decision-support data</footer>
   </div>;
 }
