@@ -26,7 +26,10 @@ export interface ProcurementRecommendation {
   rationale: string[];
 }
 
-const unitFactor = (lane: FreightLane) => lane.rateUnit.includes('FEU') ? 1 : 1;
+const findPort = (ports: Port[], reference: string): Port | undefined => {
+  const target = reference.toLowerCase().trim();
+  return ports.find(port => port.code.toLowerCase() === target || port.name.toLowerCase() === target || port.name.toLowerCase().includes(target) || target.includes(port.name.toLowerCase().split(' (')[0]));
+};
 
 export function buildProcurementRecommendation(
   cargoType: string,
@@ -43,27 +46,26 @@ export function buildProcurementRecommendation(
   });
 
   const options = candidates.map(lane => {
-    const originPort = ports.find(p => p.name.toLowerCase().includes(lane.originPort.toLowerCase().split(' ')[0]));
-    const destinationPort = destinationPortName
-      ? ports.find(p => p.name.toLowerCase().includes(destinationPortName.toLowerCase().split(' ')[0]))
-      : ports.find(p => p.name.toLowerCase().includes(lane.destinationPort.toLowerCase().split(' ')[0]));
+    const originPort = findPort(ports, lane.originPort);
+    const destinationPort = findPort(ports, destinationPortName ?? lane.destinationPort);
     const forecast = forecastFreight(lane);
     const destinationCongestion = destinationPort?.congestionScore ?? 50;
     const congestionRisk = Math.round(lane.congestionIndex * 0.65 + destinationCongestion * 0.35);
     const freightPerUnit = lane.currentRateUsd;
-    const estimatedFreightCost = freightPerUnit * safeQty * unitFactor(lane);
-    const portCostFactor = 1 + destinationCongestion / 1000;
-    const estimatedLandedFreightCost = estimatedFreightCost * portCostFactor;
+    const estimatedFreightCost = freightPerUnit * safeQty;
+    const portAdjustmentPerTon = destinationCongestion * 0.012;
+    const estimatedLandedFreightCost = (freightPerUnit + portAdjustmentPerTon) * safeQty;
     const forecastPenalty = Math.min(30, Math.max(-20, forecast.changePct));
     const congestionPenalty = congestionRisk * 0.35;
     const transitPenalty = Math.min(25, lane.transitDays * 0.35);
     const score = Math.max(0, Math.min(100, 100 - congestionPenalty - transitPenalty - forecastPenalty));
     const reasons = [
-      `Freight ${forecast.changePct >= 0 ? 'rising' : 'falling'} ${Math.abs(forecast.changePct).toFixed(1)}% over forecast horizon`,
+      `Freight ${forecast.changePct >= 0 ? 'rising' : 'falling'} ${Math.abs(forecast.changePct).toFixed(1)}% over 30D`,
       `Congestion ${congestionRisk}/100`,
-      `${lane.transitDays} day transit`,
+      `${lane.transitDays} day transit`
     ];
     if (originPort) reasons.push(`Origin wait ${originPort.avgWaitDays.toFixed(1)}d`);
+    if (destinationPort) reasons.push(`Destination wait ${destinationPort.avgWaitDays.toFixed(1)}d`);
     return { lane, originPort, destinationPort, freightPerUnit, estimatedFreightCost, estimatedLandedFreightCost, transitDays: lane.transitDays, congestionRisk, forecastChangePct: forecast.changePct, score, reasons };
   }).sort((a, b) => b.score - a.score);
 
@@ -72,10 +74,10 @@ export function buildProcurementRecommendation(
   const rising = top ? top.forecastChangePct > 2 : false;
   const falling = top ? top.forecastChangePct < -2 : false;
   const highRisk = top ? top.congestionRisk >= 70 : false;
-  const materiallyDifferent = second && Math.abs(top.score - second.score) < 10;
+  const closeAlternatives = Boolean(second && Math.abs(top.score - second.score) < 10);
 
   let action: ProcurementAction = 'WAIT';
-  if (top && (rising || highRisk)) action = materiallyDifferent ? 'SPLIT PROCUREMENT' : 'BUY NOW';
+  if (top && (rising || highRisk)) action = closeAlternatives ? 'SPLIT PROCUREMENT' : 'BUY NOW';
   else if (top && falling) action = 'WAIT';
 
   const buyNowQuantityMt = action === 'BUY NOW' ? safeQty : action === 'SPLIT PROCUREMENT' ? Math.round(safeQty * 0.6) : 0;
