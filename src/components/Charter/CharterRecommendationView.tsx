@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Anchor, ArrowRight, BrainCircuit, ShieldAlert, Ship, Target } from 'lucide-react';
 import { FreightLane, Port, Vessel } from '../../types';
 import { buildCharterRecommendation } from '../../utils/charterEngine';
+import { RouteOptimizationPanel } from './RouteOptimizationPanel';
 
 interface Props { freightLanes: FreightLane[]; ports: Port[]; vessels: Vessel[]; }
 
@@ -12,11 +13,11 @@ export const CharterRecommendationView: React.FC<Props> = ({ freightLanes, ports
   const lane = freightLanes.find(item => item.id === laneId) ?? freightLanes[0];
   const recommendation = useMemo(() => lane ? buildCharterRecommendation({ laneId: lane.id, cargoType: lane.type, quantityMt, laycanDays }, freightLanes, ports, vessels) : null, [lane, quantityMt, laycanDays, freightLanes, ports, vessels]);
 
-  if (!recommendation) return <div className="p-6 text-gray-500 bg-black h-full">NO CHARTER DATA AVAILABLE</div>;
+  if (!recommendation || !lane) return <div className="p-6 text-gray-500 bg-black h-full">NO CHARTER DATA AVAILABLE</div>;
 
   return <div className="h-full overflow-auto bg-black text-[#d1d1d1] font-mono p-3">
     <div className="flex flex-wrap justify-between gap-3 border-b border-[#333] pb-2 mb-3">
-      <div><div className="flex items-center gap-2 text-white font-bold text-sm"><BrainCircuit className="w-4 h-4 text-[#F27D26]"/>CHARTER DECISION ENGINE</div><div className="text-[10px] text-gray-500 mt-1">CARGO → VESSEL → FREIGHT FORECAST → PORT RISK → FIX/WATCH/WAIT</div></div>
+      <div><div className="flex items-center gap-2 text-white font-bold text-sm"><BrainCircuit className="w-4 h-4 text-[#F27D26]"/>CHARTER DECISION ENGINE</div><div className="text-[10px] text-gray-500 mt-1">CARGO → VESSEL → FREIGHT FORECAST → PORT RISK → ROUTE → FIX/WATCH/WAIT</div></div>
       <div className="flex gap-2">
         <select value={laneId} onChange={e => setLaneId(e.target.value)} className="bg-[#111] border border-[#444] text-white px-2 py-1 text-xs">{freightLanes.map(item => <option key={item.id} value={item.id}>{item.code}</option>)}</select>
         <input type="number" min="1000" value={quantityMt} onChange={e => setQuantityMt(Number(e.target.value) || 0)} className="w-24 bg-[#111] border border-[#444] text-white px-2 py-1 text-xs" title="Cargo quantity in metric tonnes" />
@@ -53,6 +54,8 @@ export const CharterRecommendationView: React.FC<Props> = ({ freightLanes, ports
       <Info icon={<ArrowRight/>} label="DESTINATION" value={recommendation.destinationPort ? `${recommendation.destinationPort.name} • ${recommendation.destinationPort.congestionScore}/100` : recommendation.lane.destinationPort}/>
       <Info icon={<ShieldAlert/>} label="CHARTER LOGIC" value={recommendation.decision === 'FIX NOW' ? 'Rising freight + elevated congestion: secure suitable tonnage early.' : recommendation.decision === 'WAIT' ? 'Model points lower while congestion is manageable: preserve optionality.' : 'Mixed signals: monitor rate direction, vessel supply and port conditions.'}/>
     </div>
+
+    <RouteOptimizationPanel lane={lane} freightLanes={freightLanes} ports={ports} />
   </div>;
 };
 
