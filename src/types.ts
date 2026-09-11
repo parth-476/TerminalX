@@ -41,4 +41,4 @@ export interface Order { id: string; clientOrderId: string; ticker: string; name
 export interface OptionContract { ticker: string; type: 'CALL' | 'PUT'; strike: number; expiry: string; bid: number; ask: number; last: number; iv: number; delta: number; gamma: number; theta: number; vega: number; rho: number; volume: number; openInterest: number; }
 export interface YieldCurvePoint { tenor: string; maturityYears: number; yieldCurrent: number; yield1M: number; yield1Y: number; }
 export type TerminalTheme = 'amber' | 'green' | 'cyan' | 'bloomberg-classic';
-export type TerminalViewId = 'WORKSPACE' | 'FRGT' | 'MARKET' | 'FCST' | 'PORT' | 'VSL' | 'NEWS' | 'PROC' | 'CHART' | 'OMS' | 'AI' | 'ANLY' | 'CHAT' | 'XL';
+export type TerminalViewId = 'WORKSPACE' | 'FRGT' | 'MARKET' | 'FCST' | 'PORT' | 'VSL' | 'NEWS' | 'PROC' | 'CHART' | 'DATA' | 'OMS' | 'AI' | 'ANLY' | 'CHAT' | 'XL';
