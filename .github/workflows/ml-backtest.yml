@@ -29,7 +29,7 @@ jobs:
         run: python ml/generate_demo_dataset.py
 
       - name: Run chronological backtest
-        run: python ml/backtest_freight_model.py
+        run: python ml/backtest_freight_model.py data/freight_history_demo.csv
 
       - name: Publish terminal artifact
         run: |
@@ -42,7 +42,7 @@ jobs:
           payload['generated_at'] = __import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat()
           payload['dataset'] = {
               'source': 'DEMO SYNTHETIC DATASET',
-              'observations': sum(len(v.get('mae', [])) for v in payload.get('models', {}).values()),
+              'observations': sum(int(fold.get('test_samples', 0)) for fold in payload.get('folds', [])),
               'lanes': 7,
               'start_date': '2025-09-01',
               'end_date': '2026-08-31',
