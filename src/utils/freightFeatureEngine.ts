@@ -32,14 +32,13 @@ export function engineerFreightFeatures(lane: FreightLane, ports: Port[] = [], v
   const returns = rates.slice(1).map((v, i) => rates[i] ? ((v - rates[i]) / rates[i]) * 100 : 0);
   const month = new Date().getMonth() + 1;
   const relatedVessels = vessels.filter(v => v.currentLaneId === lane.id).length;
-  const origin = ports.find(p => p.code === lane.originPort);
   const destination = ports.find(p => p.code === lane.destinationPort);
   const vesselSupply = relatedVessels || lane.activeVessels;
   const monthAngle = (2 * Math.PI * (month - 1)) / 12;
   return {
     lag1: rates.at(-1) ?? current,
-    lag7: rates.at(-7) ?? avgLast(rates, 7) || current,
-    lag30: rates.at(-30) ?? avgLast(rates, 30) || current,
+    lag7: rates.length >= 7 ? rates[rates.length - 7] : (avgLast(rates, 7) || current),
+    lag30: rates.length >= 30 ? rates[rates.length - 30] : (avgLast(rates, 30) || current),
     ma7: avgLast(rates, 7) || current,
     ma30: avgLast(rates, 30) || current,
     volatility: std(returns),
