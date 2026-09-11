@@ -24,7 +24,7 @@ export function buildIntegratedDecision(lane: FreightLane, ports: Port[], vessel
     currentScore: lane.congestionIndex, forecast7d: lane.congestionIndex, forecast14d: lane.congestionIndex, direction: 'STABLE' as const, delayDays: lane.transitDays * 0.05, confidence: 55, drivers: [], action: 'Destination port record unavailable.'
   };
   const screened = screenVessels(lane, vessels, quantityMt, laycanDays);
-  const procurement = buildProcurementRecommendation('DRY_BULK', quantityMt, [lane], ports, lane.destinationPort);
+  const procurement = buildProcurementRecommendation(lane.type === 'CRUDE' ? 'CRUDE' : lane.type === 'LNG' ? 'LNG' : 'DRY_BULK', quantityMt, [lane], ports, lane.destinationPort);
   const bestVessel = screened[0];
   const freightPressure = Math.max(-100, Math.min(100, forecast.change30dPct * 8));
   const congestionPressure = (congestion.forecast14d - 50) * 1.1;
