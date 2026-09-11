@@ -16,21 +16,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
       - name: Install ML dependencies
         run: pip install -r ml/requirements.txt
-
       - name: Generate deterministic demo dataset
         run: python ml/generate_demo_dataset.py
-
+      - name: Train candidate models
+        run: python ml/train_freight_model.py data/freight_history_demo.csv
       - name: Run chronological backtest
         run: python ml/backtest_freight_model.py data/freight_history_demo.csv
-
       - name: Publish terminal artifact
         run: |
           mkdir -p public/model
@@ -49,7 +46,6 @@ jobs:
           }
           Path('public/model/backtest_results.json').write_text(json.dumps(payload, indent=2), encoding='utf-8')
           PY
-
       - name: Commit published metrics
         run: |
           git config user.name 'github-actions[bot]'
