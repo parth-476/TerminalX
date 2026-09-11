@@ -12,6 +12,7 @@ import { OrderManagementView } from './components/Execution/OrderManagementView'
 import { FreightForecastView } from './components/Forecast/FreightForecastView';
 import { PortIntelligenceView } from './components/Ports/PortIntelligenceView';
 import { VesselIntelligenceView } from './components/Vessels/VesselIntelligenceView';
+import { CharterRecommendationView } from './components/Charter/CharterRecommendationView';
 import { INITIAL_ASSETS } from './data/marketData';
 import { FREIGHT_LANES, MAJOR_PORTS, LIVE_VESSELS_SEED, GLOBAL_CHOKEPOINTS } from './data/freightData';
 import { AssetQuote, TerminalTheme, TerminalViewId } from './types';
@@ -51,71 +52,23 @@ export default function App() {
     if (!query || aiLoading) return;
     const now = new Date().toISOString().slice(11, 16);
     setAiHistory(prev => [...prev, { role: 'user', text: query, time: now }]);
-    setAiPrompt('');
-    setAiLoading(true);
-    terminalSound.playKeyClick();
-
+    setAiPrompt(''); setAiLoading(true); terminalSound.playKeyClick();
     const context = {
       selectedTicker,
-      freightLanes: FREIGHT_LANES.slice(0, 12).map(lane => ({
-        code: lane.code,
-        origin: lane.originPort,
-        destination: lane.destinationPort,
-        currentRateUsd: lane.currentRateUsd,
-        rateUnit: lane.rateUnit,
-        distanceNm: lane.distanceNm,
-        transitDays: lane.transitDays,
-        activeVessels: lane.activeVessels,
-        congestionIndex: lane.congestionIndex,
-      })),
-      ports: MAJOR_PORTS.map(port => ({
-        code: port.code,
-        name: port.name,
-        throughputTeuM: port.throughputTeuM,
-        avgWaitDays: port.avgWaitDays,
-        congestionScore: port.congestionScore,
-        vesselsAtBerth: port.vesselsAtBerth,
-        vesselsWaiting: port.vesselsWaiting,
-        status: port.status,
-      })),
-      vessels: LIVE_VESSELS_SEED.slice(0, 20).map(vessel => ({
-        name: vessel.name,
-        type: vessel.type,
-        dwt: vessel.dwt,
-        draftM: vessel.draftM,
-        speedKnots: vessel.speedKnots,
-        lane: vessel.currentLaneId,
-        origin: vessel.originPort,
-        destination: vessel.destinationPort,
-        eta: vessel.eta,
-        congestionWaitHours: vessel.congestionWaitHours,
-        riskAlert: vessel.riskAlert,
-      })),
+      freightLanes: FREIGHT_LANES.slice(0, 12).map(lane => ({ code: lane.code, origin: lane.originPort, destination: lane.destinationPort, currentRateUsd: lane.currentRateUsd, rateUnit: lane.rateUnit, distanceNm: lane.distanceNm, transitDays: lane.transitDays, activeVessels: lane.activeVessels, congestionIndex: lane.congestionIndex })),
+      ports: MAJOR_PORTS.map(port => ({ code: port.code, name: port.name, avgWaitDays: port.avgWaitDays, congestionScore: port.congestionScore, vesselsAtBerth: port.vesselsAtBerth, vesselsWaiting: port.vesselsWaiting, status: port.status })),
+      vessels: LIVE_VESSELS_SEED.slice(0, 20).map(vessel => ({ name: vessel.name, type: vessel.type, dwt: vessel.dwt, draftM: vessel.draftM, speedKnots: vessel.speedKnots, lane: vessel.currentLaneId, origin: vessel.originPort, destination: vessel.destinationPort, eta: vessel.eta, congestionWaitHours: vessel.congestionWaitHours, riskAlert: vessel.riskAlert }))
     };
-
     try {
-      const response = await fetch('/api/ai-analyst', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: query, context }),
-      });
+      const response = await fetch('/api/ai-analyst', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: query, context }) });
       const payload = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(payload.error || `HTTP ${response.status}`);
-      const answer = typeof payload.answer === 'string' && payload.answer.trim()
-        ? payload.answer.trim()
-        : 'The analyst returned no usable response.';
-      setAiHistory(prev => [...prev, { role: 'assistant', text: answer, time: new Date().toISOString().slice(11, 16) }]);
+      setAiHistory(prev => [...prev, { role: 'assistant', text: typeof payload.answer === 'string' && payload.answer.trim() ? payload.answer.trim() : 'The analyst returned no usable response.', time: new Date().toISOString().slice(11, 16) }]);
       terminalSound.playTradeFill();
     } catch (error) {
       console.error('AI analyst request failed', error);
-      setAiHistory(prev => [...prev, {
-        role: 'assistant',
-        text: 'AI ENDPOINT UNAVAILABLE: Check that GEMINI_API_KEY is configured on the deployed server. The FCST, PORT and VSL modules remain available for deterministic prototype analysis.',
-        time: new Date().toISOString().slice(11, 16),
-      }]);
-    } finally {
-      setAiLoading(false);
-    }
+      setAiHistory(prev => [...prev, { role: 'assistant', text: 'AI ENDPOINT UNAVAILABLE: Check that GEMINI_API_KEY is configured on the deployed server. FCST, PORT, VSL and CHART remain available for deterministic prototype analysis.', time: new Date().toISOString().slice(11, 16) }]);
+    } finally { setAiLoading(false); }
   };
 
   return <div className="flex flex-col h-screen w-screen bg-black text-[#d1d1d1] font-mono text-[11px] overflow-hidden select-none">
@@ -128,6 +81,7 @@ export default function App() {
       {currentView === 'PORT' && <PortIntelligenceView ports={MAJOR_PORTS} />}
       {currentView === 'VSL' && <VesselIntelligenceView vessels={LIVE_VESSELS_SEED} freightLanes={FREIGHT_LANES} />}
       {currentView === 'NEWS' && <NewsEconomicView />}
+      {currentView === 'CHART' && <CharterRecommendationView freightLanes={FREIGHT_LANES} ports={MAJOR_PORTS} vessels={LIVE_VESSELS_SEED} />}
       {currentView === 'OMS' && <OrderManagementView assets={assets} initialOrderParams={orderParams} />}
       {currentView === 'ANLY' && <AdvancedAnalyticsView assets={assets} selectedTicker={selectedTicker} onSelectTicker={setSelectedTicker} />}
       {currentView === 'CHAT' && <InstantMessagingView />}
