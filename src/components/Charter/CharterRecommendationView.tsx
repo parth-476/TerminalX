@@ -18,7 +18,7 @@ export const CharterRecommendationView: React.FC<Props> = ({ freightLanes, ports
 
   return <div className="h-full overflow-auto bg-black text-[#d1d1d1] font-mono p-3">
     <div className="flex flex-wrap justify-between gap-3 border-b border-[#333] pb-2 mb-3">
-      <div><div className="flex items-center gap-2 text-white font-bold text-sm"><BrainCircuit className="w-4 h-4 text-[#F27D26]"/>CHARTER DECISION ENGINE</div><div className="text-[10px] text-gray-500 mt-1">CARGO → VESSEL → FREIGHT FORECAST → PORT RISK → ROUTE → FIX/WATCH/WAIT</div></div>
+      <div><div className="flex items-center gap-2 text-white font-bold text-sm"><BrainCircuit className="w-4 h-4 text-[#F27D26]"/>CHARTER DECISION ENGINE</div><div className="text-[10px] text-gray-500 mt-1">CARGO → VESSEL → ML FREIGHT FORECAST → PORT RISK → ROUTE → FIX/WATCH/WAIT</div></div>
       <div className="flex gap-2">
         <select value={laneId} onChange={e => setLaneId(e.target.value)} className="bg-[#111] border border-[#444] text-white px-2 py-1 text-xs">{freightLanes.map(item => <option key={item.id} value={item.id}>{item.code}</option>)}</select>
         <input type="number" min="1000" value={quantityMt} onChange={e => setQuantityMt(Number(e.target.value) || 0)} className="w-24 bg-[#111] border border-[#444] text-white px-2 py-1 text-xs" title="Cargo quantity in metric tonnes" />
@@ -29,7 +29,7 @@ export const CharterRecommendationView: React.FC<Props> = ({ freightLanes, ports
     <div className="grid grid-cols-2 lg:grid-cols-5 gap-2 mb-3">
       <Metric label="CARGO" value={`${quantityMt.toLocaleString()} MT`} />
       <Metric label="ROUTE" value={`${recommendation.lane.originPort} → ${recommendation.lane.destinationPort}`} />
-      <Metric label="30D FREIGHT" value={`${recommendation.forecast.changePct >= 0 ? '+' : ''}${recommendation.forecast.changePct.toFixed(1)}%`} />
+      <Metric label="30D FREIGHT" value={`${recommendation.forecast.change30dPct >= 0 ? '+' : ''}${recommendation.forecast.change30dPct.toFixed(1)}%`} />
       <Metric label="CONGESTION RISK" value={`${recommendation.congestionRisk}/100`} />
       <div className="border border-[#F27D26] bg-[#16100b] p-2"><div className="text-[9px] text-gray-500">ACTION</div><div className="text-[#F27D26] text-lg font-bold">{recommendation.decision}</div></div>
     </div>
@@ -38,7 +38,7 @@ export const CharterRecommendationView: React.FC<Props> = ({ freightLanes, ports
       <section className="border border-[#333] bg-[#080808] p-3">
         <div className="flex items-center gap-2 text-[#F27D26] font-bold text-xs mb-3"><Target className="w-3.5 h-3.5"/>DECISION RATIONALE</div>
         <div className="space-y-2 text-[10px]">{recommendation.rationale.map((item, index) => <div key={index} className="border-l-2 border-[#444] pl-2 text-gray-300">{item}</div>)}</div>
-        <div className="mt-4 border-t border-[#222] pt-3 text-[10px] text-gray-500">MODEL STATUS: prototype baseline. Forecast is derived from the repository's historical freight series; vessel and port fields are decision-support data, not a live booking feed.</div>
+        <div className="mt-4 border-t border-[#222] pt-3 text-[10px] text-gray-500">MODEL STATUS: prototype ML regression. Forecast is derived from repository freight history plus engineered route/port/vessel features; vessel and port fields are decision-support data, not a live booking feed.</div>
       </section>
 
       <section className="border border-[#333] bg-[#080808] p-3">
