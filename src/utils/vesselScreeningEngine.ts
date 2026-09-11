@@ -25,11 +25,12 @@ export function screenVessels(lane: FreightLane, vessels: Vessel[], quantityMt: 
     const portFit = vessel.draftM <= vessel.maxDraftM && vessel.draftM <= 18 ? 100 : 35;
     const riskPenalty = (vessel.riskAlert ? 25 : 0) + Math.min(20, vessel.congestionWaitHours * 0.25);
     const score = Math.max(0, Math.min(100, capacityFit * 0.35 + routeFit * 0.25 + timingFit * 0.20 + portFit * 0.20 - riskPenalty));
+    const recommendation: VesselScreenResult['recommendation'] = score >= 70 ? 'PREFERRED' : score >= 50 ? 'ALTERNATE' : 'REJECT';
     const rationale: string[] = [];
     if (vessel.type === desiredType) rationale.push(`Cargo-compatible ${desiredType.replace('_', ' ').toLowerCase()}`); else rationale.push('Vessel type mismatch');
     if (vessel.dwt >= requiredDwt) rationale.push(`Capacity clears ${Math.round(requiredDwt).toLocaleString()} DWT requirement`); else rationale.push(`Below ${Math.round(requiredDwt).toLocaleString()} DWT requirement`);
     if (vessel.destinationPort === lane.destinationPort) rationale.push('Destination matches selected lane');
     if (vessel.riskAlert) rationale.push(`Risk alert: ${vessel.riskAlert}`); else rationale.push('No active vessel risk alert');
-    return { vessel, score, capacityFit, routeFit, timingFit, portFit, riskPenalty, recommendation: score >= 70 ? 'PREFERRED' : score >= 50 ? 'ALTERNATE' : 'REJECT', rationale };
+    return { vessel, score, capacityFit, routeFit, timingFit, portFit, riskPenalty, recommendation, rationale };
   }).sort((a, b) => b.score - a.score);
 }
