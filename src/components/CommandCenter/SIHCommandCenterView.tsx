@@ -4,6 +4,7 @@ import { FreightLane, Port, Vessel } from '../../types';
 import { mlForecastFreight } from '../../utils/mlFreightEngine';
 import { buildCharterRecommendation } from '../../utils/charterEngine';
 import { buildProcurementRecommendation } from '../../utils/procurementEngine';
+import { calculateFreightOpportunity } from '../../utils/freightOpportunityEngine';
 
 interface SIHCommandCenterViewProps {
   freightLanes: FreightLane[];
@@ -16,18 +17,21 @@ export const SIHCommandCenterView: React.FC<SIHCommandCenterViewProps> = ({ frei
   const sihLanes = freightLanes.filter(lane => lane.type === 'DRY_BULK' && (lane.destinationPort === 'INPAR' || lane.destinationPort === 'INVIS' || lane.destinationPort === 'INDHM' || lane.destinationPort === 'INGAN' || lane.name.toLowerCase().includes('india')));
   const lanes = sihLanes.length ? sihLanes : freightLanes.filter(lane => lane.type === 'DRY_BULK').slice(0, 6);
   const [selectedLaneId, setSelectedLaneId] = useState(lanes[0]?.id ?? '');
+  const [quantityMt, setQuantityMt] = useState(60000);
   const lane = lanes.find(item => item.id === selectedLaneId) ?? lanes[0];
 
   const forecast = useMemo(() => lane ? mlForecastFreight(lane, ports, vessels) : null, [lane, ports, vessels]);
-  const charter = useMemo(() => lane ? buildCharterRecommendation({ laneId: lane.id, cargoType: lane.type, quantityMt: 60000, laycanDays: 14 }, freightLanes, ports, vessels) : null, [lane, freightLanes, ports, vessels]);
-  const procurement = useMemo(() => buildProcurementRecommendation('DRY_BULK', 60000, lanes, ports, lane?.destinationPort), [lanes, ports, lane]);
+  const charter = useMemo(() => lane ? buildCharterRecommendation({ laneId: lane.id, cargoType: lane.type, quantityMt, laycanDays: 14 }, freightLanes, ports, vessels) : null, [lane, quantityMt, freightLanes, ports, vessels]);
+  const procurement = useMemo(() => buildProcurementRecommendation('DRY_BULK', quantityMt, lanes, ports, lane?.destinationPort), [lanes, ports, lane, quantityMt]);
+  const opportunity = useMemo(() => lane && forecast ? calculateFreightOpportunity(lane, forecast, quantityMt) : null, [lane, forecast, quantityMt]);
 
-  if (!lane || !forecast) return <div className="h-full bg-black text-gray-500 p-6">NO SIH DRY-BULK DATA AVAILABLE</div>;
+  if (!lane || !forecast || !opportunity) return <div className="h-full bg-black text-gray-500 p-6">NO SIH DRY-BULK DATA AVAILABLE</div>;
 
   const destination = ports.find(port => port.code === lane.destinationPort);
   const topVessel = charter?.matches[0];
   const risk = charter?.congestionRisk ?? Math.round(lane.congestionIndex);
   const decision = procurement.action === 'BUY NOW' ? 'SECURE FREIGHT' : procurement.action === 'SPLIT PROCUREMENT' ? 'SPLIT EXPOSURE' : 'WAIT FOR WINDOW';
+  const opportunityLabel = opportunity.direction === 'BUY_NOW' ? 'DELAY EXPOSURE' : opportunity.direction === 'WAIT' ? 'POTENTIAL SAVING' : 'NEUTRAL';
 
   return (
     <div className="h-full overflow-auto bg-black text-[#d1d1d1] font-mono p-3">
@@ -36,19 +40,43 @@ export const SIHCommandCenterView: React.FC<SIHCommandCenterViewProps> = ({ frei
           <div className="flex items-center gap-2 text-white font-bold text-sm"><BrainCircuit className="w-4 h-4 text-[#F27D26]" /> SIH COMMAND CENTER</div>
           <div className="text-[10px] text-gray-500 mt-1">SIH26006 • EAST COAST INDIA • DRY-BULK CHARTERING + PROCUREMENT DECISION SUPPORT</div>
         </div>
-        <select value={selectedLaneId} onChange={e => setSelectedLaneId(e.target.value)} className="bg-[#111] border border-[#444] text-white px-2 py-1 text-xs outline-none">
-          {lanes.map(item => <option key={item.id} value={item.id}>{item.code} — {item.originPort} → {item.destinationPort}</option>)}
-        </select>
+        <div className="flex gap-2 items-center">
+          <label className="text-[9px] text-gray-500">CARGO MT</label>
+          <input type="number" min="1000" value={quantityMt} onChange={e => setQuantityMt(Math.max(1000, Number(e.target.value) || 1000))} className="w-24 bg-[#111] border border-[#444] text-white px-2 py-1 text-xs outline-none" />
+          <select value={selectedLaneId} onChange={e => setSelectedLaneId(e.target.value)} className="bg-[#111] border border-[#444] text-white px-2 py-1 text-xs outline-none">
+            {lanes.map(item => <option key={item.id} value={item.id}>{item.code} — {item.originPort} → {item.destinationPort}</option>)}
+          </select>
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-6 gap-2 mb-3">
-        <Metric label="CURRENT FREIGHT" value={`$${forecast.currentRate.toLocaleString(undefined, { maximumFractionDigits: 0 })}`} sub={lane.rateUnit} />
-        <Metric label="30D FORECAST" value={`$${forecast.forecast30d.toLocaleString(undefined, { maximumFractionDigits: 0 })}`} sub={`${forecast.change30dPct >= 0 ? '+' : ''}${forecast.change30dPct.toFixed(1)}%`} />
+      <div className="grid grid-cols-2 lg:grid-cols-7 gap-2 mb-3">
+        <Metric label="CURRENT FREIGHT" value={`$${forecast.currentRate.toLocaleString(undefined, { maximumFractionDigits: 2 })}`} sub={lane.rateUnit} />
+        <Metric label="30D FORECAST" value={`$${forecast.forecast30d.toLocaleString(undefined, { maximumFractionDigits: 2 })}`} sub={`${forecast.change30dPct >= 0 ? '+' : ''}${forecast.change30dPct.toFixed(1)}%`} />
         <Metric label="SIGNAL" value={forecast.direction} icon={forecast.direction === 'DOWN' ? <TrendingDown className="w-4 h-4" /> : <TrendingUp className="w-4 h-4" />} />
         <Metric label="CONFIDENCE" value={`${forecast.confidence.toFixed(0)}%`} icon={<Gauge className="w-4 h-4" />} />
         <Metric label="PORT RISK" value={`${risk}/100`} icon={<Anchor className="w-4 h-4" />} />
+        <Metric label="CARGO" value={`${quantityMt.toLocaleString()} MT`} />
         <Metric label="ACTION" value={decision} />
       </div>
+
+      <section className="border border-[#F27D26] bg-[#120d08] p-3 mb-3">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <div className="text-[#F27D26] text-xs font-bold">FREIGHT ECONOMIC IMPACT — {opportunityLabel}</div>
+            <div className="text-[9px] text-gray-500 mt-1">Modelled 30D rate movement × selected cargo quantity</div>
+          </div>
+          <div className="text-right">
+            <div className="text-[9px] text-gray-500">{opportunity.direction === 'BUY_NOW' ? 'ADDITIONAL EXPOSURE IF DELAYED' : opportunity.direction === 'WAIT' ? 'POTENTIAL FREIGHT SAVING' : 'MODELLED RATE DELTA'}</div>
+            <div className="text-white text-xl font-bold">${opportunity.opportunityUsd.toLocaleString(undefined, { maximumFractionDigits: 0 })}</div>
+          </div>
+        </div>
+        <div className="grid md:grid-cols-3 gap-2 mt-3">
+          <ImpactStat label="CURRENT FREIGHT" value={`$${opportunity.currentFreightUsd.toLocaleString(undefined, { maximumFractionDigits: 0 })}`} />
+          <ImpactStat label="30D MODELLED FREIGHT" value={`$${opportunity.forecastFreightUsd.toLocaleString(undefined, { maximumFractionDigits: 0 })}`} />
+          <ImpactStat label="RATE DELTA" value={`${opportunity.forecastRate >= opportunity.currentRate ? '+' : '-'}$${Math.abs(opportunity.forecastRate - opportunity.currentRate).toFixed(2)}/MT`} />
+        </div>
+        <div className="text-[9px] text-gray-500 mt-3">{opportunity.explanation} This is a modelled opportunity, not a guaranteed saving, and excludes commodity price, financing, demurrage and execution effects.</div>
+      </section>
 
       <div className="grid lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] gap-3 mb-3">
         <section className="border border-[#333] bg-[#080808] p-3">
@@ -95,9 +123,7 @@ export const SIHCommandCenterView: React.FC<SIHCommandCenterViewProps> = ({ frei
 };
 
 const Metric: React.FC<{ label: string; value: string; sub?: string; icon?: React.ReactNode }> = ({ label, value, sub, icon }) => <div className="border border-[#333] bg-[#080808] p-2 min-h-[68px]"><div className="text-[9px] text-gray-500 mb-1">{label}</div><div className="text-white font-bold flex items-center gap-1 text-[12px]">{icon}{value}</div>{sub && <div className="text-[9px] text-[#F27D26] mt-1">{sub}</div>}</div>;
-
+const ImpactStat: React.FC<{ label: string; value: string }> = ({ label, value }) => <div className="bg-[#111] border border-[#222] p-2"><div className="text-[8px] text-gray-500">{label}</div><div className="text-white font-bold text-[11px] mt-1">{value}</div></div>;
 const Stat: React.FC<{ label: string; value: string }> = ({ label, value }) => <div className="bg-[#111] p-2"><span className="text-gray-500 block">{label}</span><span className="text-white">{value}</span></div>;
-
 const DecisionCard: React.FC<{ title: string; value: string; detail: string; onClick: () => void }> = ({ title, value, detail, onClick }) => <button onClick={onClick} className="text-left border border-[#222] bg-[#111] hover:border-[#F27D26] p-3"><div className="text-[9px] text-gray-500">{title}</div><div className="text-white font-bold text-sm mt-1">{value}</div><div className="text-[9px] text-gray-400 mt-2 leading-relaxed">{detail}</div><div className="text-[8px] text-[#F27D26] mt-2">OPEN MODULE →</div></button>;
-
 const QuickLink: React.FC<{ icon: React.ReactNode; title: string; text: string; onClick: () => void }> = ({ icon, title, text, onClick }) => <button onClick={onClick} className="flex items-center gap-3 border border-[#333] bg-[#080808] hover:border-[#F27D26] p-3 text-left"><span className="text-[#F27D26]">{icon}</span><span><span className="block text-white text-xs font-bold">{title}</span><span className="block text-[9px] text-gray-500 mt-1">{text}</span></span></button>;
