@@ -82,15 +82,16 @@ export function mlForecastFreight(lane: FreightLane, ports: Port[] = [], vessels
   };
   const forecast7d = predict(7), forecast14d = predict(14), forecast30d = predict(30);
   const change30dPct = current ? ((forecast30d - current) / current) * 100 : 0;
-  const returns = (lane.historicalRates ?? []).slice(1).map((x, i, arr) => { const prev = lane.historicalRates[i].rate; return prev ? ((x.rate - prev) / prev) * 100 : 0; });
+  const returns = (lane.historicalRates ?? []).slice(1).map((x, i) => { const prev = lane.historicalRates[i].rate; return prev ? ((x.rate - prev) / prev) * 100 : 0; });
   const volatilityPct = Math.sqrt(mean(returns.map(x => x * x)));
   const confidence = clamp(92 - fitted.metrics.mape * 1.8 - volatilityPct * 1.2 + Math.min(fitted.metrics.samples, 30) * 0.15, 45, 94);
   const direction = change30dPct > 1.5 ? 'UP' : change30dPct < -1.5 ? 'DOWN' : 'FLAT';
+  const features = engineerFreightFeatures(lane, ports, vessels);
   const featureContributions = [
-    { feature: '7D momentum', impact: lane.currentRateUsd ? (engineerFreightFeatures(lane, ports, vessels).momentum7 * 0.35) : 0 },
-    { feature: 'Port/route congestion', impact: (engineerFreightFeatures(lane, ports, vessels).congestion - 50) * 0.25 },
-    { feature: 'Vessel supply', impact: -Math.max(0, engineerFreightFeatures(lane, ports, vessels).vesselSupply - 10) * 0.2 },
-    { feature: 'Seasonality', impact: engineerFreightFeatures(lane, ports, vessels).monthSin * 2 }
+    { feature: '7D momentum', impact: lane.currentRateUsd ? features.momentum7 * 0.35 : 0 },
+    { feature: 'Port/route congestion', impact: (features.congestion - 50) * 0.25 },
+    { feature: 'Vessel supply', impact: -Math.max(0, features.vesselSupply - 10) * 0.2 },
+    { feature: 'Seasonality', impact: features.monthSin * 2 }
   ];
-  return { currentRate: current, forecast7d, forecast14d, forecast30d, change7dPct: current ? ((forecast7d - current) / current) * 100 : 0, change14dPct: current ? ((forecast14d - current) / current) * 100 : 0, change30dPct, direction, confidence, volatilityPct, featureContributions, metrics: fitted.metrics, modelName: 'Freight Ensemble Regression v1' };
+  return { currentRate: current, forecast7d, forecast14d, forecast30d, change7dPct: current ? ((forecast7d - current) / current) * 100 : 0, change14dPct: current ? ((forecast14d - current) / current) * 100 : 0, change30dPct, direction, confidence, volatilityPct, featureContributions, metrics: fitted.metrics, modelName: 'Regularized Freight Regression v1' };
 }
