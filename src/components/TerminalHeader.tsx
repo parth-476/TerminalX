@@ -24,8 +24,11 @@ export const TerminalHeader: React.FC<TerminalHeaderProps> = ({ currentView, onV
   useEffect(() => {
     const key = (e: KeyboardEvent) => {
       const map: Record<string, TerminalViewId> = { F1:'WORKSPACE', F2:'FRGT', F3:'MARKET', F4:'FCST', F5:'PORT', F6:'VSL', F7:'NEWS', F8:'PROC', F9:'CHART', F10:'DATA' };
-      if (map[e.key]) { e.preventDefault(); onViewChange(map[e.key]); terminalSound.playCommandGo(); }
-      if (e.key === '/' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); inputRef.current?.focus(); }
+      const target = e.target as HTMLElement | null;
+      const typing = !!target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable);
+      if (e.key === 'Escape') { setOpen(false); setCommandInput(''); inputRef.current?.blur(); return; }
+      if ((e.key.toLowerCase() === 'k' || e.key === '/') && (e.ctrlKey || e.metaKey)) { e.preventDefault(); inputRef.current?.focus(); setOpen(true); return; }
+      if (!typing && map[e.key]) { e.preventDefault(); onViewChange(map[e.key]); terminalSound.playCommandGo(); }
     };
     window.addEventListener('keydown', key); return () => window.removeEventListener('keydown', key);
   }, [onViewChange]);
