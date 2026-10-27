@@ -17,6 +17,8 @@ export const SIHCommandCenterView: React.FC<SIHCommandCenterViewProps> = ({ frei
   const lanes = sihLanes.length ? sihLanes : freightLanes.filter(lane => lane.type === 'DRY_BULK').slice(0, 6);
   const [selectedLaneId, setSelectedLaneId] = useState(lanes[0]?.id ?? '');
   const [quantityMt, setQuantityMt] = useState(60000);
+  const [rateAlertThresholdPct, setRateAlertThresholdPct] = useState(5);
+  const [portRiskAlertThreshold, setPortRiskAlertThreshold] = useState(70);
   const [savedScenarios, setSavedScenarios] = useState<SavedScenario[]>(() => { try { const stored = localStorage.getItem(SAVED_SCENARIOS_KEY); return stored ? (JSON.parse(stored) as SavedScenario[]).filter(item => item && typeof item.id === 'string' && typeof item.laneId === 'string' && Number.isFinite(item.quantityMt)) : []; } catch { return []; } });
   useEffect(() => { try { localStorage.setItem(SAVED_SCENARIOS_KEY, JSON.stringify(savedScenarios)); } catch { /* Storage may be unavailable in private or restricted contexts. */ } }, [savedScenarios]);
   const lane = lanes.find(item => item.id === selectedLaneId) ?? lanes[0];
@@ -30,6 +32,11 @@ export const SIHCommandCenterView: React.FC<SIHCommandCenterViewProps> = ({ frei
   const risk = charter?.congestionRisk ?? Math.round(lane.congestionIndex);
   const decision = procurement.action === 'BUY NOW' ? 'SECURE FREIGHT' : procurement.action === 'SPLIT PROCUREMENT' ? 'SPLIT EXPOSURE' : 'WAIT FOR WINDOW';
   const opportunityLabel = opportunity.direction === 'BUY_NOW' ? 'DELAY EXPOSURE' : opportunity.direction === 'WAIT' ? 'POTENTIAL SAVING' : 'NEUTRAL';
+  const activeAlerts = [
+    ...(Math.abs(forecast.change30dPct) >= rateAlertThresholdPct ? [{ id: 'rate', title: 'FREIGHT RATE MOVE', detail: `${forecast.change30dPct >= 0 ? '+' : ''}${forecast.change30dPct.toFixed(1)}% modelled 30D change exceeds your ${rateAlertThresholdPct}% watch threshold.` }] : []),
+    ...(risk >= portRiskAlertThreshold ? [{ id: 'risk', title: 'ELEVATED PORT / LANE RISK', detail: `Risk score ${risk}/100 meets or exceeds your ${portRiskAlertThreshold}/100 threshold.` }] : []),
+    ...((destination?.avgWaitDays ?? 0) >= 3 ? [{ id: 'wait', title: 'PORT WAIT WATCH', detail: `${destination?.name ?? lane.destinationPort} has an indicative ${destination?.avgWaitDays.toFixed(1)}-day average wait in the current dataset.` }] : [])
+  ];
   const exportDecisionCsv = () => {
     const rows: [string, string | number][] = [
       ['Exported at (UTC)', new Date().toISOString()],
@@ -68,6 +75,20 @@ export const SIHCommandCenterView: React.FC<SIHCommandCenterViewProps> = ({ frei
     <div className="grid grid-cols-2 lg:grid-cols-7 gap-2 mb-3"><Metric label="CURRENT FREIGHT" value={`$${forecast.currentRate.toLocaleString(undefined, { maximumFractionDigits: 2 })}`} sub={lane.rateUnit}/><Metric label="30D FORECAST" value={`$${forecast.forecast30d.toLocaleString(undefined, { maximumFractionDigits: 2 })}`} sub={`${forecast.change30dPct >= 0 ? '+' : ''}${forecast.change30dPct.toFixed(1)}%`}/><Metric label="SIGNAL" value={forecast.direction} icon={forecast.direction === 'DOWN' ? <TrendingDown className="w-4 h-4"/> : <TrendingUp className="w-4 h-4"/>}/><Metric label="CONFIDENCE" value={`${forecast.confidence.toFixed(0)}%`} icon={<Gauge className="w-4 h-4"/>}/><Metric label="PORT RISK" value={`${risk}/100`} icon={<Anchor className="w-4 h-4"/>}/><Metric label="CARGO" value={`${quantityMt.toLocaleString()} MT`}/><Metric label="ACTION" value={decision}/></div>
     <IntegratedDecisionPanel lane={lane} ports={ports} vessels={vessels} quantityMt={quantityMt} laycanDays={14}/>
     <ScenarioAnalysisPanel lane={lane} ports={ports} vessels={vessels} quantityMt={quantityMt}/>
+    <section className="border border-[#333] bg-[#080808] p-3 mb-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <div><div className="text-[#F27D26] text-xs font-bold">RULE-BASED WATCH ALERTS</div><div className="text-[9px] text-gray-500 mt-1">Recomputed from the selected lane • prototype data only • no push notifications</div></div>
+        <div className="flex flex-wrap gap-3">
+          <label className="flex items-center gap-2 text-[9px] text-gray-500">30D RATE MOVE %
+            <input type="number" min="1" max="100" value={rateAlertThresholdPct} onChange={e => setRateAlertThresholdPct(Math.min(100, Math.max(1, Number(e.target.value) || 1)))} className="w-14 bg-[#111] border border-[#444] text-white px-2 py-1 text-[10px]"/>
+          </label>
+          <label className="flex items-center gap-2 text-[9px] text-gray-500">PORT RISK
+            <input type="number" min="1" max="100" value={portRiskAlertThreshold} onChange={e => setPortRiskAlertThreshold(Math.min(100, Math.max(1, Number(e.target.value) || 1)))} className="w-14 bg-[#111] border border-[#444] text-white px-2 py-1 text-[10px]"/>
+          </label>
+        </div>
+      </div>
+      {activeAlerts.length ? <div className="grid md:grid-cols-3 gap-2">{activeAlerts.map(alert => <div key={alert.id} className="border border-[#5b3518] bg-[#120d08] p-2"><div className="text-[#F27D26] text-[10px] font-bold">! {alert.title}</div><div className="text-[10px] text-gray-300 mt-1 leading-relaxed">{alert.detail}</div></div>)}</div> : <div className="border border-dashed border-[#292929] p-3 text-[10px] text-gray-500">No watch rules triggered for the current lane and thresholds.</div>}
+    </section>
     <section className="border border-[#333] bg-[#080808] p-3 mb-3">
       <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
         <div><div className="text-[#F27D26] text-xs font-bold">SAVED SCENARIOS</div><div className="text-[9px] text-gray-500 mt-1">Stored locally in this browser • no account or server sync</div></div>
