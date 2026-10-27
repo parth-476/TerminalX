@@ -24,7 +24,7 @@ import { demoVesselFeed, fetchVesselFeed, VesselDataStatus } from './utils/vesse
 import { demoFreightFeed, fetchFreightRateFeed, FreightDataStatus } from './utils/freightDataAdapter';
 
 const ALL_PORTS = [...MAJOR_PORTS, ...SIH_EAST_COAST_PORTS];
-const freightLanes = [...FREIGHT_LANES, ...SIH_PROCUREMENT_LANES];
+const ALL_LANES = [...FREIGHT_LANES, ...SIH_PROCUREMENT_LANES];
 
 export default function App() {
   const [currentView, setCurrentView] = useState<TerminalViewId>('WORKSPACE');
