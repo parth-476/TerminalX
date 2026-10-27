@@ -34,6 +34,8 @@ The CHART workflow accepts cargo quantity and laycan, then evaluates:
 
 Every recommendation includes human-readable factors and assumptions. No module executes a charter, purchase or trade.
 
+The integrated recommendation view also runs a **Decision Audit & Data Quality** pass. It checks cargo quantity and laycan inputs, freight rate validity, usable history depth, destination-port matching and basic vessel fields. It flags synthetic-data provenance and the heuristic nature of the forecast stability score. Invalid inputs are blocked from review; valid inputs remain **REVIEW REQUIRED** because the prototype does not provide execution approval.
+
 ## Forecasting architecture
 
 The browser prototype uses a deterministic regularized regression engine over repository freight history and engineered route/port/vessel features. The separate Python ML pipeline provides reproducible scikit-learn model training and chronological rolling-origin evaluation.
