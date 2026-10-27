@@ -30,6 +30,39 @@ export const SIHCommandCenterView: React.FC<SIHCommandCenterViewProps> = ({ frei
   const risk = charter?.congestionRisk ?? Math.round(lane.congestionIndex);
   const decision = procurement.action === 'BUY NOW' ? 'SECURE FREIGHT' : procurement.action === 'SPLIT PROCUREMENT' ? 'SPLIT EXPOSURE' : 'WAIT FOR WINDOW';
   const opportunityLabel = opportunity.direction === 'BUY_NOW' ? 'DELAY EXPOSURE' : opportunity.direction === 'WAIT' ? 'POTENTIAL SAVING' : 'NEUTRAL';
+  const exportDecisionCsv = () => {
+    const rows: [string, string | number][] = [
+      ['Exported at (UTC)', new Date().toISOString()],
+      ['Data status', 'DEMO / PROTOTYPE — verify before operational use'],
+      ['Lane', lane.code],
+      ['Origin port', lane.originPort],
+      ['Destination port', lane.destinationPort],
+      ['Cargo quantity (MT)', quantityMt],
+      ['Current freight rate', forecast.currentRate],
+      ['Rate unit', lane.rateUnit],
+      ['7-day forecast', forecast.forecast7d],
+      ['14-day forecast', forecast.forecast14d],
+      ['30-day forecast', forecast.forecast30d],
+      ['Forecast direction', forecast.direction],
+      ['Prototype confidence score (%)', forecast.confidence],
+      ['Port risk score (0-100)', risk],
+      ['Procurement action', procurement.action],
+      ['Charter decision', charter?.decision ?? 'WATCH'],
+      ['Top vessel', topVessel?.vessel.name ?? 'NO MATCH'],
+      ['Estimated opportunity (USD)', opportunity.opportunityUsd],
+      ['Opportunity interpretation', opportunityLabel],
+      ['Limitations', 'Synthetic/demo core data; forecasts and savings are not guarantees; excludes execution effects']
+    ];
+    const csv = rows.map(([key, value]) => [key, value].map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\\r\\n');
+    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `terminalx-decision-${lane.code.toLowerCase()}-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  };
   return <div className="h-full overflow-auto bg-black text-[#d1d1d1] font-mono p-3">
     <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#333] pb-2 mb-3"><div><div className="flex items-center gap-2 text-white font-bold text-sm"><BrainCircuit className="w-4 h-4 text-[#F27D26]"/> SIH COMMAND CENTER</div><div className="text-[10px] text-gray-500 mt-1">SIH26006 • EAST COAST INDIA • DRY-BULK CHARTERING + PROCUREMENT DECISION SUPPORT</div></div><div className="flex gap-2 items-center"><label className="text-[9px] text-gray-500">CARGO MT</label><input type="number" min="1000" value={quantityMt} onChange={e => setQuantityMt(Math.max(1000, Number(e.target.value) || 1000))} className="w-24 bg-[#111] border border-[#444] text-white px-2 py-1 text-xs outline-none"/><select value={selectedLaneId} onChange={e => setSelectedLaneId(e.target.value)} className="bg-[#111] border border-[#444] text-white px-2 py-1 text-xs outline-none">{lanes.map(item => <option key={item.id} value={item.id}>{item.code} — {item.originPort} → {item.destinationPort}</option>)}</select></div></div>
     <div className="grid grid-cols-2 lg:grid-cols-7 gap-2 mb-3"><Metric label="CURRENT FREIGHT" value={`$${forecast.currentRate.toLocaleString(undefined, { maximumFractionDigits: 2 })}`} sub={lane.rateUnit}/><Metric label="30D FORECAST" value={`$${forecast.forecast30d.toLocaleString(undefined, { maximumFractionDigits: 2 })}`} sub={`${forecast.change30dPct >= 0 ? '+' : ''}${forecast.change30dPct.toFixed(1)}%`}/><Metric label="SIGNAL" value={forecast.direction} icon={forecast.direction === 'DOWN' ? <TrendingDown className="w-4 h-4"/> : <TrendingUp className="w-4 h-4"/>}/><Metric label="CONFIDENCE" value={`${forecast.confidence.toFixed(0)}%`} icon={<Gauge className="w-4 h-4"/>}/><Metric label="PORT RISK" value={`${risk}/100`} icon={<Anchor className="w-4 h-4"/>}/><Metric label="CARGO" value={`${quantityMt.toLocaleString()} MT`}/><Metric label="ACTION" value={decision}/></div>
@@ -38,7 +71,10 @@ export const SIHCommandCenterView: React.FC<SIHCommandCenterViewProps> = ({ frei
     <section className="border border-[#333] bg-[#080808] p-3 mb-3">
       <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
         <div><div className="text-[#F27D26] text-xs font-bold">SAVED SCENARIOS</div><div className="text-[9px] text-gray-500 mt-1">Stored locally in this browser • no account or server sync</div></div>
-        <button onClick={() => { const scenario: SavedScenario = { id: `${Date.now()}-${lane.id}`, laneId: lane.id, quantityMt, savedAt: new Date().toISOString() }; setSavedScenarios(previous => [scenario, ...previous.filter(item => !(item.laneId === lane.id && item.quantityMt === quantityMt))].slice(0, 8)); }} className="border border-[#F27D26] text-[#F27D26] hover:bg-[#1b120a] px-3 py-1.5 text-[10px] font-bold">+ SAVE CURRENT SCENARIO</button>
+        <div className="flex flex-wrap gap-2">
+          <button onClick={exportDecisionCsv} className="border border-[#444] text-gray-300 hover:border-[#F27D26] hover:text-[#F27D26] px-3 py-1.5 text-[10px] font-bold">EXPORT DECISION CSV</button>
+          <button onClick={() => { const scenario: SavedScenario = { id: `${Date.now()}-${lane.id}`, laneId: lane.id, quantityMt, savedAt: new Date().toISOString() }; setSavedScenarios(previous => [scenario, ...previous.filter(item => !(item.laneId === lane.id && item.quantityMt === quantityMt))].slice(0, 8)); }} className="border border-[#F27D26] text-[#F27D26] hover:bg-[#1b120a] px-3 py-1.5 text-[10px] font-bold">+ SAVE CURRENT SCENARIO</button>
+        </div>
       </div>
       {savedScenarios.length === 0 ? <div className="border border-dashed border-[#292929] p-3 text-[10px] text-gray-500">No saved scenarios yet. Select a lane and cargo quantity, then save it to return to the same assumptions later.</div> :
         <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-2">{savedScenarios.map(item => { const savedLane = lanes.find(candidate => candidate.id === item.laneId); return <div key={item.id} className="border border-[#292929] bg-[#0d0d0d] p-2"><div className="text-white text-[11px] font-bold">{savedLane?.code ?? item.laneId}</div><div className="text-[9px] text-gray-500 mt-1">{savedLane ? `${savedLane.originPort} → ${savedLane.destinationPort}` : 'Lane no longer available'}</div><div className="text-[#F27D26] text-[10px] mt-2">{item.quantityMt.toLocaleString()} MT</div><div className="flex gap-2 mt-2"><button disabled={!savedLane} onClick={() => { setSelectedLaneId(item.laneId); setQuantityMt(item.quantityMt); }} className="flex-1 border border-[#444] hover:border-[#F27D26] disabled:opacity-40 text-gray-200 py-1 text-[9px]">RESTORE</button><button aria-label={`Delete saved scenario ${savedLane?.code ?? item.laneId}`} onClick={() => setSavedScenarios(previous => previous.filter(candidate => candidate.id !== item.id))} className="border border-[#333] hover:border-red-500 text-gray-500 hover:text-red-400 px-2 py-1 text-[9px]">DELETE</button></div></div>; })}</div>}
