@@ -53,7 +53,7 @@ export const SIHCommandCenterView: React.FC<SIHCommandCenterViewProps> = ({ frei
       ['Opportunity interpretation', opportunityLabel],
       ['Limitations', 'Synthetic/demo core data; forecasts and savings are not guarantees; excludes execution effects']
     ];
-    const csv = rows.map(([key, value]) => [key, value].map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\\r\\n');
+    const csv = rows.map(([key, value]) => [key, value].map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\r\n');
     const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
     const link = document.createElement('a');
     link.href = url;
