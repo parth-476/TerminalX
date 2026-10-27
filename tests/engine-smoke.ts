@@ -13,8 +13,15 @@ const lane = FREIGHT_LANES.find(item => (item.historicalRates?.length ?? 0) >= 4
 assert.ok(lane, 'fixture dataset should include a lane with enough history');
 
 const forecast = mlForecastFreight(lane, MAJOR_PORTS, LIVE_VESSELS_SEED);
-for (const key of ['currentRate', 'forecast7d', 'forecast14d', 'forecast30d', 'change30dPct', 'volatilityPct']) {
-  assert.ok(Number.isFinite(forecast[key as keyof typeof forecast] as number), `forecast ${key} should be finite`);
+for (const [label, value] of [
+  ['currentRate', forecast.currentRate],
+  ['forecast7d', forecast.forecast7d],
+  ['forecast14d', forecast.forecast14d],
+  ['forecast30d', forecast.forecast30d],
+  ['change30dPct', forecast.change30dPct],
+  ['volatilityPct', forecast.volatilityPct]
+] as const) {
+  assert.ok(Number.isFinite(value), `forecast ${label} should be finite`);
 }
 assert.ok(forecast.forecast7d >= 0 && forecast.forecast14d >= 0 && forecast.forecast30d >= 0, 'freight forecasts should not be negative');
 assert.ok(forecast.confidence >= 35 && forecast.confidence <= 70, 'stability score should remain in its documented heuristic range');
