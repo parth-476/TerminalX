@@ -17,24 +17,31 @@ export const DataConnectivityView: React.FC<Props> = ({ ports }) => {
   const refresh = async () => {
     setLoading(true); setError('');
     try {
-      const [macroData, weatherData, historyData] = await Promise.all([
+      // Independent feeds should fail independently: a weather outage must not
+      // hide a successful macro response (or vice versa).
+      const [macroResult, weatherResult, historyResult] = await Promise.allSettled([
         fetchIndiaMacro(),
         selectedPort ? fetchPortWeather(selectedPort.lat, selectedPort.lon) : Promise.resolve(null),
         selectedPort ? fetchHistoricalPortWeather(selectedPort.lat, selectedPort.lon, 90) : Promise.resolve(null)
       ]);
-      setMacro(macroData);
-      if (weatherData) setWeather(weatherData);
-      if (historyData) setWeatherHistory(historyData);
+      const feedErrors: string[] = [];
+      if (macroResult.status === 'fulfilled') setMacro(macroResult.value);
+      else { setMacro(null); feedErrors.push(`Macro: ${macroResult.reason instanceof Error ? macroResult.reason.message : 'unavailable'}`); }
+      if (weatherResult.status === 'fulfilled') setWeather(weatherResult.value);
+      else { setWeather(null); feedErrors.push(`Weather: ${weatherResult.reason instanceof Error ? weatherResult.reason.message : 'unavailable'}`); }
+      if (historyResult.status === 'fulfilled') setWeatherHistory(historyResult.value);
+      else { setWeatherHistory(null); feedErrors.push(`Historical weather: ${historyResult.reason instanceof Error ? historyResult.reason.message : 'unavailable'}`); }
+      setError(feedErrors.join(' • '));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'External data unavailable');
     } finally { setLoading(false); }
   };
 
-  useEffect(() => { refresh(); }, [selectedPortId]);
+  useEffect(() => { setWeather(null); setWeatherHistory(null); refresh(); }, [selectedPortId]);
 
   return <div className="h-full overflow-auto bg-black text-[#d1d1d1] font-mono p-3">
     <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#333] pb-2 mb-3">
-      <div><div className="flex items-center gap-2 text-white font-bold text-sm"><Database className="w-4 h-4 text-[#F27D26]"/>LIVE DATA CONNECTIVITY</div><div className="text-[9px] text-gray-500 mt-1">MACRO + LIVE WEATHER + 90D HISTORICAL WEATHER • SERVER-SIDE ADAPTERS</div></div>
+      <div><div className="flex items-center gap-2 text-white font-bold text-sm"><Database className="w-4 h-4 text-[#F27D26]"/>EXTERNAL DATA CONNECTIVITY</div><div className="text-[9px] text-gray-500 mt-1">MACRO + LIVE WEATHER + 90D HISTORICAL WEATHER • SERVER-SIDE ADAPTERS</div></div>
       <div className="flex items-center gap-2"><select value={selectedPortId} onChange={e=>setSelectedPortId(e.target.value)} className="bg-[#111] border border-[#444] text-white px-2 py-1 text-xs">{ports.map(port=><option key={port.id} value={port.id}>{port.code} — {port.name}</option>)}</select><button onClick={refresh} disabled={loading} className="border border-[#444] px-2 py-1 text-[#F27D26] disabled:opacity-50"><RefreshCw className={`inline w-3 h-3 mr-1 ${loading?'animate-spin':''}`}/>REFRESH</button></div>
     </div>
 

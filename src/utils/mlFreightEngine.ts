@@ -84,7 +84,8 @@ export function mlForecastFreight(lane: FreightLane, ports: Port[] = [], vessels
   const change30dPct = current ? ((forecast30d - current) / current) * 100 : 0;
   const returns = (lane.historicalRates ?? []).slice(1).map((x, i) => { const prev = lane.historicalRates[i].rate; return prev ? ((x.rate - prev) / prev) * 100 : 0; });
   const volatilityPct = Math.sqrt(mean(returns.map(x => x * x)));
-  const confidence = clamp(92 - fitted.metrics.mape * 1.8 - volatilityPct * 1.2 + Math.min(fitted.metrics.samples, 30) * 0.15, 45, 94);
+  // Heuristic stability score only: in-sample fit errors are not calibrated confidence.
+  const confidence = clamp(60 + Math.min(fitted.metrics.samples, 30) * 0.35 - Math.min(volatilityPct, 25) * 0.8, 35, 70);
   const direction = change30dPct > 1.5 ? 'UP' : change30dPct < -1.5 ? 'DOWN' : 'FLAT';
   const features = engineerFreightFeatures(lane, ports, vessels);
   const featureContributions = [

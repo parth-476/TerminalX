@@ -40,7 +40,7 @@ export function buildIntegratedDecision(lane: FreightLane, ports: Port[], vessel
   ];
   const explanation = [
     `Integrated score ${score.toFixed(0)}/100 combines freight direction, destination congestion, vessel fit and procurement timing.`,
-    `Freight: ${forecast.direction} ${forecast.change30dPct >= 0 ? '+' : ''}${forecast.change30dPct.toFixed(1)}% over 30D at ${forecast.confidence.toFixed(0)}% model confidence.`,
+    `Freight: ${forecast.direction} ${forecast.change30dPct >= 0 ? '+' : ''}${forecast.change30dPct.toFixed(1)}% over 30D with heuristic forecast stability ${forecast.confidence.toFixed(0)}/100.`,
     `Port: ${congestion.port.code} projected at ${congestion.forecast14d.toFixed(0)}/100 congestion with ${congestion.delayDays.toFixed(1)}d indicative delay.`,
     bestVessel ? `Vessel: ${bestVessel.vessel.name} is the highest screened match at ${bestVessel.score.toFixed(0)}/100.` : 'Vessel: no feasible candidate cleared the screening.',
     `Action: ${action}. This is deterministic decision support, not an executed charter or procurement instruction.`

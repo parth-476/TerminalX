@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Anchor, ArrowRight, BrainCircuit, Gauge, PackageSearch, Ship, TrendingDown, TrendingUp } from 'lucide-react';
 import { FreightLane, Port, Vessel } from '../../types';
 import { mlForecastFreight } from '../../utils/mlFreightEngine';
@@ -9,12 +9,18 @@ import { IntegratedDecisionPanel } from '../Charter/IntegratedDecisionPanel';
 import { ScenarioAnalysisPanel } from './ScenarioAnalysisPanel';
 
 interface SIHCommandCenterViewProps { freightLanes: FreightLane[]; ports: Port[]; vessels: Vessel[]; onNavigateView: (view: 'FCST' | 'PORT' | 'VSL' | 'PROC' | 'CHART') => void; }
+interface SavedScenario { id: string; laneId: string; quantityMt: number; savedAt: string; }
+const SAVED_SCENARIOS_KEY = 'terminalx:saved-scenarios:v1';
 
 export const SIHCommandCenterView: React.FC<SIHCommandCenterViewProps> = ({ freightLanes, ports, vessels, onNavigateView }) => {
   const sihLanes = freightLanes.filter(lane => lane.type === 'DRY_BULK' && (lane.destinationPort === 'INPAR' || lane.destinationPort === 'INVIS' || lane.destinationPort === 'INDHM' || lane.destinationPort === 'INGAN' || lane.name.toLowerCase().includes('india')));
   const lanes = sihLanes.length ? sihLanes : freightLanes.filter(lane => lane.type === 'DRY_BULK').slice(0, 6);
   const [selectedLaneId, setSelectedLaneId] = useState(lanes[0]?.id ?? '');
   const [quantityMt, setQuantityMt] = useState(60000);
+  const [rateAlertThresholdPct, setRateAlertThresholdPct] = useState(5);
+  const [portRiskAlertThreshold, setPortRiskAlertThreshold] = useState(70);
+  const [savedScenarios, setSavedScenarios] = useState<SavedScenario[]>(() => { try { const stored = localStorage.getItem(SAVED_SCENARIOS_KEY); return stored ? (JSON.parse(stored) as SavedScenario[]).filter(item => item && typeof item.id === 'string' && typeof item.laneId === 'string' && Number.isFinite(item.quantityMt)) : []; } catch { return []; } });
+  useEffect(() => { try { localStorage.setItem(SAVED_SCENARIOS_KEY, JSON.stringify(savedScenarios)); } catch { /* Storage may be unavailable in private or restricted contexts. */ } }, [savedScenarios]);
   const lane = lanes.find(item => item.id === selectedLaneId) ?? lanes[0];
   const forecast = useMemo(() => lane ? mlForecastFreight(lane, ports, vessels) : null, [lane, ports, vessels]);
   const charter = useMemo(() => lane ? buildCharterRecommendation({ laneId: lane.id, cargoType: lane.type, quantityMt, laycanDays: 14 }, freightLanes, ports, vessels) : null, [lane, quantityMt, freightLanes, ports, vessels]);
@@ -26,11 +32,74 @@ export const SIHCommandCenterView: React.FC<SIHCommandCenterViewProps> = ({ frei
   const risk = charter?.congestionRisk ?? Math.round(lane.congestionIndex);
   const decision = procurement.action === 'BUY NOW' ? 'SECURE FREIGHT' : procurement.action === 'SPLIT PROCUREMENT' ? 'SPLIT EXPOSURE' : 'WAIT FOR WINDOW';
   const opportunityLabel = opportunity.direction === 'BUY_NOW' ? 'DELAY EXPOSURE' : opportunity.direction === 'WAIT' ? 'POTENTIAL SAVING' : 'NEUTRAL';
+  const activeAlerts = [
+    ...(Math.abs(forecast.change30dPct) >= rateAlertThresholdPct ? [{ id: 'rate', title: 'FREIGHT RATE MOVE', detail: `${forecast.change30dPct >= 0 ? '+' : ''}${forecast.change30dPct.toFixed(1)}% modelled 30D change exceeds your ${rateAlertThresholdPct}% watch threshold.` }] : []),
+    ...(risk >= portRiskAlertThreshold ? [{ id: 'risk', title: 'ELEVATED PORT / LANE RISK', detail: `Risk score ${risk}/100 meets or exceeds your ${portRiskAlertThreshold}/100 threshold.` }] : []),
+    ...((destination?.avgWaitDays ?? 0) >= 3 ? [{ id: 'wait', title: 'PORT WAIT WATCH', detail: `${destination?.name ?? lane.destinationPort} has an indicative ${destination?.avgWaitDays.toFixed(1)}-day average wait in the current dataset.` }] : [])
+  ];
+  const exportDecisionCsv = () => {
+    const rows: [string, string | number][] = [
+      ['Exported at (UTC)', new Date().toISOString()],
+      ['Data status', 'DEMO / PROTOTYPE — verify before operational use'],
+      ['Lane', lane.code],
+      ['Origin port', lane.originPort],
+      ['Destination port', lane.destinationPort],
+      ['Cargo quantity (MT)', quantityMt],
+      ['Current freight rate', forecast.currentRate],
+      ['Rate unit', lane.rateUnit],
+      ['7-day forecast', forecast.forecast7d],
+      ['14-day forecast', forecast.forecast14d],
+      ['30-day forecast', forecast.forecast30d],
+      ['Forecast direction', forecast.direction],
+      ['Prototype stability score (0-100)', forecast.confidence],
+      ['Port risk score (0-100)', risk],
+      ['Procurement action', procurement.action],
+      ['Charter decision', charter?.decision ?? 'WATCH'],
+      ['Top vessel', topVessel?.vessel.name ?? 'NO MATCH'],
+      ['Estimated opportunity (USD)', opportunity.opportunityUsd],
+      ['Opportunity interpretation', opportunityLabel],
+      ['Limitations', 'Synthetic/demo core data; forecasts and savings are not guarantees; excludes execution effects']
+    ];
+    const csv = rows.map(([key, value]) => [key, value].map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\r\n');
+    const url = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8;' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `terminalx-decision-${lane.code.toLowerCase()}-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  };
   return <div className="h-full overflow-auto bg-black text-[#d1d1d1] font-mono p-3">
     <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#333] pb-2 mb-3"><div><div className="flex items-center gap-2 text-white font-bold text-sm"><BrainCircuit className="w-4 h-4 text-[#F27D26]"/> SIH COMMAND CENTER</div><div className="text-[10px] text-gray-500 mt-1">SIH26006 • EAST COAST INDIA • DRY-BULK CHARTERING + PROCUREMENT DECISION SUPPORT</div></div><div className="flex gap-2 items-center"><label className="text-[9px] text-gray-500">CARGO MT</label><input type="number" min="1000" value={quantityMt} onChange={e => setQuantityMt(Math.max(1000, Number(e.target.value) || 1000))} className="w-24 bg-[#111] border border-[#444] text-white px-2 py-1 text-xs outline-none"/><select value={selectedLaneId} onChange={e => setSelectedLaneId(e.target.value)} className="bg-[#111] border border-[#444] text-white px-2 py-1 text-xs outline-none">{lanes.map(item => <option key={item.id} value={item.id}>{item.code} — {item.originPort} → {item.destinationPort}</option>)}</select></div></div>
-    <div className="grid grid-cols-2 lg:grid-cols-7 gap-2 mb-3"><Metric label="CURRENT FREIGHT" value={`$${forecast.currentRate.toLocaleString(undefined, { maximumFractionDigits: 2 })}`} sub={lane.rateUnit}/><Metric label="30D FORECAST" value={`$${forecast.forecast30d.toLocaleString(undefined, { maximumFractionDigits: 2 })}`} sub={`${forecast.change30dPct >= 0 ? '+' : ''}${forecast.change30dPct.toFixed(1)}%`}/><Metric label="SIGNAL" value={forecast.direction} icon={forecast.direction === 'DOWN' ? <TrendingDown className="w-4 h-4"/> : <TrendingUp className="w-4 h-4"/>}/><Metric label="CONFIDENCE" value={`${forecast.confidence.toFixed(0)}%`} icon={<Gauge className="w-4 h-4"/>}/><Metric label="PORT RISK" value={`${risk}/100`} icon={<Anchor className="w-4 h-4"/>}/><Metric label="CARGO" value={`${quantityMt.toLocaleString()} MT`}/><Metric label="ACTION" value={decision}/></div>
+    <div className="grid grid-cols-2 lg:grid-cols-7 gap-2 mb-3"><Metric label="CURRENT FREIGHT" value={`$${forecast.currentRate.toLocaleString(undefined, { maximumFractionDigits: 2 })}`} sub={lane.rateUnit}/><Metric label="30D FORECAST" value={`$${forecast.forecast30d.toLocaleString(undefined, { maximumFractionDigits: 2 })}`} sub={`${forecast.change30dPct >= 0 ? '+' : ''}${forecast.change30dPct.toFixed(1)}%`}/><Metric label="SIGNAL" value={forecast.direction} icon={forecast.direction === 'DOWN' ? <TrendingDown className="w-4 h-4"/> : <TrendingUp className="w-4 h-4"/>}/><Metric label="STABILITY" value={`${forecast.confidence.toFixed(0)}/100`} icon={<Gauge className="w-4 h-4"/>}/><Metric label="PORT RISK" value={`${risk}/100`} icon={<Anchor className="w-4 h-4"/>}/><Metric label="CARGO" value={`${quantityMt.toLocaleString()} MT`}/><Metric label="ACTION" value={decision}/></div>
     <IntegratedDecisionPanel lane={lane} ports={ports} vessels={vessels} quantityMt={quantityMt} laycanDays={14}/>
     <ScenarioAnalysisPanel lane={lane} ports={ports} vessels={vessels} quantityMt={quantityMt}/>
+    <section className="border border-[#333] bg-[#080808] p-3 mb-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <div><div className="text-[#F27D26] text-xs font-bold">RULE-BASED WATCH ALERTS</div><div className="text-[9px] text-gray-500 mt-1">Recomputed from the selected lane • prototype data only • no push notifications</div></div>
+        <div className="flex flex-wrap gap-3">
+          <label className="flex items-center gap-2 text-[9px] text-gray-500">30D RATE MOVE %
+            <input type="number" min="1" max="100" value={rateAlertThresholdPct} onChange={e => setRateAlertThresholdPct(Math.min(100, Math.max(1, Number(e.target.value) || 1)))} className="w-14 bg-[#111] border border-[#444] text-white px-2 py-1 text-[10px]"/>
+          </label>
+          <label className="flex items-center gap-2 text-[9px] text-gray-500">PORT RISK
+            <input type="number" min="1" max="100" value={portRiskAlertThreshold} onChange={e => setPortRiskAlertThreshold(Math.min(100, Math.max(1, Number(e.target.value) || 1)))} className="w-14 bg-[#111] border border-[#444] text-white px-2 py-1 text-[10px]"/>
+          </label>
+        </div>
+      </div>
+      {activeAlerts.length ? <div className="grid md:grid-cols-3 gap-2">{activeAlerts.map(alert => <div key={alert.id} className="border border-[#5b3518] bg-[#120d08] p-2"><div className="text-[#F27D26] text-[10px] font-bold">! {alert.title}</div><div className="text-[10px] text-gray-300 mt-1 leading-relaxed">{alert.detail}</div></div>)}</div> : <div className="border border-dashed border-[#292929] p-3 text-[10px] text-gray-500">No watch rules triggered for the current lane and thresholds.</div>}
+    </section>
+    <section className="border border-[#333] bg-[#080808] p-3 mb-3">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+        <div><div className="text-[#F27D26] text-xs font-bold">SAVED SCENARIOS</div><div className="text-[9px] text-gray-500 mt-1">Stored locally in this browser • no account or server sync</div></div>
+        <div className="flex flex-wrap gap-2">
+          <button onClick={exportDecisionCsv} className="border border-[#444] text-gray-300 hover:border-[#F27D26] hover:text-[#F27D26] px-3 py-1.5 text-[10px] font-bold">EXPORT DECISION CSV</button>
+          <button onClick={() => { const scenario: SavedScenario = { id: `${Date.now()}-${lane.id}`, laneId: lane.id, quantityMt, savedAt: new Date().toISOString() }; setSavedScenarios(previous => [scenario, ...previous.filter(item => !(item.laneId === lane.id && item.quantityMt === quantityMt))].slice(0, 8)); }} className="border border-[#F27D26] text-[#F27D26] hover:bg-[#1b120a] px-3 py-1.5 text-[10px] font-bold">+ SAVE CURRENT SCENARIO</button>
+        </div>
+      </div>
+      {savedScenarios.length === 0 ? <div className="border border-dashed border-[#292929] p-3 text-[10px] text-gray-500">No saved scenarios yet. Select a lane and cargo quantity, then save it to return to the same assumptions later.</div> :
+        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-2">{savedScenarios.map(item => { const savedLane = lanes.find(candidate => candidate.id === item.laneId); return <div key={item.id} className="border border-[#292929] bg-[#0d0d0d] p-2"><div className="text-white text-[11px] font-bold">{savedLane?.code ?? item.laneId}</div><div className="text-[9px] text-gray-500 mt-1">{savedLane ? `${savedLane.originPort} → ${savedLane.destinationPort}` : 'Lane no longer available'}</div><div className="text-[#F27D26] text-[10px] mt-2">{item.quantityMt.toLocaleString()} MT</div><div className="flex gap-2 mt-2"><button disabled={!savedLane} onClick={() => { setSelectedLaneId(item.laneId); setQuantityMt(item.quantityMt); }} className="flex-1 border border-[#444] hover:border-[#F27D26] disabled:opacity-40 text-gray-200 py-1 text-[9px]">RESTORE</button><button aria-label={`Delete saved scenario ${savedLane?.code ?? item.laneId}`} onClick={() => setSavedScenarios(previous => previous.filter(candidate => candidate.id !== item.id))} className="border border-[#333] hover:border-red-500 text-gray-500 hover:text-red-400 px-2 py-1 text-[9px]">DELETE</button></div></div>; })}</div>}
+    </section>
     <section className="border border-[#F27D26] bg-[#120d08] p-3 mb-3"><div className="flex flex-wrap items-center justify-between gap-3"><div><div className="text-[#F27D26] text-xs font-bold">FREIGHT ECONOMIC IMPACT — {opportunityLabel}</div><div className="text-[9px] text-gray-500 mt-1">Modelled 30D rate movement × selected cargo quantity</div></div><div className="text-right"><div className="text-[9px] text-gray-500">{opportunity.direction === 'BUY_NOW' ? 'ADDITIONAL EXPOSURE IF DELAYED' : opportunity.direction === 'WAIT' ? 'POTENTIAL FREIGHT SAVING' : 'MODELLED RATE DELTA'}</div><div className="text-white text-xl font-bold">${opportunity.opportunityUsd.toLocaleString(undefined, { maximumFractionDigits: 0 })}</div></div></div><div className="grid md:grid-cols-3 gap-2 mt-3"><ImpactStat label="CURRENT FREIGHT" value={`$${opportunity.currentFreightUsd.toLocaleString(undefined, { maximumFractionDigits: 0 })}`}/><ImpactStat label="30D MODELLED FREIGHT" value={`$${opportunity.forecastFreightUsd.toLocaleString(undefined, { maximumFractionDigits: 0 })}`}/><ImpactStat label="RATE DELTA" value={`${opportunity.forecastRate >= opportunity.currentRate ? '+' : '-'}$${Math.abs(opportunity.forecastRate - opportunity.currentRate).toFixed(2)}/MT`}/></div><div className="text-[9px] text-gray-500 mt-3">{opportunity.explanation} This is a modelled opportunity, not a guaranteed saving, and excludes commodity price, financing, demurrage and execution effects.</div></section>
     <div className="grid lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] gap-3 mb-3"><section className="border border-[#333] bg-[#080808] p-3"><div className="text-[#F27D26] text-xs font-bold mb-3">TODAY'S DECISION — {lane.code}</div><div className="grid md:grid-cols-2 gap-3"><DecisionCard title="FREIGHT" value={forecast.direction === 'UP' ? 'LOCK EXPOSURE' : forecast.direction === 'DOWN' ? 'DEFER COMMITMENT' : 'MONITOR'} detail={`7D $${forecast.forecast7d.toFixed(0)} • 14D $${forecast.forecast14d.toFixed(0)} • 30D $${forecast.forecast30d.toFixed(0)}`} onClick={() => onNavigateView('FCST')}/><DecisionCard title="PROCUREMENT" value={procurement.action} detail={`${procurement.buyNowQuantityMt.toLocaleString()} MT buy now • ${procurement.waitQuantityMt.toLocaleString()} MT wait`} onClick={() => onNavigateView('PROC')}/><DecisionCard title="CHARTER" value={charter?.decision ?? 'WATCH'} detail={charter?.rationale[0] ?? 'No charter signal'} onClick={() => onNavigateView('CHART')}/><DecisionCard title="VESSEL" value={topVessel ? topVessel.vessel.name : 'NO MATCH'} detail={topVessel ? `Match ${topVessel.score}/100 • ${topVessel.vessel.dwt.toLocaleString()} DWT` : 'Capacity screen returned no match'} onClick={() => onNavigateView('VSL')}/></div></section><section className="border border-[#333] bg-[#080808] p-3"><div className="text-[#F27D26] text-xs font-bold mb-3">ROUTE / PORT SNAPSHOT</div><div className="flex items-center gap-2 text-white text-sm font-bold mb-3"><span>{lane.originPort}</span><ArrowRight className="w-4 h-4 text-[#F27D26]"/><span>{lane.destinationPort}</span></div><div className="grid grid-cols-2 gap-2 text-[10px]"><Stat label="DISTANCE" value={`${lane.distanceNm.toLocaleString()} NM`}/><Stat label="TRANSIT" value={`${lane.transitDays} DAYS`}/><Stat label="LANE CONGESTION" value={`${lane.congestionIndex}/100`}/><Stat label="DEST. WAIT" value={destination ? `${destination.avgWaitDays.toFixed(1)} DAYS` : 'N/A'}/><Stat label="VESSEL SUPPLY" value={`${lane.activeVessels}`}/><Stat label="CARBON EST." value={`$${lane.carbonEtsCostEst.toFixed(0)}`}/></div><button onClick={() => onNavigateView('PORT')} className="w-full mt-3 border border-[#444] hover:border-[#F27D26] text-[#F27D26] py-2 text-[10px] font-bold">OPEN EAST COAST PORT INTELLIGENCE</button></section></div>
     <section className="border border-[#333] bg-[#080808] p-3 mb-3"><div className="flex items-center justify-between mb-3"><div className="text-[#F27D26] text-xs font-bold">MODEL EXPLAINABILITY</div><span className="text-[9px] text-gray-500">{forecast.modelName} • PROTOTYPE</span></div><div className="grid md:grid-cols-4 gap-2">{forecast.featureContributions.map(item => <div key={item.feature} className="bg-[#111] border border-[#222] p-2"><div className="text-[9px] text-gray-500">{item.feature.toUpperCase()}</div><div className={item.impact >= 0 ? 'text-[#00FF41] font-bold mt-1' : 'text-red-400 font-bold mt-1'}>{item.impact >= 0 ? '+' : ''}{item.impact.toFixed(2)}</div></div>)}</div><div className="text-[9px] text-gray-500 mt-3">Training samples: {forecast.metrics.samples} • MAE {forecast.metrics.mae.toFixed(1)} • RMSE {forecast.metrics.rmse.toFixed(1)} • MAPE {forecast.metrics.mape.toFixed(1)}%</div></section>

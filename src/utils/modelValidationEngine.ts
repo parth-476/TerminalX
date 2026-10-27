@@ -33,7 +33,8 @@ const evaluate = (actual: number[], predicted: number[], previous: number[]) => 
  * offline validation when a generated backtest_results.json is available.
  */
 export function validateFreightModels(lane: FreightLane, ports: Port[] = [], vessels: Vessel[] = []): ValidationMetricRow[] {
-  const rates = (lane.historicalRates ?? []).map(point => Number(point.rate)).filter(Number.isFinite);
+  const history = (lane.historicalRates ?? []).filter(point => Number.isFinite(Number(point.rate)));
+  const rates = history.map(point => Number(point.rate));
   if (rates.length < 4) return [];
 
   const actual: number[] = [];
@@ -42,7 +43,7 @@ export function validateFreightModels(lane: FreightLane, ports: Port[] = [], ves
   const previous: number[] = [];
 
   for (let i = 1; i < rates.length; i++) {
-    const prefixLane = { ...lane, currentRateUsd: rates[i - 1], historicalRates: lane.historicalRates.slice(0, i) };
+    const prefixLane = { ...lane, currentRateUsd: rates[i - 1], historicalRates: history.slice(0, i) };
     const result = mlForecastFreight(prefixLane, ports, vessels);
     actual.push(rates[i]);
     activePredictions.push(result.forecast7d);
@@ -52,10 +53,10 @@ export function validateFreightModels(lane: FreightLane, ports: Port[] = [], ves
 
   const active = evaluate(actual, activePredictions, previous);
   const baseline = evaluate(actual, baselinePredictions, previous);
+  // Only return models actually evaluated here. Offline Python models are shown
+  // in the separate published-backtest panel when a real artifact is available.
   return [
     { model: 'Regularized Freight Regression v1', ...active, status: 'ACTIVE RUNTIME' },
-    { model: 'Naive Persistence Baseline', ...baseline, status: 'BASELINE' },
-    { model: 'Gradient Boosting (Python)', mae: 0, rmse: 0, mape: 0, directionHitPct: 0, samples: 0, status: 'OFFLINE TRAINER' },
-    { model: 'Random Forest (Python)', mae: 0, rmse: 0, mape: 0, directionHitPct: 0, samples: 0, status: 'OFFLINE TRAINER' }
+    { model: 'Naive Persistence Baseline', ...baseline, status: 'BASELINE' }
   ];
 }
