@@ -64,7 +64,7 @@ const freightFeed = normalizeFreightRateFeed({ lanes: [
 ] });
 assert.ok(freightFeed && freightFeed.records.length === 1, 'freight feed should reject invalid or non-positive rates');
 const mergedFreight = mergeFreightRateFeed(FREIGHT_LANES, { lanes: [{ code: lane.code, currentRateUsd: 1234, rateUnit: lane.rateUnit }] });
-assert.ok(mergedFreight && mergedFreight.status.mode === 'LIVE', 'valid matched external freight rates should be marked live');
+assert.ok(mergedFreight && mergedFreight.status.mode === 'MIXED', 'partial provider coverage should be labelled mixed, not fully live');
 assert.equal(mergedFreight?.lanes.find(item => item.code === lane.code)?.currentRateUsd, 1234, 'provider rate should replace only the matching lane rate');
 assert.equal(mergeFreightRateFeed(FREIGHT_LANES, { lanes: [{ code: 'NO-MATCH', currentRateUsd: 1234 }] }), null, 'unmatched provider lanes must not be treated as a live feed');
 
