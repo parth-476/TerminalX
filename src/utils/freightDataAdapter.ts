@@ -1,6 +1,6 @@
 import type { FreightLane } from '../types';
 
-export type FreightDataMode = 'LIVE' | 'DEMO' | 'STALE';
+export type FreightDataMode = 'LIVE' | 'MIXED' | 'DEMO' | 'STALE';
 export interface FreightDataStatus {
   mode: FreightDataMode;
   provider: string;
@@ -72,7 +72,7 @@ export function mergeFreightRateFeed(demoLanes: FreightLane[], payload: unknown)
   return {
     lanes,
     status: {
-      mode: 'LIVE',
+      mode: matchedCount === demoLanes.length ? 'LIVE' : 'MIXED',
       provider: normalized.provider || 'CONFIGURED FREIGHT PROVIDER',
       updatedAt: normalized.updatedAt || normalized.records.map(record => record.updatedAt).filter(Boolean).sort().at(-1) || new Date().toISOString(),
       laneCount: matchedCount,
