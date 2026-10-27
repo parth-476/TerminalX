@@ -50,6 +50,13 @@ Metrics include MAE, RMSE and MAPE. CI publishes the latest backtest to `public/
 
 **Important:** the current freight history and vessel/port fixtures are demo/synthetic data. They are not SAIL, AIS, broker, Baltic Exchange or port-authority observations. Demo metrics must not be presented as real-world accuracy.
 
+
+## Freight-rate provider integration
+
+A server-side adapter is available at `/api/freight-data`. Configure `FREIGHT_PROVIDER_URL` with an approved provider endpoint that returns `lanes`, `rates`, or `data` records containing a lane code (`code`/`laneCode`) and a positive `currentRateUsd`/`currentRate`. Optional fields are `rateUnit`, `change24h`, `changePct` and `updatedAt`. `FREIGHT_PROVIDER_KEY` is sent as a server-side bearer token and is never exposed in browser code. The endpoint requires HTTPS and times out after eight seconds.
+
+The app refreshes configured freight rates every five minutes. Matched lane rates are merged into the existing route and history records; unmatched lanes retain their demo fixtures. If the provider is missing, invalid or unavailable, the app falls back to the repository demo rates and labels them as demo. A provider response is not proof that its license, units or market methodology are appropriate—verify these before operational use. The built-in market asset board remains demo data until a separate licensed asset-market feed is connected.
+
 ## Vessel data architecture
 
 The terminal has a provider boundary at `/api/vessel-data`.
