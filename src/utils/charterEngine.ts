@@ -32,6 +32,6 @@ export function buildCharterRecommendation(request: CharterRequest, lanes: Freig
     return { vessel, score, capacityFit, timingFit, portFit, riskScore, reasons };
   }).filter(match => match.capacityFit >= 70).sort((a, b) => b.score - a.score).slice(0, 5);
   const decision: CharterRecommendation['decision'] = forecast.direction === 'UP' && congestionRisk >= 65 ? 'FIX NOW' : forecast.direction === 'DOWN' && congestionRisk < 70 ? 'WAIT' : 'WATCH';
-  const rationale = [`${lane.code} ML freight model: ${forecast.direction} (${forecast.change30dPct >= 0 ? '+' : ''}${forecast.change30dPct.toFixed(1)}% over 30D).`, `Model confidence: ${forecast.confidence.toFixed(0)}%; volatility: ${forecast.volatilityPct.toFixed(1)}%.`, `Combined route/port congestion risk: ${congestionRisk}/100.`, matches.length ? `${matches[0].vessel.name} ranks first at ${matches[0].score}/100.` : 'No vessel currently meets the capacity screen.'];
+  const rationale = [`${lane.code} ML freight model: ${forecast.direction} (${forecast.change30dPct >= 0 ? '+' : ''}${forecast.change30dPct.toFixed(1)}% over 30D).`, `Heuristic forecast stability score: ${forecast.confidence.toFixed(0)}/100; volatility: ${forecast.volatilityPct.toFixed(1)}%.`, `Combined route/port congestion risk: ${congestionRisk}/100.`, matches.length ? `${matches[0].vessel.name} ranks first at ${matches[0].score}/100.` : 'No vessel currently meets the capacity screen.'];
   return { request, lane, forecast, originPort, destinationPort, matches, congestionRisk, decision, rationale };
 }
