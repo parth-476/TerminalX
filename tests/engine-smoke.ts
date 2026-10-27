@@ -8,6 +8,7 @@ import { buildProcurementRecommendation } from '../src/utils/procurementEngine';
 import { buildIntegratedDecision } from '../src/utils/integratedDecisionEngine';
 import { optimizeRoutes } from '../src/utils/routeOptimizationEngine';
 import { demoVesselFeed, normalizeVesselFeed } from '../src/utils/vesselDataAdapter';
+import { mergeFreightRateFeed, normalizeFreightRateFeed } from '../src/utils/freightDataAdapter';
 
 const lane = FREIGHT_LANES.find(item => (item.historicalRates?.length ?? 0) >= 4);
 assert.ok(lane, 'fixture dataset should include a lane with enough history');
@@ -56,5 +57,15 @@ assert.equal(demoVesselFeed(LIVE_VESSELS_SEED).status.mode, 'DEMO', 'repository 
 const normalized = normalizeVesselFeed({ vessels: [{ id: 'test-vessel', name: 'TEST VESSEL', lat: 1, lon: 2, dwt: 10000, type: 'DRY_BULK' }] });
 assert.ok(normalized && normalized.status.mode === 'LIVE', 'valid external vessel payload should normalize as live');
 assert.equal(normalizeVesselFeed({ vessels: [] }), null, 'empty provider payload should not be treated as a live feed');
+
+const freightFeed = normalizeFreightRateFeed({ lanes: [
+  { code: lane.code, currentRateUsd: 1234, rateUnit: lane.rateUnit, changePct: 2.1 },
+  { code: 'BAD', currentRateUsd: -4 }
+] });
+assert.ok(freightFeed && freightFeed.records.length === 1, 'freight feed should reject invalid or non-positive rates');
+const mergedFreight = mergeFreightRateFeed(FREIGHT_LANES, { lanes: [{ code: lane.code, currentRateUsd: 1234, rateUnit: lane.rateUnit }] });
+assert.ok(mergedFreight && mergedFreight.status.mode === 'MIXED', 'partial provider coverage should be labelled mixed, not fully live');
+assert.equal(mergedFreight?.lanes.find(item => item.code === lane.code)?.currentRateUsd, 1234, 'provider rate should replace only the matching lane rate');
+assert.equal(mergeFreightRateFeed(FREIGHT_LANES, { lanes: [{ code: 'NO-MATCH', currentRateUsd: 1234 }] }), null, 'unmatched provider lanes must not be treated as a live feed');
 
 console.log('TerminalX engine smoke tests passed.');
