@@ -163,6 +163,7 @@ export const MarketDataView: React.FC<MarketDataViewProps> = ({
               <span className="bg-[#222222] text-[#F27D26] text-[10px] px-1.5 py-0.5 font-bold">
                 {currentAsset.category}
               </span>
+              <span className="border border-[#5b3518] text-[#F27D26] text-[9px] px-1.5 py-0.5 font-bold">DEMO SNAPSHOT</span>
               <span className="text-xs text-[#999999]">{currentAsset.name}</span>
             </div>
             <div className="text-[11px] text-[#777777] mt-0.5">
