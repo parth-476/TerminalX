@@ -20,5 +20,7 @@ jobs:
         run: npm install
       - name: Typecheck
         run: npm run lint
+      - name: Engine smoke tests
+        run: npm run test:engines
       - name: Build
         run: npm run build
