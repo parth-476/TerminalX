@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
-    "test:engines": "tsx tests/engine-smoke.ts"
+    "test:engines": "tsx tests/engine-smoke.ts && tsx tests/decision-audit-smoke.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
