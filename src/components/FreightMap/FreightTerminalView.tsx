@@ -32,6 +32,7 @@ import {
   X
 } from 'lucide-react';
 import { FreightLane, Port, Vessel, ChokePoint, IncidentHotspot } from '../../types';
+import { VesselDataMode } from '../../utils/vesselDataAdapter';
 import { RECENT_MARITIME_TRAGEDIES } from '../../data/incidentData';
 import { terminalSound } from '../../utils/terminalSound';
 
@@ -39,6 +40,7 @@ interface FreightTerminalViewProps {
   freightLanes: FreightLane[];
   ports: Port[];
   vessels: Vessel[];
+  dataMode?: VesselDataMode;
   chokePoints: ChokePoint[];
   onSelectLane?: (lane: FreightLane) => void;
   onAskAIAboutIncident?: (incident: IncidentHotspot) => void;
@@ -50,6 +52,7 @@ export const FreightTerminalView: React.FC<FreightTerminalViewProps> = ({
   freightLanes,
   ports,
   vessels,
+  dataMode = 'DEMO',
   chokePoints,
   onSelectLane,
   onAskAIAboutIncident
@@ -103,11 +106,12 @@ export const FreightTerminalView: React.FC<FreightTerminalViewProps> = ({
     }, '');
   };
 
-  // Demo-only vessel motion simulation; these are not live AIS positions.
+  // Demo tracks may animate for presentation; live provider coordinates must never be altered locally.
   const [liveVessels, setLiveVessels] = useState<Vessel[]>(vessels);
+  useEffect(() => { setLiveVessels(vessels); }, [vessels]);
 
   useEffect(() => {
-    if (!isPlayingAIS) return;
+    if (!isPlayingAIS || dataMode === 'LIVE') return;
 
     const interval = setInterval(() => {
       setLiveVessels(prev =>
@@ -134,7 +138,7 @@ export const FreightTerminalView: React.FC<FreightTerminalViewProps> = ({
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [isPlayingAIS]);
+  }, [isPlayingAIS, dataMode]);
 
   // Keep selected vessel updated
   useEffect(() => {
@@ -296,7 +300,7 @@ export const FreightTerminalView: React.FC<FreightTerminalViewProps> = ({
             <Globe className="w-4 h-4 text-[#ff9f1c]" />
             <span className="font-bold tracking-wider text-white">GLOBAL MARITIME TRACKER</span>
             <span className="bg-[#1f263d] text-[#ff9f1c] text-[10px] px-1.5 py-0.5 rounded font-semibold">
-              {displayedVessels.length} DEMO TRACKS
+              {displayedVessels.length} {dataMode === 'LIVE' ? 'LIVE AIS' : dataMode === 'STALE' ? 'STALE FEED' : 'DEMO TRACKS'}
             </span>
             <span className="bg-rose-950/70 border border-rose-600/60 text-rose-300 text-[10px] px-2 py-0.5 rounded font-bold flex items-center animate-pulse">
               <Skull className="w-3 h-3 mr-1 text-rose-400" />
@@ -372,7 +376,7 @@ export const FreightTerminalView: React.FC<FreightTerminalViewProps> = ({
                   : 'bg-amber-500/20 text-amber-400 border-amber-500/50'
               }`}
             >
-              {isPlayingAIS ? '● SIMULATION RUNNING' : '⏸ SIMULATION PAUSED'}
+              {dataMode === 'LIVE' ? '● LIVE AIS FEED' : dataMode === 'STALE' ? '! STALE FEED' : isPlayingAIS ? '● SIMULATION RUNNING' : '⏸ SIMULATION PAUSED'}
             </button>
 
             {/* Zoom Controls */}
