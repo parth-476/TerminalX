@@ -58,8 +58,6 @@ const normalized = normalizeVesselFeed({ vessels: [{ id: 'test-vessel', name: 'T
 assert.ok(normalized && normalized.status.mode === 'LIVE', 'valid external vessel payload should normalize as live');
 assert.equal(normalizeVesselFeed({ vessels: [] }), null, 'empty provider payload should not be treated as a live feed');
 
-console.log('TerminalX engine smoke tests passed.');
-
 const freightFeed = normalizeFreightRateFeed({ lanes: [
   { code: lane.code, currentRateUsd: 1234, rateUnit: lane.rateUnit, changePct: 2.1 },
   { code: 'BAD', currentRateUsd: -4 }
@@ -69,3 +67,5 @@ const mergedFreight = mergeFreightRateFeed(FREIGHT_LANES, { lanes: [{ code: lane
 assert.ok(mergedFreight && mergedFreight.status.mode === 'LIVE', 'valid matched external freight rates should be marked live');
 assert.equal(mergedFreight?.lanes.find(item => item.code === lane.code)?.currentRateUsd, 1234, 'provider rate should replace only the matching lane rate');
 assert.equal(mergeFreightRateFeed(FREIGHT_LANES, { lanes: [{ code: 'NO-MATCH', currentRateUsd: 1234 }] }), null, 'unmatched provider lanes must not be treated as a live feed');
+
+console.log('TerminalX engine smoke tests passed.');
