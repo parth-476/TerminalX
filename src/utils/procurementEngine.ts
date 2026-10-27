@@ -52,7 +52,7 @@ export function buildProcurementRecommendation(cargoType: string, quantityMt: nu
     const congestionPenalty = congestionRisk * 0.35;
     const transitPenalty = Math.min(25, lane.transitDays * 0.35);
     const score = Math.max(0, Math.min(100, 100 - congestionPenalty - transitPenalty - forecastPenalty));
-    const reasons = [`ML freight ${forecast.direction === 'UP' ? 'rising' : forecast.direction === 'DOWN' ? 'falling' : 'flat'} ${Math.abs(forecast.change30dPct).toFixed(1)}% over 30D`, `Model confidence ${forecast.confidence.toFixed(0)}%`, `Congestion ${congestionRisk}/100`, `${lane.transitDays} day transit`];
+    const reasons = [`ML freight ${forecast.direction === 'UP' ? 'rising' : forecast.direction === 'DOWN' ? 'falling' : 'flat'} ${Math.abs(forecast.change30dPct).toFixed(1)}% over 30D`, `Forecast stability score ${forecast.confidence.toFixed(0)}/100`, `Congestion ${congestionRisk}/100`, `${lane.transitDays} day transit`];
     if (originPort) reasons.push(`Origin wait ${originPort.avgWaitDays.toFixed(1)}d`);
     if (destinationPort) reasons.push(`Destination wait ${destinationPort.avgWaitDays.toFixed(1)}d`);
     return { lane, originPort, destinationPort, freightPerUnit, estimatedFreightCost, estimatedLandedFreightCost, transitDays: lane.transitDays, congestionRisk, forecastChangePct: forecast.change30dPct, score, reasons };
