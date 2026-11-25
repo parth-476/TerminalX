@@ -1,94 +1,37 @@
-/**
- * AI Maritime Intelligence Service
- * 
- * Leverages Google Gemini API when GEMINI_API_KEY is configured.
- * Provides resilient, structured domain-expert fallbacks when offline or unconfigured.
- */
-
-let GoogleGenAI = null;
-try {
-  const genaiPkg = require('@google/genai');
-  GoogleGenAI = genaiPkg.GoogleGenAI;
-} catch (e) {
-  // @google/genai optional
-}
-
 const db = require('../database/db');
 
-const SYSTEM_INSTRUCTION = `You are TERMINAL.EXE AI Maritime & Freight Intelligence Advisor — a Bloomberg-style analytical assistant for shipping desks, charterers, and port operators.
-Provide clear, authoritative, and quantitatively grounded answers.
-Reference real shipping concepts where relevant: TEU, DWT, IMO registry numbers, VLSFO bunker prices, Baltic Dry Index (BDI), Forward Freight Agreements (FFA), and geopolitically critical chokepoints (Bab-el-Mandeb, Suez, Strait of Malacca, Panama Canal).
-Keep responses structured, concise, and professional.`;
+const SYSTEM_INSTRUCTION = `You are TERMINAL.EXE AI Maritime & Freight Intelligence Advisor. Provide clear, professional answers referencing TEU, DWT, IMO, VLSFO, BDI, FFA, and major chokepoints where relevant.`;
 
 const aiService = {
-  /**
-   * Main AI query handler
-   */
-  async generateInsight(userPrompt, conversationHistory = []) {
+  async generateInsight(userPrompt) {
     const apiKey = process.env.GEMINI_API_KEY;
-
     if (apiKey && apiKey !== 'MY_GEMINI_API_KEY') {
       try {
-        if (GoogleGenAI) {
-          const ai = new GoogleGenAI({ apiKey });
-          const response = await ai.models.generateContent({
-            model: 'gemini-2.5-flash',
-            contents: userPrompt,
-            config: {
-              systemInstruction: SYSTEM_INSTRUCTION,
-              temperature: 0.3,
-            },
-          });
-
-          if (response && response.text) {
-            return {
-              text: response.text,
-              source: 'GEMINI-2.5-FLASH',
-              model: 'gemini-2.5-flash',
-              timestamp: new Date().toISOString(),
-            };
-          }
-        } else {
-          // Direct REST API fallback for Gemini
-          const fetchRes = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-            {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                contents: [{ parts: [{ text: `${SYSTEM_INSTRUCTION}\n\nUser Question: ${userPrompt}` }] }],
-              }),
-            }
-          );
-          const data = await fetchRes.json();
-          const candidateText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (candidateText) {
-            return {
-              text: candidateText,
-              source: 'GEMINI-REST-API',
-              model: 'gemini-2.5-flash',
-              timestamp: new Date().toISOString(),
-            };
-          }
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: `${SYSTEM_INSTRUCTION}\n\nUser Question: ${userPrompt}` }] }],
+          }),
+        });
+        const data = await res.json();
+        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text) {
+          return { text, source: 'GEMINI-REST-API', model: 'gemini-2.5-flash', timestamp: new Date().toISOString() };
         }
       } catch (err) {
-        console.warn('[AI Service] Gemini API call failed, falling back to local quant intelligence:', err.message);
+        console.warn('[AI Service] Gemini call failed, using local fallback:', err.message);
       }
     }
 
-    // Local Expert Knowledge Base Fallback
-    const fallbackText = aiService.generateDomainFallback(userPrompt);
     return {
-      text: fallbackText,
+      text: aiService.generateDomainFallback(userPrompt),
       source: 'TERMINAL-QUANT-ENGINE',
       model: 'rule-based-maritime-expert',
       timestamp: new Date().toISOString(),
     };
   },
 
-  /**
-   * Domain-specific expert analysis fallback
-   */
   generateDomainFallback(prompt) {
     const q = prompt.toLowerCase();
     const incidents = db.get('incidents') || [];

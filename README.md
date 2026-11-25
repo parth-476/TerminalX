@@ -15,57 +15,35 @@ TerminalX is a high-performance financial and freight intelligence platform desi
 
 ---
 
-## 🏛️ System Architecture
+## System Architecture
 
-TerminalX is organized as a clean, understandable, and production-ready monolithic full-stack application:
+TerminalX uses a simple Express backend and a React + Vite frontend.
 
 ```
 terminalX/
-├── server/                    # Monolithic Node.js / Express Backend
-│   ├── index.js               # Server entry point, middleware, static SPA serving
+├── server/                    # Simple Express backend
+│   ├── index.js               # App setup, middleware, routes, static serving
 │   ├── database/
-│   │   ├── db.js              # Resilient DB layer (In-memory JSON + Postgres support)
-│   │   └── seedData.json      # Structured maritime seed dataset (ports, vessels, rates)
-│   ├── routes/
-│   │   ├── market.js          # /api/market (spot rates, assets, order execution)
-│   │   ├── ports.js           # /api/ports (congestion scores, wait times, berth queues)
-│   │   ├── vessels.js         # /api/vessels (AIS search, telemetries, route matching)
-│   │   ├── analytics.js       # /api/analytics (voyage cost engine, route comparisons)
-│   │   └── ai.js              # /api/ai (Gemini integration + maritime quant fallback)
+│   │   ├── db.js              # Small in-memory JSON data loader
+│   │   └── seedData.json      # Seed data for ports, vessels, rates, etc.
+│   ├── routes/                # Basic route handlers
+│   │   ├── market.js
+│   │   ├── ports.js
+│   │   ├── vessels.js
+│   │   ├── analytics.js
+│   │   └── ai.js
 │   ├── services/
-│   │   ├── dataService.js     # Clean business logic and query orchestration
-│   │   └── aiService.js       # Google Gemini API integration with offline fallback
+│   │   ├── dataService.js     # Simple data access/filtering
+│   │   └── aiService.js       # Gemini call with local fallback
 │   ├── utils/
-│   │   └── calculations.js    # Haversine distance, bunker burn, voyage economics
-│   └── tests/
-│       ├── runTests.js        # Core math & calculation test suite (11 passing tests)
-│       └── httpIntegration.test.js # Real HTTP endpoint integration verification
-├── src/                       # React 19 + TypeScript + Tailwind CSS Frontend
-│   ├── components/            # Visual Bloomberg dark-theme UI components
-│   │   ├── TerminalHeader.tsx # Top ticker tape, world clocks, command bar & F-keys
-│   │   ├── CommandCenter/     # F1: Command center overview
-│   │   ├── FreightMap/        # F2: Global AIS radar, chokepoints & route calculator
-│   │   ├── MarketData/        # F3: Live tape, market depth & order blotter
-│   │   ├── Forecast/          # F4: Freight forecast, validation & backtest curves
-│   │   ├── Ports/             # F5: Port intelligence + congestion forecast
-│   │   ├── Vessels/           # F6: Vessel intelligence, screening & draft alerts
-│   │   ├── News/              # F7: Breaking wire & economic calendar
-│   │   ├── Procurement/       # F8: Overseas cargo procurement comparison
-│   │   ├── Charter/           # F9: Integrated charter optimizer (FIX NOW / WAIT / WATCH)
-│   │   ├── Data/              # F10: World Bank macro + weather connectivity
-│   │   ├── Execution/         # OMS execution blotter
-│   │   ├── Analytics/         # Forward curves, derivatives & yield models
-│   │   ├── Chat/              # Instant Bloomberg (IB) chat network
-│   │   ├── Excel/             # Spreadsheet BDP modeling
-│   │   └── AI/                # Gemini AI analyst decision support
-│   └── App.tsx                # Master container with live API synchronization
-├── Dockerfile                 # Production multi-stage Docker container
-├── render.yaml                # 1-click Render web service deployment
-└── Procfile                   # Heroku / Railway process specification
+│   │   └── calculations.js    # Voyage and market calculations
+│   └── tests/                 # Backend tests
+├── src/                       # React frontend
+└── package.json
 ```
 
 ---
-
+ 
 ## 🚀 Key Features
 
 ### 1. Freight & Market Intelligence
@@ -128,8 +106,6 @@ Create `.env` in the root directory:
 ```env
 PORT=5000
 GEMINI_API_KEY=your_gemini_api_key_here
-# Optional PostgreSQL (falls back to built-in JSON database if omitted)
-# DATABASE_URL=postgresql://user:password@localhost:5432/terminalx
 ```
 
 ### 3. Run Tests
@@ -160,6 +136,6 @@ npm run dev
    - Total Cost = `Fuel Cost + Time Charter Hire + Canal Tolls + Port Dues + EU ETS Carbon Surcharges`.
 
 3. **How is Resiliency Handled?**
-   - **Database**: Zero-dependency in-memory store initialized with rich seed data; smoothly connects to PostgreSQL if `DATABASE_URL` is set without crashing if the connection drops.
-   - **AI Service**: Graceful degradation to domain-expert rule synthesis if the Gemini API key is missing or offline.
-   - **Frontend**: Full client-side fallback ensures UI remains 100% interactive even if the backend is temporarily disconnected.
+   - **Database**: Simple in-memory JSON seed data loaded at startup.
+   - **AI Service**: Falls back to local rule-based responses if the Gemini API key is missing or the request fails.
+   - **Frontend**: Client-side fallback keeps the UI interactive if backend data is unavailable.

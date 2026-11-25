@@ -31,8 +31,7 @@ import {
   RefreshCw,
   X
 } from 'lucide-react';
-import { FreightLane, Port, Vessel, ChokePoint, IncidentHotspot } from '../../types';
-import { VesselDataMode } from '../../utils/vesselDataAdapter';
+import { FreightLane, Port, Vessel, ChokePoint, IncidentHotspot, VesselDataMode } from '../../types';
 import { RECENT_MARITIME_TRAGEDIES } from '../../data/incidentData';
 import { terminalSound } from '../../utils/terminalSound';
 
