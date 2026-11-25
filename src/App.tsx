@@ -54,6 +54,20 @@ export default function App() {
     }
   ]);
 
+  // Initial load from backend API
+  useEffect(() => {
+    fetch('/api/market/assets')
+      .then(res => res.json())
+      .then(json => {
+        if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+          setAssets(json.data);
+        }
+      })
+      .catch(() => {
+        // Fall back gracefully to INITIAL_ASSETS
+      });
+  }, []);
+
   // Live real-time tick updates on assets
   useEffect(() => {
     const interval = setInterval(() => {
@@ -88,13 +102,31 @@ export default function App() {
     terminalSound.playTradeFill();
   };
 
-  const triggerAIQuery = (queryText: string) => {
+  const triggerAIQuery = async (queryText: string) => {
     const userQ = queryText.trim();
     if (!userQ) return;
     const nowTime = new Date().toISOString().slice(11, 16);
     setAiHistory(prev => [...prev, { role: 'user', text: userQ, time: nowTime }]);
     setAiLoading(true);
     terminalSound.playKeyClick();
+
+    // Try backend AI service first
+    try {
+      const res = await fetch('/api/ai/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: userQ }),
+      });
+      const json = await res.json();
+      if (json && json.success && json.data && json.data.text) {
+        setAiHistory(prev => [...prev, { role: 'assistant', text: json.data.text, time: new Date().toISOString().slice(11, 16) }]);
+        setAiLoading(false);
+        terminalSound.playTradeFill();
+        return;
+      }
+    } catch {
+      // Offline fallback
+    }
 
     setTimeout(() => {
       let reply = '';

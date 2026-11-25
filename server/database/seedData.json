@@ -1,0 +1,3704 @@
+{
+  "ports": [
+    {
+      "id": "port-sha",
+      "name": "Shanghai (Yangshan Deepwater)",
+      "code": "CNSHA",
+      "country": "China",
+      "lat": 30.62,
+      "lon": 122.06,
+      "throughputTeuM": 49.2,
+      "avgWaitDays": 2.1,
+      "congestionScore": 68,
+      "vesselsAtBerth": 92,
+      "vesselsWaiting": 44,
+      "bunkerPriceVLSFO": 642.5,
+      "status": "MODERATE"
+    },
+    {
+      "id": "port-sin",
+      "name": "Singapore Port (PSA Terminals)",
+      "code": "SGSIN",
+      "country": "Singapore",
+      "lat": 1.28,
+      "lon": 103.85,
+      "throughputTeuM": 39,
+      "avgWaitDays": 3.4,
+      "congestionScore": 82,
+      "vesselsAtBerth": 118,
+      "vesselsWaiting": 69,
+      "bunkerPriceVLSFO": 628,
+      "status": "CONGESTED"
+    },
+    {
+      "id": "port-nbo",
+      "name": "Ningbo-Zhoushan Port",
+      "code": "CNNBO",
+      "country": "China",
+      "lat": 29.89,
+      "lon": 121.84,
+      "throughputTeuM": 35.3,
+      "avgWaitDays": 2.3,
+      "congestionScore": 64,
+      "vesselsAtBerth": 76,
+      "vesselsWaiting": 34,
+      "bunkerPriceVLSFO": 645,
+      "status": "MODERATE"
+    },
+    {
+      "id": "port-szx",
+      "name": "Shenzhen (Yantian / Shekou)",
+      "code": "CNSZX",
+      "country": "China",
+      "lat": 22.58,
+      "lon": 114.28,
+      "throughputTeuM": 30.1,
+      "avgWaitDays": 1.9,
+      "congestionScore": 56,
+      "vesselsAtBerth": 62,
+      "vesselsWaiting": 22,
+      "bunkerPriceVLSFO": 644,
+      "status": "NORMAL"
+    },
+    {
+      "id": "port-pus",
+      "name": "Busan New Port",
+      "code": "KRPUS",
+      "country": "South Korea",
+      "lat": 35.08,
+      "lon": 128.83,
+      "throughputTeuM": 23.2,
+      "avgWaitDays": 1.6,
+      "congestionScore": 48,
+      "vesselsAtBerth": 46,
+      "vesselsWaiting": 15,
+      "bunkerPriceVLSFO": 648,
+      "status": "NORMAL"
+    },
+    {
+      "id": "port-hkg",
+      "name": "Hong Kong (Kwai Tsing)",
+      "code": "HKHKG",
+      "country": "Hong Kong",
+      "lat": 22.34,
+      "lon": 114.12,
+      "throughputTeuM": 14.4,
+      "avgWaitDays": 1.4,
+      "congestionScore": 42,
+      "vesselsAtBerth": 38,
+      "vesselsWaiting": 11,
+      "bunkerPriceVLSFO": 647,
+      "status": "NORMAL"
+    },
+    {
+      "id": "port-pkg",
+      "name": "Port Klang (Westports)",
+      "code": "MYPKG",
+      "country": "Malaysia",
+      "lat": 2.99,
+      "lon": 101.39,
+      "throughputTeuM": 13.8,
+      "avgWaitDays": 2.8,
+      "congestionScore": 71,
+      "vesselsAtBerth": 42,
+      "vesselsWaiting": 26,
+      "bunkerPriceVLSFO": 631,
+      "status": "CONGESTED"
+    },
+    {
+      "id": "port-cmb",
+      "name": "Colombo Port Transshipment",
+      "code": "LKCMB",
+      "country": "Sri Lanka",
+      "lat": 6.95,
+      "lon": 79.85,
+      "throughputTeuM": 7.2,
+      "avgWaitDays": 3.8,
+      "congestionScore": 86,
+      "vesselsAtBerth": 28,
+      "vesselsWaiting": 36,
+      "bunkerPriceVLSFO": 658,
+      "status": "CRITICAL"
+    },
+    {
+      "id": "port-tyo",
+      "name": "Tokyo / Yokohama Port",
+      "code": "JPTYO",
+      "country": "Japan",
+      "lat": 35.43,
+      "lon": 139.66,
+      "throughputTeuM": 8.4,
+      "avgWaitDays": 1.2,
+      "congestionScore": 36,
+      "vesselsAtBerth": 32,
+      "vesselsWaiting": 8,
+      "bunkerPriceVLSFO": 662,
+      "status": "NORMAL"
+    },
+    {
+      "id": "port-hed",
+      "name": "Port Hedland (Pilbara Iron Ore)",
+      "code": "AUPHE",
+      "country": "Australia",
+      "lat": -20.31,
+      "lon": 118.57,
+      "throughputTeuM": 0.2,
+      "avgWaitDays": 1.5,
+      "congestionScore": 40,
+      "vesselsAtBerth": 22,
+      "vesselsWaiting": 18,
+      "bunkerPriceVLSFO": 665,
+      "status": "NORMAL"
+    },
+    {
+      "id": "port-jba",
+      "name": "Dubai (Jebel Ali Terminal)",
+      "code": "AEJEA",
+      "country": "United Arab Emirates",
+      "lat": 25.01,
+      "lon": 55.06,
+      "throughputTeuM": 14.5,
+      "avgWaitDays": 1.8,
+      "congestionScore": 54,
+      "vesselsAtBerth": 52,
+      "vesselsWaiting": 18,
+      "bunkerPriceVLSFO": 622,
+      "status": "NORMAL"
+    },
+    {
+      "id": "port-rtn",
+      "name": "Ras Tanura (Crude Terminal)",
+      "code": "SARAS",
+      "country": "Saudi Arabia",
+      "lat": 26.64,
+      "lon": 50.16,
+      "throughputTeuM": 1.2,
+      "avgWaitDays": 1.2,
+      "congestionScore": 32,
+      "vesselsAtBerth": 28,
+      "vesselsWaiting": 10,
+      "bunkerPriceVLSFO": 610,
+      "status": "NORMAL"
+    },
+    {
+      "id": "port-fuj",
+      "name": "Fujairah Bunker Anchorage",
+      "code": "AEFUJ",
+      "country": "United Arab Emirates",
+      "lat": 25.13,
+      "lon": 56.36,
+      "throughputTeuM": 1.8,
+      "avgWaitDays": 1.1,
+      "congestionScore": 38,
+      "vesselsAtBerth": 20,
+      "vesselsWaiting": 45,
+      "bunkerPriceVLSFO": 620,
+      "status": "NORMAL"
+    },
+    {
+      "id": "port-jed",
+      "name": "Jeddah Islamic Port",
+      "code": "SAJED",
+      "country": "Saudi Arabia",
+      "lat": 21.48,
+      "lon": 39.18,
+      "throughputTeuM": 4.8,
+      "avgWaitDays": 4.2,
+      "congestionScore": 79,
+      "vesselsAtBerth": 24,
+      "vesselsWaiting": 29,
+      "bunkerPriceVLSFO": 638,
+      "status": "CONGESTED"
+    },
+    {
+      "id": "port-rot",
+      "name": "Rotterdam (Maasvlakte I & II)",
+      "code": "NLRTM",
+      "country": "Netherlands",
+      "lat": 51.95,
+      "lon": 4.13,
+      "throughputTeuM": 14.5,
+      "avgWaitDays": 2.4,
+      "congestionScore": 62,
+      "vesselsAtBerth": 54,
+      "vesselsWaiting": 26,
+      "bunkerPriceVLSFO": 598,
+      "status": "MODERATE"
+    },
+    {
+      "id": "port-ant",
+      "name": "Antwerp-Bruges Port",
+      "code": "BEANR",
+      "country": "Belgium",
+      "lat": 51.27,
+      "lon": 4.34,
+      "throughputTeuM": 12.8,
+      "avgWaitDays": 2.2,
+      "congestionScore": 58,
+      "vesselsAtBerth": 44,
+      "vesselsWaiting": 19,
+      "bunkerPriceVLSFO": 602,
+      "status": "NORMAL"
+    },
+    {
+      "id": "port-ham",
+      "name": "Hamburg Port (HHLA)",
+      "code": "DEHAM",
+      "country": "Germany",
+      "lat": 53.53,
+      "lon": 9.97,
+      "throughputTeuM": 8.2,
+      "avgWaitDays": 2,
+      "congestionScore": 51,
+      "vesselsAtBerth": 32,
+      "vesselsWaiting": 14,
+      "bunkerPriceVLSFO": 615,
+      "status": "NORMAL"
+    },
+    {
+      "id": "port-pir",
+      "name": "Piraeus Container Terminal",
+      "code": "GRPIR",
+      "country": "Greece",
+      "lat": 37.94,
+      "lon": 23.62,
+      "throughputTeuM": 5.1,
+      "avgWaitDays": 3.5,
+      "congestionScore": 78,
+      "vesselsAtBerth": 22,
+      "vesselsWaiting": 25,
+      "bunkerPriceVLSFO": 626,
+      "status": "CONGESTED"
+    },
+    {
+      "id": "port-alg",
+      "name": "Algeciras / Gibraltar Med Hub",
+      "code": "ESALG",
+      "country": "Spain",
+      "lat": 36.13,
+      "lon": -5.44,
+      "throughputTeuM": 4.9,
+      "avgWaitDays": 2.7,
+      "congestionScore": 69,
+      "vesselsAtBerth": 26,
+      "vesselsWaiting": 21,
+      "bunkerPriceVLSFO": 608,
+      "status": "MODERATE"
+    },
+    {
+      "id": "port-lax",
+      "name": "Los Angeles & Long Beach",
+      "code": "USLAX",
+      "country": "United States",
+      "lat": 33.74,
+      "lon": -118.26,
+      "throughputTeuM": 19.8,
+      "avgWaitDays": 2.9,
+      "congestionScore": 74,
+      "vesselsAtBerth": 38,
+      "vesselsWaiting": 24,
+      "bunkerPriceVLSFO": 675,
+      "status": "MODERATE"
+    },
+    {
+      "id": "port-nyc",
+      "name": "New York & New Jersey",
+      "code": "USNYC",
+      "country": "United States",
+      "lat": 40.68,
+      "lon": -74.14,
+      "throughputTeuM": 8.9,
+      "avgWaitDays": 2.1,
+      "congestionScore": 59,
+      "vesselsAtBerth": 29,
+      "vesselsWaiting": 16,
+      "bunkerPriceVLSFO": 652,
+      "status": "NORMAL"
+    },
+    {
+      "id": "port-hou",
+      "name": "Houston Ship Channel (Energy/Box)",
+      "code": "USHOU",
+      "country": "United States",
+      "lat": 29.74,
+      "lon": -95.12,
+      "throughputTeuM": 3.9,
+      "avgWaitDays": 2.5,
+      "congestionScore": 58,
+      "vesselsAtBerth": 34,
+      "vesselsWaiting": 21,
+      "bunkerPriceVLSFO": 630,
+      "status": "NORMAL"
+    },
+    {
+      "id": "port-bal",
+      "name": "Baltimore (Seagirt & Dundalk Marine)",
+      "code": "USBAL",
+      "country": "United States",
+      "lat": 39.26,
+      "lon": -76.57,
+      "throughputTeuM": 1.1,
+      "avgWaitDays": 1.3,
+      "congestionScore": 35,
+      "vesselsAtBerth": 16,
+      "vesselsWaiting": 6,
+      "bunkerPriceVLSFO": 648,
+      "status": "NORMAL"
+    },
+    {
+      "id": "port-san",
+      "name": "Santos (Soy/Agri/Box Hub)",
+      "code": "BRSSZ",
+      "country": "Brazil",
+      "lat": -23.96,
+      "lon": -46.3,
+      "throughputTeuM": 5.1,
+      "avgWaitDays": 4.8,
+      "congestionScore": 89,
+      "vesselsAtBerth": 31,
+      "vesselsWaiting": 42,
+      "bunkerPriceVLSFO": 680,
+      "status": "CRITICAL"
+    },
+    {
+      "id": "port-pma",
+      "name": "Balboa / Colon (Panama)",
+      "code": "PABLB",
+      "country": "Panama",
+      "lat": 8.95,
+      "lon": -79.56,
+      "throughputTeuM": 4.6,
+      "avgWaitDays": 3.6,
+      "congestionScore": 77,
+      "vesselsAtBerth": 19,
+      "vesselsWaiting": 33,
+      "bunkerPriceVLSFO": 660,
+      "status": "CONGESTED"
+    },
+    {
+      "id": "port-dur",
+      "name": "Durban Transnet Port",
+      "code": "ZADUR",
+      "country": "South Africa",
+      "lat": -29.87,
+      "lon": 31.02,
+      "throughputTeuM": 2.9,
+      "avgWaitDays": 5.4,
+      "congestionScore": 92,
+      "vesselsAtBerth": 21,
+      "vesselsWaiting": 48,
+      "bunkerPriceVLSFO": 692,
+      "status": "CRITICAL"
+    },
+    {
+      "id": "port-plu",
+      "name": "Port Louis Bunker Hub",
+      "code": "MUPLU",
+      "country": "Mauritius",
+      "lat": -20.15,
+      "lon": 57.49,
+      "throughputTeuM": 0.6,
+      "avgWaitDays": 2.8,
+      "congestionScore": 73,
+      "vesselsAtBerth": 12,
+      "vesselsWaiting": 28,
+      "bunkerPriceVLSFO": 685,
+      "status": "CONGESTED"
+    }
+  ],
+  "freightLanes": [
+    {
+      "id": "lane-fe-eur",
+      "code": "FE-EUR-01",
+      "name": "Far East to North Europe (Asia-Rotterdam via Suez)",
+      "type": "CONTAINER",
+      "originPort": "Shanghai (Yangshan)",
+      "destinationPort": "Rotterdam (Maasvlakte)",
+      "originCoords": [
+        122.06,
+        30.62
+      ],
+      "destCoords": [
+        4.13,
+        51.95
+      ],
+      "waypoints": [
+        [
+          122.06,
+          30.62
+        ],
+        [
+          117,
+          20
+        ],
+        [
+          112,
+          10
+        ],
+        [
+          103.85,
+          1.28
+        ],
+        [
+          95,
+          5.5
+        ],
+        [
+          78,
+          6
+        ],
+        [
+          58,
+          12
+        ],
+        [
+          43.33,
+          12.58
+        ],
+        [
+          38,
+          20
+        ],
+        [
+          32.55,
+          29.93
+        ],
+        [
+          24,
+          35
+        ],
+        [
+          10,
+          37.5
+        ],
+        [
+          -5.6,
+          35.95
+        ],
+        [
+          -9.5,
+          38.7
+        ],
+        [
+          -5,
+          48.5
+        ],
+        [
+          1.45,
+          51.01
+        ],
+        [
+          4.13,
+          51.95
+        ]
+      ],
+      "currentRateUsd": 4820,
+      "rateUnit": "$/FEU (40ft)",
+      "change24h": 185,
+      "changePct": 3.99,
+      "historicalRates": [
+        {
+          "date": "2026-07-28",
+          "rate": 3950
+        },
+        {
+          "date": "2026-08-04",
+          "rate": 4120
+        },
+        {
+          "date": "2026-08-11",
+          "rate": 4380
+        },
+        {
+          "date": "2026-08-18",
+          "rate": 4635
+        },
+        {
+          "date": "2026-08-28",
+          "rate": 4820
+        }
+      ],
+      "distanceNm": 10520,
+      "transitDays": 32,
+      "activeVessels": 84,
+      "congestionIndex": 78,
+      "carbonEtsCostEst": 142000,
+      "chokePointsCrossed": [
+        "Strait of Malacca",
+        "Bab-el-Mandeb",
+        "Suez Canal",
+        "Strait of Gibraltar",
+        "English Channel / Dover"
+      ]
+    },
+    {
+      "id": "lane-fe-eur-cape",
+      "code": "FE-EUR-CAPE",
+      "name": "Asia to Europe Reroute via Cape of Good Hope",
+      "type": "CONTAINER",
+      "originPort": "Shanghai (Yangshan)",
+      "destinationPort": "Rotterdam (Maasvlakte)",
+      "originCoords": [
+        122.06,
+        30.62
+      ],
+      "destCoords": [
+        4.13,
+        51.95
+      ],
+      "waypoints": [
+        [
+          122.06,
+          30.62
+        ],
+        [
+          112,
+          10
+        ],
+        [
+          103.85,
+          1.28
+        ],
+        [
+          90,
+          -5
+        ],
+        [
+          70,
+          -15
+        ],
+        [
+          57.49,
+          -20.15
+        ],
+        [
+          35,
+          -32
+        ],
+        [
+          18.47,
+          -34.35
+        ],
+        [
+          8,
+          -20
+        ],
+        [
+          -5,
+          0
+        ],
+        [
+          -18,
+          20
+        ],
+        [
+          -12,
+          40
+        ],
+        [
+          -5,
+          48.5
+        ],
+        [
+          4.13,
+          51.95
+        ]
+      ],
+      "currentRateUsd": 7230,
+      "rateUnit": "$/FEU (40ft)",
+      "change24h": 310,
+      "changePct": 4.48,
+      "historicalRates": [
+        {
+          "date": "2026-07-28",
+          "rate": 6100
+        },
+        {
+          "date": "2026-08-04",
+          "rate": 6450
+        },
+        {
+          "date": "2026-08-11",
+          "rate": 6780
+        },
+        {
+          "date": "2026-08-18",
+          "rate": 6920
+        },
+        {
+          "date": "2026-08-28",
+          "rate": 7230
+        }
+      ],
+      "distanceNm": 14100,
+      "transitDays": 44,
+      "activeVessels": 156,
+      "congestionIndex": 88,
+      "carbonEtsCostEst": 238000,
+      "chokePointsCrossed": [
+        "Strait of Malacca",
+        "Cape of Good Hope"
+      ]
+    },
+    {
+      "id": "lane-tp-eb",
+      "code": "TP-EB-02",
+      "name": "Transpacific Eastbound Great Circle (Shanghai to LA/LB)",
+      "type": "CONTAINER",
+      "originPort": "Shanghai (Yangshan)",
+      "destinationPort": "Los Angeles / Long Beach",
+      "originCoords": [
+        122.06,
+        30.62
+      ],
+      "destCoords": [
+        -118.26,
+        33.74
+      ],
+      "waypoints": [
+        [
+          122.06,
+          30.62
+        ],
+        [
+          130,
+          32
+        ],
+        [
+          145,
+          36
+        ],
+        [
+          165,
+          42
+        ],
+        [
+          -175,
+          46
+        ],
+        [
+          -155,
+          45
+        ],
+        [
+          -135,
+          40
+        ],
+        [
+          -118.26,
+          33.74
+        ]
+      ],
+      "currentRateUsd": 6350,
+      "rateUnit": "$/FEU (40ft)",
+      "change24h": -120,
+      "changePct": -1.85,
+      "historicalRates": [
+        {
+          "date": "2026-07-28",
+          "rate": 5800
+        },
+        {
+          "date": "2026-08-04",
+          "rate": 6100
+        },
+        {
+          "date": "2026-08-11",
+          "rate": 6520
+        },
+        {
+          "date": "2026-08-18",
+          "rate": 6470
+        },
+        {
+          "date": "2026-08-28",
+          "rate": 6350
+        }
+      ],
+      "distanceNm": 5740,
+      "transitDays": 14,
+      "activeVessels": 96,
+      "congestionIndex": 72,
+      "carbonEtsCostEst": 78000,
+      "chokePointsCrossed": []
+    },
+    {
+      "id": "lane-me-cn-vlcc",
+      "code": "ME-CN-VLCC",
+      "name": "Middle East Gulf to China VLCC (TD3C Crude Supertanker)",
+      "type": "CRUDE",
+      "originPort": "Ras Tanura (Crude)",
+      "destinationPort": "Ningbo-Zhoushan",
+      "originCoords": [
+        50.16,
+        26.64
+      ],
+      "destCoords": [
+        121.84,
+        29.89
+      ],
+      "waypoints": [
+        [
+          50.16,
+          26.64
+        ],
+        [
+          56.25,
+          26.56
+        ],
+        [
+          62,
+          22
+        ],
+        [
+          72,
+          10
+        ],
+        [
+          85,
+          5
+        ],
+        [
+          98,
+          3
+        ],
+        [
+          103.85,
+          1.28
+        ],
+        [
+          110,
+          8
+        ],
+        [
+          118,
+          20
+        ],
+        [
+          121.84,
+          29.89
+        ]
+      ],
+      "currentRateUsd": 46800,
+      "rateUnit": "$/day (TCE Rate)",
+      "change24h": 2150,
+      "changePct": 4.81,
+      "historicalRates": [
+        {
+          "date": "2026-07-28",
+          "rate": 38200
+        },
+        {
+          "date": "2026-08-04",
+          "rate": 41000
+        },
+        {
+          "date": "2026-08-11",
+          "rate": 43500
+        },
+        {
+          "date": "2026-08-18",
+          "rate": 44650
+        },
+        {
+          "date": "2026-08-28",
+          "rate": 46800
+        }
+      ],
+      "distanceNm": 5890,
+      "transitDays": 19,
+      "activeVessels": 78,
+      "congestionIndex": 54,
+      "carbonEtsCostEst": 92000,
+      "chokePointsCrossed": [
+        "Strait of Hormuz",
+        "Strait of Malacca"
+      ]
+    },
+    {
+      "id": "lane-c5-capesize",
+      "code": "C5-W-AUS-CN",
+      "name": "Capesize C5 Iron Ore (Port Hedland to Qingdao/Ningbo)",
+      "type": "DRY_BULK",
+      "originPort": "Port Hedland (Iron Ore)",
+      "destinationPort": "Ningbo-Zhoushan",
+      "originCoords": [
+        118.57,
+        -20.31
+      ],
+      "destCoords": [
+        121.84,
+        29.89
+      ],
+      "waypoints": [
+        [
+          118.57,
+          -20.31
+        ],
+        [
+          118,
+          -12
+        ],
+        [
+          122,
+          -2
+        ],
+        [
+          125,
+          10
+        ],
+        [
+          123,
+          22
+        ],
+        [
+          121.84,
+          29.89
+        ]
+      ],
+      "currentRateUsd": 11.45,
+      "rateUnit": "$/metric ton",
+      "change24h": 0.35,
+      "changePct": 3.15,
+      "historicalRates": [
+        {
+          "date": "2026-07-28",
+          "rate": 9.8
+        },
+        {
+          "date": "2026-08-04",
+          "rate": 10.2
+        },
+        {
+          "date": "2026-08-11",
+          "rate": 10.75
+        },
+        {
+          "date": "2026-08-18",
+          "rate": 11.1
+        },
+        {
+          "date": "2026-08-28",
+          "rate": 11.45
+        }
+      ],
+      "distanceNm": 3620,
+      "transitDays": 11,
+      "activeVessels": 65,
+      "congestionIndex": 44,
+      "carbonEtsCostEst": 42000,
+      "chokePointsCrossed": [
+        "Lombok / Makassar Strait"
+      ]
+    },
+    {
+      "id": "lane-ta-wb",
+      "code": "TA-WB-04",
+      "name": "Transatlantic Westbound (Rotterdam to Houston & Baltimore)",
+      "type": "CONTAINER",
+      "originPort": "Rotterdam (Maasvlakte)",
+      "destinationPort": "Houston Ship Channel",
+      "originCoords": [
+        4.13,
+        51.95
+      ],
+      "destCoords": [
+        -95.12,
+        29.74
+      ],
+      "waypoints": [
+        [
+          4.13,
+          51.95
+        ],
+        [
+          1.45,
+          51.01
+        ],
+        [
+          -5,
+          48.5
+        ],
+        [
+          -25,
+          42
+        ],
+        [
+          -50,
+          34
+        ],
+        [
+          -74.14,
+          40.68
+        ],
+        [
+          -76.57,
+          39.26
+        ],
+        [
+          -80,
+          25
+        ],
+        [
+          -95.12,
+          29.74
+        ]
+      ],
+      "currentRateUsd": 2150,
+      "rateUnit": "$/FEU (40ft)",
+      "change24h": -40,
+      "changePct": -1.83,
+      "historicalRates": [
+        {
+          "date": "2026-07-28",
+          "rate": 2300
+        },
+        {
+          "date": "2026-08-04",
+          "rate": 2250
+        },
+        {
+          "date": "2026-08-11",
+          "rate": 2210
+        },
+        {
+          "date": "2026-08-18",
+          "rate": 2190
+        },
+        {
+          "date": "2026-08-28",
+          "rate": 2150
+        }
+      ],
+      "distanceNm": 4980,
+      "transitDays": 13,
+      "activeVessels": 42,
+      "congestionIndex": 56,
+      "carbonEtsCostEst": 64000,
+      "chokePointsCrossed": [
+        "English Channel / Dover"
+      ]
+    },
+    {
+      "id": "lane-br-cn-cape",
+      "code": "BR-CN-CAPE",
+      "name": "Brazil Tubarao/Santos to China Capesize Dry Bulk (C3)",
+      "type": "DRY_BULK",
+      "originPort": "Santos (Soy/Agri/Box)",
+      "destinationPort": "Shanghai (Yangshan)",
+      "originCoords": [
+        -46.3,
+        -23.96
+      ],
+      "destCoords": [
+        122.06,
+        30.62
+      ],
+      "waypoints": [
+        [
+          -46.3,
+          -23.96
+        ],
+        [
+          -30,
+          -32
+        ],
+        [
+          -5,
+          -36
+        ],
+        [
+          18.47,
+          -34.35
+        ],
+        [
+          45,
+          -30
+        ],
+        [
+          75,
+          -15
+        ],
+        [
+          95,
+          -2
+        ],
+        [
+          103.85,
+          1.28
+        ],
+        [
+          115,
+          15
+        ],
+        [
+          122.06,
+          30.62
+        ]
+      ],
+      "currentRateUsd": 26.8,
+      "rateUnit": "$/metric ton",
+      "change24h": 0.95,
+      "changePct": 3.68,
+      "historicalRates": [
+        {
+          "date": "2026-07-28",
+          "rate": 23.5
+        },
+        {
+          "date": "2026-08-04",
+          "rate": 24.8
+        },
+        {
+          "date": "2026-08-11",
+          "rate": 25.4
+        },
+        {
+          "date": "2026-08-18",
+          "rate": 25.85
+        },
+        {
+          "date": "2026-08-28",
+          "rate": 26.8
+        }
+      ],
+      "distanceNm": 11400,
+      "transitDays": 36,
+      "activeVessels": 58,
+      "congestionIndex": 76,
+      "carbonEtsCostEst": 185000,
+      "chokePointsCrossed": [
+        "Cape of Good Hope",
+        "Strait of Malacca"
+      ]
+    },
+    {
+      "id": "lane-usg-lng-asia",
+      "code": "USG-LNG-ASIA",
+      "name": "US Gulf Sabine Pass to Tokyo Bay LNG Tanker",
+      "type": "LNG",
+      "originPort": "Houston Ship Channel",
+      "destinationPort": "Tokyo / Yokohama Port",
+      "originCoords": [
+        -95.12,
+        29.74
+      ],
+      "destCoords": [
+        139.66,
+        35.43
+      ],
+      "waypoints": [
+        [
+          -95.12,
+          29.74
+        ],
+        [
+          -88,
+          24
+        ],
+        [
+          -81,
+          15
+        ],
+        [
+          -79.68,
+          9.08
+        ],
+        [
+          -90,
+          8
+        ],
+        [
+          -120,
+          18
+        ],
+        [
+          -155,
+          24
+        ],
+        [
+          175,
+          30
+        ],
+        [
+          150,
+          33
+        ],
+        [
+          139.66,
+          35.43
+        ]
+      ],
+      "currentRateUsd": 82500,
+      "rateUnit": "$/day (Charter Rate)",
+      "change24h": 3400,
+      "changePct": 4.3,
+      "historicalRates": [
+        {
+          "date": "2026-07-28",
+          "rate": 68000
+        },
+        {
+          "date": "2026-08-04",
+          "rate": 72500
+        },
+        {
+          "date": "2026-08-11",
+          "rate": 76000
+        },
+        {
+          "date": "2026-08-18",
+          "rate": 79100
+        },
+        {
+          "date": "2026-08-28",
+          "rate": 82500
+        }
+      ],
+      "distanceNm": 9200,
+      "transitDays": 24,
+      "activeVessels": 32,
+      "congestionIndex": 67,
+      "carbonEtsCostEst": 110000,
+      "chokePointsCrossed": [
+        "Panama Canal"
+      ]
+    }
+  ],
+  "vessels": [
+    {
+      "id": "vsl-01",
+      "mmsi": "219018671",
+      "name": "MADRID MAERSK",
+      "imo": "9778791",
+      "type": "CONTAINER",
+      "flag": "🇩🇰 Denmark",
+      "lat": 1.15,
+      "lon": 103.62,
+      "heading": 285,
+      "speedKnots": 18.4,
+      "draftM": 15.8,
+      "maxDraftM": 16.5,
+      "dwt": 214286,
+      "teuCapacity": 20568,
+      "currentLaneId": "lane-fe-eur-cape",
+      "originPort": "Shanghai (Yangshan)",
+      "destinationPort": "Rotterdam (Maasvlakte)",
+      "eta": "2026-09-14 14:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "Maersk Line (2M Alliance)",
+      "congestionWaitHours": 4.5,
+      "co2PerTonNm": 12.8,
+      "riskAlert": "Rerouted via Cape of Good Hope"
+    },
+    {
+      "id": "vsl-02",
+      "mmsi": "477213800",
+      "name": "EVER GOLDEN",
+      "imo": "9811000",
+      "type": "CONTAINER",
+      "flag": "🇵🇦 Panama",
+      "lat": 36.2,
+      "lon": -155.4,
+      "heading": 78,
+      "speedKnots": 19.8,
+      "draftM": 15.2,
+      "maxDraftM": 16,
+      "dwt": 199692,
+      "teuCapacity": 20124,
+      "currentLaneId": "lane-tp-eb",
+      "originPort": "Shanghai (Yangshan)",
+      "destinationPort": "Los Angeles / Long Beach",
+      "eta": "2026-08-31 06:30 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "Evergreen Marine (Ocean Alliance)",
+      "congestionWaitHours": 0,
+      "co2PerTonNm": 13.2
+    },
+    {
+      "id": "vsl-05",
+      "mmsi": "228386600",
+      "name": "CMA CGM JACQUES SAADE",
+      "imo": "9839179",
+      "type": "CONTAINER",
+      "flag": "🇫🇷 France",
+      "lat": 27.5,
+      "lon": 34.8,
+      "heading": 335,
+      "speedKnots": 17.5,
+      "draftM": 15.9,
+      "maxDraftM": 16,
+      "dwt": 220000,
+      "teuCapacity": 23000,
+      "currentLaneId": "lane-fe-eur",
+      "originPort": "Singapore Port",
+      "destinationPort": "Rotterdam (Maasvlakte)",
+      "eta": "2026-09-06 08:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "CMA CGM (LNG Dual-Fuel)",
+      "congestionWaitHours": 8,
+      "co2PerTonNm": 9.2,
+      "riskAlert": "Naval escort convoy Prosperity Guardian active"
+    },
+    {
+      "id": "vsl-08",
+      "mmsi": "413387000",
+      "name": "COSCO SHIPPING UNIVERSE",
+      "imo": "9795610",
+      "type": "CONTAINER",
+      "flag": "🇭🇰 Hong Kong",
+      "lat": 14.2,
+      "lon": 114.8,
+      "heading": 210,
+      "speedKnots": 18.9,
+      "draftM": 15.6,
+      "maxDraftM": 16,
+      "dwt": 199000,
+      "teuCapacity": 21237,
+      "currentLaneId": "lane-fe-eur-cape",
+      "originPort": "Shanghai (Yangshan)",
+      "destinationPort": "Singapore Port",
+      "eta": "2026-08-30 02:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "COSCO Shipping",
+      "congestionWaitHours": 1,
+      "co2PerTonNm": 12.9
+    },
+    {
+      "id": "vsl-09",
+      "mmsi": "211281730",
+      "name": "AL ZUBARA HAPAG",
+      "imo": "9708796",
+      "type": "CONTAINER",
+      "flag": "🇩🇪 Germany",
+      "lat": 50.8,
+      "lon": -0.2,
+      "heading": 65,
+      "speedKnots": 16.5,
+      "draftM": 14.5,
+      "maxDraftM": 15.5,
+      "dwt": 199744,
+      "teuCapacity": 19870,
+      "currentLaneId": "lane-ta-wb",
+      "originPort": "Rotterdam (Maasvlakte)",
+      "destinationPort": "Antwerp-Bruges",
+      "eta": "2026-08-28 22:30 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "Hapag-Lloyd (THE Alliance)",
+      "congestionWaitHours": 1.8,
+      "co2PerTonNm": 13
+    },
+    {
+      "id": "vsl-10",
+      "mmsi": "477123999",
+      "name": "ZIM SAMMY OFER",
+      "imo": "9928126",
+      "type": "CONTAINER",
+      "flag": "🇱🇷 Liberia",
+      "lat": 32.1,
+      "lon": -128.4,
+      "heading": 92,
+      "speedKnots": 17.8,
+      "draftM": 14.8,
+      "maxDraftM": 15.2,
+      "dwt": 132000,
+      "teuCapacity": 15000,
+      "currentLaneId": "lane-tp-eb",
+      "originPort": "Shanghai (Yangshan)",
+      "destinationPort": "Los Angeles / Long Beach",
+      "eta": "2026-08-29 19:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "ZIM Integrated Shipping (LNG Powered)",
+      "congestionWaitHours": 3.2,
+      "co2PerTonNm": 11.4
+    },
+    {
+      "id": "vsl-11",
+      "mmsi": "356782000",
+      "name": "MSC MICHEL CAPPELLINI",
+      "imo": "9946867",
+      "type": "CONTAINER",
+      "flag": "🇵🇦 Panama",
+      "lat": -34.2,
+      "lon": 19.8,
+      "heading": 288,
+      "speedKnots": 19.1,
+      "draftM": 16.4,
+      "maxDraftM": 16.5,
+      "dwt": 241000,
+      "teuCapacity": 24346,
+      "currentLaneId": "lane-fe-eur-cape",
+      "originPort": "Shenzhen (Yantian)",
+      "destinationPort": "Rotterdam (Maasvlakte)",
+      "eta": "2026-09-18 10:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "Mediterranean Shipping Co (MSC)",
+      "congestionWaitHours": 0,
+      "co2PerTonNm": 10.1,
+      "riskAlert": "Cape of Good Hope rounding - Heavy weather"
+    },
+    {
+      "id": "vsl-12",
+      "mmsi": "636019800",
+      "name": "ONE INTEGRITY",
+      "imo": "9937311",
+      "type": "CONTAINER",
+      "flag": "🇱🇷 Liberia",
+      "lat": 44.5,
+      "lon": 178.2,
+      "heading": 85,
+      "speedKnots": 19.4,
+      "draftM": 15.7,
+      "maxDraftM": 16.2,
+      "dwt": 223000,
+      "teuCapacity": 24136,
+      "currentLaneId": "lane-tp-eb",
+      "originPort": "Ningbo-Zhoushan",
+      "destinationPort": "Los Angeles / Long Beach",
+      "eta": "2026-09-02 11:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "Ocean Network Express (ONE Magenta)",
+      "congestionWaitHours": 0,
+      "co2PerTonNm": 10.8
+    },
+    {
+      "id": "vsl-03",
+      "mmsi": "636018345",
+      "name": "OCEAN CHARM VLCC",
+      "imo": "9845112",
+      "type": "CRUDE_TANKER",
+      "flag": "🇱🇷 Liberia",
+      "lat": 25.1,
+      "lon": 57.8,
+      "heading": 132,
+      "speedKnots": 14.1,
+      "draftM": 21.4,
+      "maxDraftM": 22,
+      "dwt": 312000,
+      "barrelCapacity": 2050000,
+      "currentLaneId": "lane-me-cn-vlcc",
+      "originPort": "Ras Tanura (Crude)",
+      "destinationPort": "Ningbo-Zhoushan",
+      "eta": "2026-09-12 18:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "Frontline Ltd.",
+      "congestionWaitHours": 1.2,
+      "co2PerTonNm": 7.4,
+      "riskAlert": "Strait of Hormuz outbound safe passage"
+    },
+    {
+      "id": "vsl-13",
+      "mmsi": "259020000",
+      "name": "FRONTLINE KESTREL",
+      "imo": "9892010",
+      "type": "CRUDE_TANKER",
+      "flag": "🇳🇴 Norway",
+      "lat": 5.8,
+      "lon": 82.4,
+      "heading": 95,
+      "speedKnots": 14.8,
+      "draftM": 21.8,
+      "maxDraftM": 22.2,
+      "dwt": 300000,
+      "barrelCapacity": 2000000,
+      "currentLaneId": "lane-me-cn-vlcc",
+      "originPort": "Fujairah Bunker Anchorage",
+      "destinationPort": "Shanghai (Yangshan)",
+      "eta": "2026-09-08 04:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "Frontline Tankers",
+      "congestionWaitHours": 0,
+      "co2PerTonNm": 7.1
+    },
+    {
+      "id": "vsl-14",
+      "mmsi": "311000888",
+      "name": "BAHRI ARROW VLCC",
+      "imo": "9783863",
+      "type": "CRUDE_TANKER",
+      "flag": "🇸🇦 Saudi Arabia",
+      "lat": 26.8,
+      "lon": 51.4,
+      "heading": 45,
+      "speedKnots": 12.5,
+      "draftM": 11.2,
+      "maxDraftM": 22,
+      "dwt": 318000,
+      "barrelCapacity": 2100000,
+      "currentLaneId": "lane-me-cn-vlcc",
+      "originPort": "Ningbo-Zhoushan",
+      "destinationPort": "Ras Tanura (Crude)",
+      "eta": "2026-08-29 08:00 UTC",
+      "cargoStatus": "BALLAST",
+      "operator": "Bahri National Shipping",
+      "congestionWaitHours": 2,
+      "co2PerTonNm": 6.8
+    },
+    {
+      "id": "vsl-15",
+      "mmsi": "636015500",
+      "name": "EURONAV OCEANIA (ULCC)",
+      "imo": "9246633",
+      "type": "CRUDE_TANKER",
+      "flag": "🇲🇭 Marshall Islands",
+      "lat": 1.1,
+      "lon": 104.2,
+      "heading": 65,
+      "speedKnots": 13.2,
+      "draftM": 24.5,
+      "maxDraftM": 24.5,
+      "dwt": 441585,
+      "barrelCapacity": 3100000,
+      "currentLaneId": "lane-me-cn-vlcc",
+      "originPort": "Ras Tanura (Crude)",
+      "destinationPort": "Ningbo-Zhoushan",
+      "eta": "2026-09-15 16:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "Euronav NV / CMB.TECH",
+      "congestionWaitHours": 0,
+      "co2PerTonNm": 5.6
+    },
+    {
+      "id": "vsl-04",
+      "mmsi": "352001890",
+      "name": "CAPE PIONEER",
+      "imo": "9654123",
+      "type": "DRY_BULK",
+      "flag": "🇵🇦 Panama",
+      "lat": -8.4,
+      "lon": 119.2,
+      "heading": 12,
+      "speedKnots": 12.6,
+      "draftM": 17.8,
+      "maxDraftM": 18.2,
+      "dwt": 182000,
+      "currentLaneId": "lane-c5-capesize",
+      "originPort": "Port Hedland (Iron Ore)",
+      "destinationPort": "Ningbo-Zhoushan",
+      "eta": "2026-09-04 22:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "Star Bulk Carriers",
+      "congestionWaitHours": 0,
+      "co2PerTonNm": 5.9
+    },
+    {
+      "id": "vsl-07",
+      "mmsi": "311000914",
+      "name": "BERGE OLYMPUS",
+      "imo": "9750000",
+      "type": "DRY_BULK",
+      "flag": "🇮🇲 Isle of Man",
+      "lat": -34.8,
+      "lon": 22.4,
+      "heading": 75,
+      "speedKnots": 13.4,
+      "draftM": 22.8,
+      "maxDraftM": 23,
+      "dwt": 211000,
+      "currentLaneId": "lane-br-cn-cape",
+      "originPort": "Santos (Soy/Agri/Box)",
+      "destinationPort": "Shanghai (Yangshan)",
+      "eta": "2026-09-20 12:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "Berge Bulk (WindWings equipped)",
+      "congestionWaitHours": 0,
+      "co2PerTonNm": 4.8
+    },
+    {
+      "id": "vsl-16",
+      "mmsi": "636017777",
+      "name": "VALE BRASIL (VALEMAX 400K)",
+      "imo": "9488918",
+      "type": "DRY_BULK",
+      "flag": "🇱🇷 Liberia",
+      "lat": -15.2,
+      "lon": 72,
+      "heading": 68,
+      "speedKnots": 13.8,
+      "draftM": 23,
+      "maxDraftM": 23.1,
+      "dwt": 402000,
+      "currentLaneId": "lane-br-cn-cape",
+      "originPort": "Santos (Soy/Agri/Box)",
+      "destinationPort": "Ningbo-Zhoushan",
+      "eta": "2026-09-24 18:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "Vale S.A. Iron Ore",
+      "congestionWaitHours": 0,
+      "co2PerTonNm": 3.9
+    },
+    {
+      "id": "vsl-06",
+      "mmsi": "538008890",
+      "name": "GASLOG GLADSTONE",
+      "imo": "9744453",
+      "type": "LNG_CARRIER",
+      "flag": "🇲🇭 Marshall Islands",
+      "lat": 25.8,
+      "lon": -88.4,
+      "heading": 95,
+      "speedKnots": 18,
+      "draftM": 11.8,
+      "maxDraftM": 12.5,
+      "dwt": 95000,
+      "barrelCapacity": 174000,
+      "currentLaneId": "lane-ta-wb",
+      "originPort": "Houston Ship Channel",
+      "destinationPort": "Rotterdam (Maasvlakte)",
+      "eta": "2026-09-07 16:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "GasLog Partners",
+      "congestionWaitHours": 2.1,
+      "co2PerTonNm": 11
+    },
+    {
+      "id": "vsl-17",
+      "mmsi": "431002340",
+      "name": "PACIFIC ENLIGHTEN",
+      "imo": "9728796",
+      "type": "LNG_CARRIER",
+      "flag": "🇯🇵 Japan",
+      "lat": 28.5,
+      "lon": 142.1,
+      "heading": 340,
+      "speedKnots": 17.6,
+      "draftM": 11.5,
+      "maxDraftM": 12,
+      "dwt": 88000,
+      "barrelCapacity": 182000,
+      "currentLaneId": "lane-usg-lng-asia",
+      "originPort": "Balboa / Colon (Panama)",
+      "destinationPort": "Tokyo / Yokohama Port",
+      "eta": "2026-09-01 09:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "MOL LNG Transport",
+      "congestionWaitHours": 0,
+      "co2PerTonNm": 10.4
+    },
+    {
+      "id": "vsl-18",
+      "mmsi": "636014444",
+      "name": "Q-MAX SHAGRA",
+      "imo": "9397339",
+      "type": "LNG_CARRIER",
+      "flag": "🇶🇦 Qatar",
+      "lat": 18.4,
+      "lon": 64.5,
+      "heading": 105,
+      "speedKnots": 18.5,
+      "draftM": 12,
+      "maxDraftM": 12.5,
+      "dwt": 128000,
+      "barrelCapacity": 266000,
+      "currentLaneId": "lane-me-cn-vlcc",
+      "originPort": "Ras Tanura (Crude)",
+      "destinationPort": "Shanghai (Yangshan)",
+      "eta": "2026-09-05 14:00 UTC",
+      "cargoStatus": "LADEN",
+      "operator": "QatarEnergy LNG",
+      "congestionWaitHours": 0,
+      "co2PerTonNm": 8.9
+    },
+    {
+      "id": "vsl-19",
+      "mmsi": "244001999",
+      "name": "SMIT SALVOR TUG",
+      "imo": "9653800",
+      "type": "DRY_BULK",
+      "flag": "🇳🇱 Netherlands",
+      "lat": 13.85,
+      "lon": 43.1,
+      "heading": 180,
+      "speedKnots": 10.2,
+      "draftM": 6.8,
+      "maxDraftM": 7.2,
+      "dwt": 4500,
+      "currentLaneId": "lane-fe-eur",
+      "originPort": "Jeddah Islamic Port",
+      "destinationPort": "Bab-el-Mandeb Strait",
+      "eta": "2026-08-28 20:00 UTC",
+      "cargoStatus": "WAITING",
+      "operator": "Boskalis / SMIT Salvage",
+      "congestionWaitHours": 0,
+      "co2PerTonNm": 18,
+      "riskAlert": "Standby emergency salvage & towing unit in Bab-el-Mandeb"
+    }
+  ],
+  "chokepoints": [
+    {
+      "id": "choke-malacca",
+      "name": "Strait of Malacca (Singapore Gateway)",
+      "lat": 1.43,
+      "lon": 102.5,
+      "dailyTransits": 245,
+      "avgDelayHours": 6.4,
+      "riskLevel": "MEDIUM",
+      "statusDescription": "World’s busiest energy fairway. Operating at 94% channel capacity; high-density VLCC & boxship traffic."
+    },
+    {
+      "id": "choke-suez",
+      "name": "Suez Canal / Northern Red Sea",
+      "lat": 29.93,
+      "lon": 32.55,
+      "dailyTransits": 38,
+      "avgDelayHours": 19.5,
+      "riskLevel": "ELEVATED",
+      "statusDescription": "Transits down 58% due to southern Red Sea missile threats; remaining convoys escorted by naval taskforces."
+    },
+    {
+      "id": "choke-bab",
+      "name": "Bab-el-Mandeb Strait (Gate of Tears)",
+      "lat": 12.58,
+      "lon": 43.33,
+      "dailyTransits": 28,
+      "avgDelayHours": 32,
+      "riskLevel": "HIGH",
+      "statusDescription": "CRITICAL WAR-RISK ZONE: Anti-ship missile & USV drone threat zone. Operation Aspides & Prosperity Guardian naval escorts."
+    },
+    {
+      "id": "choke-hormuz",
+      "name": "Strait of Hormuz (Persian Gulf)",
+      "lat": 26.56,
+      "lon": 56.25,
+      "dailyTransits": 112,
+      "avgDelayHours": 4.5,
+      "riskLevel": "HIGH",
+      "statusDescription": "Carries 21M bbl/day (~21% of global petroleum). Heightened geopolitical alert; GPS spoofing and AIS interference reported."
+    },
+    {
+      "id": "choke-panama",
+      "name": "Panama Canal (Miraflores & Cocoli Locks)",
+      "lat": 9.08,
+      "lon": -79.68,
+      "dailyTransits": 36,
+      "avgDelayHours": 24.5,
+      "riskLevel": "MEDIUM",
+      "statusDescription": "Draft restriction at 45.0ft; Gatun Lake reservoir recovering. Neopanamax auction slots averaging $180k premium."
+    },
+    {
+      "id": "choke-dover",
+      "name": "English Channel / Strait of Dover",
+      "lat": 51.01,
+      "lon": 1.45,
+      "dailyTransits": 420,
+      "avgDelayHours": 2.1,
+      "riskLevel": "LOW",
+      "statusDescription": "High density TSS (Traffic Separation Scheme) active. Strict radar surveillance & English/French coast guard patrols."
+    },
+    {
+      "id": "choke-gibraltar",
+      "name": "Strait of Gibraltar (Med Gateway)",
+      "lat": 35.95,
+      "lon": -5.6,
+      "dailyTransits": 290,
+      "avgDelayHours": 3.2,
+      "riskLevel": "LOW",
+      "statusDescription": "Primary western entrance to Mediterranean. Major bunker bunkering anchorage at Algeciras and Gibraltar."
+    },
+    {
+      "id": "choke-cape",
+      "name": "Cape of Good Hope (South Africa)",
+      "lat": -34.35,
+      "lon": 18.47,
+      "dailyTransits": 165,
+      "avgDelayHours": 2,
+      "riskLevel": "LOW",
+      "statusDescription": "Mass diversion corridor (+10-14 days transit). Severe winter swells and rogue waves; bunker congestion at Durban & Port Louis."
+    },
+    {
+      "id": "choke-bosphorus",
+      "name": "Bosphorus & Dardanelles Straits",
+      "lat": 41.12,
+      "lon": 29.08,
+      "dailyTransits": 115,
+      "avgDelayHours": 14.8,
+      "riskLevel": "ELEVATED",
+      "statusDescription": "Montreux Convention controls. Black Sea grain & Russian shadow fleet tankers subjected to strict daylight pilotage."
+    },
+    {
+      "id": "choke-danish",
+      "name": "Danish Straits (Storebælt / Øresund)",
+      "lat": 55.33,
+      "lon": 11,
+      "dailyTransits": 130,
+      "avgDelayHours": 1.5,
+      "riskLevel": "LOW",
+      "statusDescription": "Baltic oil egress. EU sanctions monitoring and maritime pilotage compliance inspections."
+    }
+  ],
+  "assets": [
+    {
+      "ticker": "BDI.INDEX",
+      "name": "Baltic Dry Index (BDI)",
+      "category": "FREIGHT_FFA",
+      "price": 1845,
+      "previousClose": 1792,
+      "change": 53,
+      "changePct": 2.96,
+      "high": 1860,
+      "low": 1788,
+      "volume": 12450,
+      "bid": 1842,
+      "bidSize": 45,
+      "ask": 1848,
+      "askSize": 60,
+      "spread": 6,
+      "unit": "pts",
+      "lastUpdated": "15:14:02.891 UTC",
+      "history": [
+        {
+          "time": "09:00",
+          "price": 1792
+        },
+        {
+          "time": "10:30",
+          "price": 1810
+        },
+        {
+          "time": "12:00",
+          "price": 1825
+        },
+        {
+          "time": "13:30",
+          "price": 1838
+        },
+        {
+          "time": "15:00",
+          "price": 1845
+        }
+      ],
+      "depth": {
+        "bids": [
+          {
+            "price": 1842,
+            "size": 45,
+            "total": 45,
+            "orders": 4
+          },
+          {
+            "price": 1840,
+            "size": 80,
+            "total": 125,
+            "orders": 7
+          },
+          {
+            "price": 1838,
+            "size": 110,
+            "total": 235,
+            "orders": 11
+          },
+          {
+            "price": 1835,
+            "size": 240,
+            "total": 475,
+            "orders": 18
+          },
+          {
+            "price": 1830,
+            "size": 500,
+            "total": 975,
+            "orders": 29
+          }
+        ],
+        "asks": [
+          {
+            "price": 1848,
+            "size": 60,
+            "total": 60,
+            "orders": 5
+          },
+          {
+            "price": 1850,
+            "size": 95,
+            "total": 155,
+            "orders": 8
+          },
+          {
+            "price": 1852,
+            "size": 140,
+            "total": 295,
+            "orders": 12
+          },
+          {
+            "price": 1855,
+            "size": 310,
+            "total": 605,
+            "orders": 22
+          },
+          {
+            "price": 1860,
+            "size": 620,
+            "total": 1225,
+            "orders": 34
+          }
+        ]
+      },
+      "details": {
+        "marketCapOrOi": "OI: 48,200 lots",
+        "description": "Composite dry bulk shipping rate index (Capesize 40%, Panamax 30%, Supramax 30%)."
+      }
+    },
+    {
+      "ticker": "SCFI.INDEX",
+      "name": "Shanghai Containerized Freight Index",
+      "category": "FREIGHT_FFA",
+      "price": 3740.5,
+      "previousClose": 3620,
+      "change": 120.5,
+      "changePct": 3.33,
+      "high": 3765,
+      "low": 3615,
+      "volume": 8900,
+      "bid": 3738,
+      "bidSize": 30,
+      "ask": 3743,
+      "askSize": 40,
+      "spread": 5,
+      "unit": "$/TEU",
+      "lastUpdated": "15:14:03.112 UTC",
+      "history": [
+        {
+          "time": "09:00",
+          "price": 3620
+        },
+        {
+          "time": "10:30",
+          "price": 3660
+        },
+        {
+          "time": "12:00",
+          "price": 3710
+        },
+        {
+          "time": "13:30",
+          "price": 3735
+        },
+        {
+          "time": "15:00",
+          "price": 3740.5
+        }
+      ],
+      "depth": {
+        "bids": [
+          {
+            "price": 3738,
+            "size": 30,
+            "total": 30,
+            "orders": 3
+          },
+          {
+            "price": 3735,
+            "size": 75,
+            "total": 105,
+            "orders": 6
+          },
+          {
+            "price": 3730,
+            "size": 120,
+            "total": 225,
+            "orders": 10
+          },
+          {
+            "price": 3725,
+            "size": 190,
+            "total": 415,
+            "orders": 15
+          },
+          {
+            "price": 3720,
+            "size": 350,
+            "total": 765,
+            "orders": 24
+          }
+        ],
+        "asks": [
+          {
+            "price": 3743,
+            "size": 40,
+            "total": 40,
+            "orders": 4
+          },
+          {
+            "price": 3745,
+            "size": 85,
+            "total": 125,
+            "orders": 7
+          },
+          {
+            "price": 3750,
+            "size": 150,
+            "total": 275,
+            "orders": 13
+          },
+          {
+            "price": 3755,
+            "size": 280,
+            "total": 555,
+            "orders": 20
+          },
+          {
+            "price": 3760,
+            "size": 490,
+            "total": 1045,
+            "orders": 31
+          }
+        ]
+      },
+      "details": {
+        "marketCapOrOi": "Weekly benchmark",
+        "description": "Shanghai spot export container transport market freight rate benchmark."
+      }
+    },
+    {
+      "ticker": "FFA.CAPE.5TC",
+      "name": "Capesize 5TC Forward Q4",
+      "category": "FREIGHT_FFA",
+      "price": 28450,
+      "previousClose": 27300,
+      "change": 1150,
+      "changePct": 4.21,
+      "high": 28600,
+      "low": 27250,
+      "volume": 3400,
+      "bid": 28400,
+      "bidSize": 15,
+      "ask": 28500,
+      "askSize": 20,
+      "spread": 100,
+      "unit": "$/day",
+      "lastUpdated": "15:14:01.045 UTC",
+      "history": [
+        {
+          "time": "09:00",
+          "price": 27300
+        },
+        {
+          "time": "10:30",
+          "price": 27750
+        },
+        {
+          "time": "12:00",
+          "price": 28100
+        },
+        {
+          "time": "13:30",
+          "price": 28350
+        },
+        {
+          "time": "15:00",
+          "price": 28450
+        }
+      ],
+      "depth": {
+        "bids": [
+          {
+            "price": 28400,
+            "size": 15,
+            "total": 15,
+            "orders": 2
+          },
+          {
+            "price": 28350,
+            "size": 30,
+            "total": 45,
+            "orders": 5
+          },
+          {
+            "price": 28300,
+            "size": 60,
+            "total": 105,
+            "orders": 8
+          },
+          {
+            "price": 28200,
+            "size": 90,
+            "total": 195,
+            "orders": 12
+          },
+          {
+            "price": 28000,
+            "size": 180,
+            "total": 375,
+            "orders": 19
+          }
+        ],
+        "asks": [
+          {
+            "price": 28500,
+            "size": 20,
+            "total": 20,
+            "orders": 3
+          },
+          {
+            "price": 28550,
+            "size": 40,
+            "total": 60,
+            "orders": 6
+          },
+          {
+            "price": 28600,
+            "size": 75,
+            "total": 135,
+            "orders": 9
+          },
+          {
+            "price": 28700,
+            "size": 110,
+            "total": 245,
+            "orders": 14
+          },
+          {
+            "price": 28900,
+            "size": 220,
+            "total": 465,
+            "orders": 22
+          }
+        ]
+      },
+      "details": {
+        "marketCapOrOi": "Cleared: SGX / EEX",
+        "description": "Forward Freight Agreement for Capesize 180k DWT standard 5-route timecharter average."
+      }
+    },
+    {
+      "ticker": "CO1:COM",
+      "name": "Brent Crude Oil Spot/Active",
+      "category": "COMMODITY",
+      "price": 84.62,
+      "previousClose": 83.25,
+      "change": 1.37,
+      "changePct": 1.65,
+      "high": 85.1,
+      "low": 83.15,
+      "volume": 384500,
+      "bid": 84.6,
+      "bidSize": 250,
+      "ask": 84.64,
+      "askSize": 310,
+      "spread": 0.04,
+      "unit": "$/bbl",
+      "lastUpdated": "15:14:04.220 UTC",
+      "history": [
+        {
+          "time": "09:00",
+          "price": 83.25
+        },
+        {
+          "time": "10:30",
+          "price": 83.8
+        },
+        {
+          "time": "12:00",
+          "price": 84.15
+        },
+        {
+          "time": "13:30",
+          "price": 84.45
+        },
+        {
+          "time": "15:00",
+          "price": 84.62
+        }
+      ],
+      "depth": {
+        "bids": [
+          {
+            "price": 84.6,
+            "size": 250,
+            "total": 250,
+            "orders": 14
+          },
+          {
+            "price": 84.58,
+            "size": 410,
+            "total": 660,
+            "orders": 23
+          },
+          {
+            "price": 84.55,
+            "size": 820,
+            "total": 1480,
+            "orders": 38
+          },
+          {
+            "price": 84.5,
+            "size": 1540,
+            "total": 3020,
+            "orders": 62
+          },
+          {
+            "price": 84.4,
+            "size": 2900,
+            "total": 5920,
+            "orders": 95
+          }
+        ],
+        "asks": [
+          {
+            "price": 84.64,
+            "size": 310,
+            "total": 310,
+            "orders": 17
+          },
+          {
+            "price": 84.66,
+            "size": 520,
+            "total": 830,
+            "orders": 28
+          },
+          {
+            "price": 84.7,
+            "size": 940,
+            "total": 1770,
+            "orders": 44
+          },
+          {
+            "price": 84.75,
+            "size": 1680,
+            "total": 3450,
+            "orders": 71
+          },
+          {
+            "price": 84.85,
+            "size": 3100,
+            "total": 6550,
+            "orders": 110
+          }
+        ]
+      },
+      "details": {
+        "marketCapOrOi": "OI: 1.14M contracts",
+        "description": "ICE Brent Crude futures contract - global petroleum pricing benchmark."
+      }
+    },
+    {
+      "ticker": "VLSFO.SGP",
+      "name": "Singapore 0.5% VLSFO Bunker Fuel",
+      "category": "COMMODITY",
+      "price": 628,
+      "previousClose": 621.5,
+      "change": 6.5,
+      "changePct": 1.05,
+      "high": 631,
+      "low": 620,
+      "volume": 18200,
+      "bid": 627.5,
+      "bidSize": 50,
+      "ask": 628.5,
+      "askSize": 65,
+      "spread": 1,
+      "unit": "$/mt",
+      "lastUpdated": "15:14:02.500 UTC",
+      "history": [
+        {
+          "time": "09:00",
+          "price": 621.5
+        },
+        {
+          "time": "10:30",
+          "price": 624
+        },
+        {
+          "time": "12:00",
+          "price": 626.5
+        },
+        {
+          "time": "13:30",
+          "price": 627
+        },
+        {
+          "time": "15:00",
+          "price": 628
+        }
+      ],
+      "depth": {
+        "bids": [
+          {
+            "price": 627.5,
+            "size": 50,
+            "total": 50,
+            "orders": 4
+          },
+          {
+            "price": 627,
+            "size": 120,
+            "total": 170,
+            "orders": 8
+          },
+          {
+            "price": 626,
+            "size": 210,
+            "total": 380,
+            "orders": 12
+          },
+          {
+            "price": 625,
+            "size": 450,
+            "total": 830,
+            "orders": 20
+          },
+          {
+            "price": 623,
+            "size": 800,
+            "total": 1630,
+            "orders": 35
+          }
+        ],
+        "asks": [
+          {
+            "price": 628.5,
+            "size": 65,
+            "total": 65,
+            "orders": 5
+          },
+          {
+            "price": 629,
+            "size": 140,
+            "total": 205,
+            "orders": 9
+          },
+          {
+            "price": 630,
+            "size": 240,
+            "total": 445,
+            "orders": 15
+          },
+          {
+            "price": 631,
+            "size": 510,
+            "total": 955,
+            "orders": 24
+          },
+          {
+            "price": 633,
+            "size": 920,
+            "total": 1875,
+            "orders": 40
+          }
+        ]
+      },
+      "details": {
+        "marketCapOrOi": "Physical & Swap",
+        "description": "IMO 2020 compliant Very Low Sulphur Fuel Oil FOB Singapore cargo benchmark."
+      }
+    },
+    {
+      "ticker": "FE62.SGX",
+      "name": "Iron Ore 62% Fe CFR China",
+      "category": "COMMODITY",
+      "price": 114.8,
+      "previousClose": 111.9,
+      "change": 2.9,
+      "changePct": 2.59,
+      "high": 115.4,
+      "low": 111.5,
+      "volume": 142000,
+      "bid": 114.75,
+      "bidSize": 180,
+      "ask": 114.85,
+      "askSize": 220,
+      "spread": 0.1,
+      "unit": "$/mt",
+      "lastUpdated": "15:14:03.450 UTC",
+      "history": [
+        {
+          "time": "09:00",
+          "price": 111.9
+        },
+        {
+          "time": "10:30",
+          "price": 112.8
+        },
+        {
+          "time": "12:00",
+          "price": 113.6
+        },
+        {
+          "time": "13:30",
+          "price": 114.2
+        },
+        {
+          "time": "15:00",
+          "price": 114.8
+        }
+      ],
+      "depth": {
+        "bids": [
+          {
+            "price": 114.75,
+            "size": 180,
+            "total": 180,
+            "orders": 11
+          },
+          {
+            "price": 114.65,
+            "size": 340,
+            "total": 520,
+            "orders": 18
+          },
+          {
+            "price": 114.5,
+            "size": 680,
+            "total": 1200,
+            "orders": 29
+          },
+          {
+            "price": 114.2,
+            "size": 1150,
+            "total": 2350,
+            "orders": 45
+          },
+          {
+            "price": 113.8,
+            "size": 2400,
+            "total": 4750,
+            "orders": 74
+          }
+        ],
+        "asks": [
+          {
+            "price": 114.85,
+            "size": 220,
+            "total": 220,
+            "orders": 13
+          },
+          {
+            "price": 114.95,
+            "size": 390,
+            "total": 610,
+            "orders": 21
+          },
+          {
+            "price": 115.1,
+            "size": 750,
+            "total": 1360,
+            "orders": 33
+          },
+          {
+            "price": 115.4,
+            "size": 1280,
+            "total": 2640,
+            "orders": 51
+          },
+          {
+            "price": 115.8,
+            "size": 2600,
+            "total": 5240,
+            "orders": 82
+          }
+        ]
+      },
+      "details": {
+        "marketCapOrOi": "SGX Cleared",
+        "description": "Benchmark spot price for 62% Iron fine ore delivered into Qingdao."
+      }
+    },
+    {
+      "ticker": "MAERSK.DC",
+      "name": "A.P. Møller - Mærsk A/S",
+      "category": "EQUITY",
+      "price": 11840,
+      "previousClose": 11490,
+      "change": 350,
+      "changePct": 3.05,
+      "high": 11920,
+      "low": 11450,
+      "volume": 184000,
+      "bid": 11830,
+      "bidSize": 40,
+      "ask": 11850,
+      "askSize": 55,
+      "spread": 20,
+      "unit": "DKK",
+      "lastUpdated": "15:14:04.010 UTC",
+      "history": [
+        {
+          "time": "09:00",
+          "price": 11490
+        },
+        {
+          "time": "10:30",
+          "price": 11620
+        },
+        {
+          "time": "12:00",
+          "price": 11750
+        },
+        {
+          "time": "13:30",
+          "price": 11810
+        },
+        {
+          "time": "15:00",
+          "price": 11840
+        }
+      ],
+      "depth": {
+        "bids": [
+          {
+            "price": 11830,
+            "size": 40,
+            "total": 40,
+            "orders": 5
+          },
+          {
+            "price": 11810,
+            "size": 85,
+            "total": 125,
+            "orders": 9
+          },
+          {
+            "price": 11780,
+            "size": 140,
+            "total": 265,
+            "orders": 16
+          },
+          {
+            "price": 11740,
+            "size": 280,
+            "total": 545,
+            "orders": 28
+          },
+          {
+            "price": 11680,
+            "size": 520,
+            "total": 1065,
+            "orders": 44
+          }
+        ],
+        "asks": [
+          {
+            "price": 11850,
+            "size": 55,
+            "total": 55,
+            "orders": 6
+          },
+          {
+            "price": 11870,
+            "size": 95,
+            "total": 150,
+            "orders": 11
+          },
+          {
+            "price": 11900,
+            "size": 160,
+            "total": 310,
+            "orders": 19
+          },
+          {
+            "price": 11940,
+            "size": 310,
+            "total": 620,
+            "orders": 31
+          },
+          {
+            "price": 12000,
+            "size": 600,
+            "total": 1220,
+            "orders": 50
+          }
+        ]
+      },
+      "details": {
+        "marketCapOrOi": "DKK 198.4B",
+        "peOrDuration": "P/E: 6.4x",
+        "description": "World integrated container logistics, ocean shipping & terminal operator."
+      }
+    },
+    {
+      "ticker": "ZIM:US",
+      "name": "ZIM Integrated Shipping Services",
+      "category": "EQUITY",
+      "price": 24.85,
+      "previousClose": 23.4,
+      "change": 1.45,
+      "changePct": 6.2,
+      "high": 25.1,
+      "low": 23.25,
+      "volume": 5890000,
+      "bid": 24.84,
+      "bidSize": 1200,
+      "ask": 24.86,
+      "askSize": 1500,
+      "spread": 0.02,
+      "unit": "USD",
+      "lastUpdated": "15:14:04.560 UTC",
+      "history": [
+        {
+          "time": "09:00",
+          "price": 23.4
+        },
+        {
+          "time": "10:30",
+          "price": 23.95
+        },
+        {
+          "time": "12:00",
+          "price": 24.4
+        },
+        {
+          "time": "13:30",
+          "price": 24.7
+        },
+        {
+          "time": "15:00",
+          "price": 24.85
+        }
+      ],
+      "depth": {
+        "bids": [
+          {
+            "price": 24.84,
+            "size": 1200,
+            "total": 1200,
+            "orders": 25
+          },
+          {
+            "price": 24.82,
+            "size": 2400,
+            "total": 3600,
+            "orders": 42
+          },
+          {
+            "price": 24.8,
+            "size": 4800,
+            "total": 8400,
+            "orders": 68
+          },
+          {
+            "price": 24.75,
+            "size": 9200,
+            "total": 17600,
+            "orders": 110
+          },
+          {
+            "price": 24.65,
+            "size": 18000,
+            "total": 35600,
+            "orders": 180
+          }
+        ],
+        "asks": [
+          {
+            "price": 24.86,
+            "size": 1500,
+            "total": 1500,
+            "orders": 30
+          },
+          {
+            "price": 24.88,
+            "size": 2800,
+            "total": 4300,
+            "orders": 49
+          },
+          {
+            "price": 24.9,
+            "size": 5400,
+            "total": 9700,
+            "orders": 75
+          },
+          {
+            "price": 24.95,
+            "size": 10500,
+            "total": 20200,
+            "orders": 125
+          },
+          {
+            "price": 25.05,
+            "size": 21000,
+            "total": 41200,
+            "orders": 210
+          }
+        ]
+      },
+      "details": {
+        "marketCapOrOi": "USD 2.98B",
+        "peOrDuration": "P/E: 4.8x | Div: 14.2%",
+        "description": "Asset-light global container liner operating transpacific & Atlantic lanes."
+      }
+    },
+    {
+      "ticker": "FRO:US",
+      "name": "Frontline PLC (Crude VLCC)",
+      "category": "EQUITY",
+      "price": 28.3,
+      "previousClose": 26.9,
+      "change": 1.4,
+      "changePct": 5.2,
+      "high": 28.55,
+      "low": 26.85,
+      "volume": 3240000,
+      "bid": 28.28,
+      "bidSize": 800,
+      "ask": 28.32,
+      "askSize": 950,
+      "spread": 0.04,
+      "unit": "USD",
+      "lastUpdated": "15:14:03.900 UTC",
+      "history": [
+        {
+          "time": "09:00",
+          "price": 26.9
+        },
+        {
+          "time": "10:30",
+          "price": 27.4
+        },
+        {
+          "time": "12:00",
+          "price": 27.9
+        },
+        {
+          "time": "13:30",
+          "price": 28.15
+        },
+        {
+          "time": "15:00",
+          "price": 28.3
+        }
+      ],
+      "depth": {
+        "bids": [
+          {
+            "price": 28.28,
+            "size": 800,
+            "total": 800,
+            "orders": 18
+          },
+          {
+            "price": 28.25,
+            "size": 1600,
+            "total": 2400,
+            "orders": 32
+          },
+          {
+            "price": 28.2,
+            "size": 3100,
+            "total": 5500,
+            "orders": 54
+          },
+          {
+            "price": 28.1,
+            "size": 6200,
+            "total": 11700,
+            "orders": 88
+          },
+          {
+            "price": 28,
+            "size": 12500,
+            "total": 24200,
+            "orders": 140
+          }
+        ],
+        "asks": [
+          {
+            "price": 28.32,
+            "size": 950,
+            "total": 950,
+            "orders": 21
+          },
+          {
+            "price": 28.35,
+            "size": 1850,
+            "total": 2800,
+            "orders": 37
+          },
+          {
+            "price": 28.4,
+            "size": 3600,
+            "total": 6400,
+            "orders": 61
+          },
+          {
+            "price": 28.5,
+            "size": 7100,
+            "total": 13500,
+            "orders": 98
+          },
+          {
+            "price": 28.6,
+            "size": 14000,
+            "total": 27500,
+            "orders": 160
+          }
+        ]
+      },
+      "details": {
+        "marketCapOrOi": "USD 6.31B",
+        "peOrDuration": "P/E: 7.1x",
+        "description": "Major international crude oil tanker shipping company (VLCC & Suezmax fleet)."
+      }
+    },
+    {
+      "ticker": "EURUSD:CUR",
+      "name": "EUR / USD Spot",
+      "category": "FX",
+      "price": 1.0842,
+      "previousClose": 1.0815,
+      "change": 0.0027,
+      "changePct": 0.25,
+      "high": 1.086,
+      "low": 1.0805,
+      "volume": 12500000,
+      "bid": 1.08415,
+      "bidSize": 5000000,
+      "ask": 1.08425,
+      "askSize": 5000000,
+      "spread": 0.0001,
+      "unit": "USD",
+      "lastUpdated": "15:14:04.890 UTC",
+      "history": [
+        {
+          "time": "09:00",
+          "price": 1.0815
+        },
+        {
+          "time": "10:30",
+          "price": 1.0825
+        },
+        {
+          "time": "12:00",
+          "price": 1.0838
+        },
+        {
+          "time": "13:30",
+          "price": 1.084
+        },
+        {
+          "time": "15:00",
+          "price": 1.0842
+        }
+      ],
+      "depth": {
+        "bids": [
+          {
+            "price": 1.08415,
+            "size": 5000,
+            "total": 5000,
+            "orders": 50
+          },
+          {
+            "price": 1.0841,
+            "size": 8500,
+            "total": 13500,
+            "orders": 75
+          },
+          {
+            "price": 1.084,
+            "size": 14000,
+            "total": 27500,
+            "orders": 120
+          },
+          {
+            "price": 1.0838,
+            "size": 25000,
+            "total": 52500,
+            "orders": 190
+          },
+          {
+            "price": 1.0835,
+            "size": 50000,
+            "total": 102500,
+            "orders": 310
+          }
+        ],
+        "asks": [
+          {
+            "price": 1.08425,
+            "size": 5000,
+            "total": 5000,
+            "orders": 52
+          },
+          {
+            "price": 1.0843,
+            "size": 9000,
+            "total": 14000,
+            "orders": 78
+          },
+          {
+            "price": 1.0844,
+            "size": 15000,
+            "total": 29000,
+            "orders": 125
+          },
+          {
+            "price": 1.0846,
+            "size": 26000,
+            "total": 55000,
+            "orders": 195
+          },
+          {
+            "price": 1.085,
+            "size": 52000,
+            "total": 107000,
+            "orders": 320
+          }
+        ]
+      },
+      "details": {
+        "marketCapOrOi": "Interbank CLS",
+        "description": "Euro spot exchange rate vs US Dollar."
+      }
+    },
+    {
+      "ticker": "USDCNY:CUR",
+      "name": "USD / CNY Onshore",
+      "category": "FX",
+      "price": 7.234,
+      "previousClose": 7.241,
+      "change": -0.007,
+      "changePct": -0.1,
+      "high": 7.245,
+      "low": 7.231,
+      "volume": 8400000,
+      "bid": 7.2335,
+      "bidSize": 3000000,
+      "ask": 7.2345,
+      "askSize": 3000000,
+      "spread": 0.001,
+      "unit": "CNY",
+      "lastUpdated": "15:14:03.650 UTC",
+      "history": [
+        {
+          "time": "09:00",
+          "price": 7.241
+        },
+        {
+          "time": "10:30",
+          "price": 7.2385
+        },
+        {
+          "time": "12:00",
+          "price": 7.236
+        },
+        {
+          "time": "13:30",
+          "price": 7.2345
+        },
+        {
+          "time": "15:00",
+          "price": 7.234
+        }
+      ],
+      "depth": {
+        "bids": [
+          {
+            "price": 7.2335,
+            "size": 3000,
+            "total": 3000,
+            "orders": 30
+          },
+          {
+            "price": 7.233,
+            "size": 6000,
+            "total": 9000,
+            "orders": 50
+          },
+          {
+            "price": 7.232,
+            "size": 11000,
+            "total": 20000,
+            "orders": 85
+          },
+          {
+            "price": 7.23,
+            "size": 22000,
+            "total": 42000,
+            "orders": 140
+          },
+          {
+            "price": 7.228,
+            "size": 45000,
+            "total": 87000,
+            "orders": 230
+          }
+        ],
+        "asks": [
+          {
+            "price": 7.2345,
+            "size": 3000,
+            "total": 3000,
+            "orders": 32
+          },
+          {
+            "price": 7.235,
+            "size": 6500,
+            "total": 9500,
+            "orders": 54
+          },
+          {
+            "price": 7.236,
+            "size": 12000,
+            "total": 21500,
+            "orders": 90
+          },
+          {
+            "price": 7.238,
+            "size": 24000,
+            "total": 45500,
+            "orders": 145
+          },
+          {
+            "price": 7.24,
+            "size": 48000,
+            "total": 93500,
+            "orders": 240
+          }
+        ]
+      },
+      "details": {
+        "marketCapOrOi": "CFETS Fixing: 7.2180",
+        "description": "US Dollar to Chinese Yuan Renminbi onshore foreign exchange rate."
+      }
+    },
+    {
+      "ticker": "USGG10YR:IND",
+      "name": "US Generic Govt 10Y Yield",
+      "category": "RATES",
+      "price": 4.285,
+      "previousClose": 4.34,
+      "change": -0.055,
+      "changePct": -1.27,
+      "high": 4.345,
+      "low": 4.27,
+      "volume": 980000,
+      "bid": 4.283,
+      "bidSize": 500,
+      "ask": 4.287,
+      "askSize": 500,
+      "spread": 0.004,
+      "unit": "%",
+      "lastUpdated": "15:14:04.100 UTC",
+      "history": [
+        {
+          "time": "09:00",
+          "price": 4.34
+        },
+        {
+          "time": "10:30",
+          "price": 4.315
+        },
+        {
+          "time": "12:00",
+          "price": 4.298
+        },
+        {
+          "time": "13:30",
+          "price": 4.29
+        },
+        {
+          "time": "15:00",
+          "price": 4.285
+        }
+      ],
+      "depth": {
+        "bids": [
+          {
+            "price": 4.283,
+            "size": 500,
+            "total": 500,
+            "orders": 40
+          },
+          {
+            "price": 4.281,
+            "size": 1100,
+            "total": 1600,
+            "orders": 65
+          },
+          {
+            "price": 4.278,
+            "size": 2400,
+            "total": 4000,
+            "orders": 110
+          },
+          {
+            "price": 4.275,
+            "size": 4800,
+            "total": 8800,
+            "orders": 175
+          },
+          {
+            "price": 4.27,
+            "size": 9500,
+            "total": 18300,
+            "orders": 280
+          }
+        ],
+        "asks": [
+          {
+            "price": 4.287,
+            "size": 500,
+            "total": 500,
+            "orders": 42
+          },
+          {
+            "price": 4.289,
+            "size": 1200,
+            "total": 1700,
+            "orders": 70
+          },
+          {
+            "price": 4.292,
+            "size": 2500,
+            "total": 4200,
+            "orders": 115
+          },
+          {
+            "price": 4.295,
+            "size": 5100,
+            "total": 9300,
+            "orders": 185
+          },
+          {
+            "price": 4.3,
+            "size": 10200,
+            "total": 19500,
+            "orders": 295
+          }
+        ]
+      },
+      "details": {
+        "marketCapOrOi": "Treasury Benchmark",
+        "peOrDuration": "Mod Duration: 8.35 yrs",
+        "description": "US Treasury 10-Year Benchmark Constant Maturity Yield."
+      }
+    },
+    {
+      "ticker": "US2Y10Y:IND",
+      "name": "US 2Y/10Y Treasury Yield Spread",
+      "category": "RATES",
+      "price": 0.185,
+      "previousClose": 0.12,
+      "change": 0.065,
+      "changePct": 54.17,
+      "high": 0.195,
+      "low": 0.115,
+      "volume": 450000,
+      "bid": 0.18,
+      "bidSize": 200,
+      "ask": 0.19,
+      "askSize": 200,
+      "spread": 0.01,
+      "unit": "bps / %",
+      "lastUpdated": "15:14:02.120 UTC",
+      "history": [
+        {
+          "time": "09:00",
+          "price": 0.12
+        },
+        {
+          "time": "10:30",
+          "price": 0.145
+        },
+        {
+          "time": "12:00",
+          "price": 0.165
+        },
+        {
+          "time": "13:30",
+          "price": 0.178
+        },
+        {
+          "time": "15:00",
+          "price": 0.185
+        }
+      ],
+      "depth": {
+        "bids": [
+          {
+            "price": 0.18,
+            "size": 200,
+            "total": 200,
+            "orders": 15
+          },
+          {
+            "price": 0.175,
+            "size": 450,
+            "total": 650,
+            "orders": 28
+          },
+          {
+            "price": 0.17,
+            "size": 850,
+            "total": 1500,
+            "orders": 48
+          },
+          {
+            "price": 0.16,
+            "size": 1600,
+            "total": 3100,
+            "orders": 82
+          },
+          {
+            "price": 0.15,
+            "size": 3200,
+            "total": 6300,
+            "orders": 135
+          }
+        ],
+        "asks": [
+          {
+            "price": 0.19,
+            "size": 200,
+            "total": 200,
+            "orders": 16
+          },
+          {
+            "price": 0.195,
+            "size": 480,
+            "total": 680,
+            "orders": 30
+          },
+          {
+            "price": 0.2,
+            "size": 920,
+            "total": 1600,
+            "orders": 52
+          },
+          {
+            "price": 0.21,
+            "size": 1750,
+            "total": 3350,
+            "orders": 88
+          },
+          {
+            "price": 0.22,
+            "size": 3500,
+            "total": 6850,
+            "orders": 142
+          }
+        ]
+      },
+      "details": {
+        "marketCapOrOi": "Steepening Trend",
+        "description": "Curve steepener: 10Y Yield minus 2Y Yield (economic expansion / disinflation indicator)."
+      }
+    }
+  ],
+  "incidents": [
+    {
+      "id": "inc-rubymar",
+      "title": "M/V Rubymar Fertilizer Bulk Carrier Sinking & Environmental Hazard",
+      "category": "SINKING",
+      "vesselName": "M/V Rubymar",
+      "vesselType": "Handysize Bulk Carrier (32,211 DWT)",
+      "flag": "Belize",
+      "imo": "9138898",
+      "locationName": "Bab-el-Mandeb Strait / Southern Red Sea",
+      "lat": 13.68,
+      "lon": 42.92,
+      "date": "2024-03-02 (Ongoing Seafloor Hazard)",
+      "casualties": {
+        "fatalities": 0,
+        "injured": 0,
+        "missing": 0,
+        "crewStatus": "24 crew members evacuated safely by commercial rescue before vessel foundered."
+      },
+      "severity": "CRITICAL",
+      "status": "ACTIVE_HAZARD",
+      "environmentalImpact": "21,000 metric tons of ammonium phosphate sulfate fertilizer submerged in shallow sensitive coral reef waters; risk of toxic algae bloom and anchor drag damage to critical Red Sea telecommunication submarine cables (AAE-1, EIG, TGN-EA).",
+      "insuranceImpact": "Total constructive loss ($18.5M hull & machinery); London Joint War Committee war-risk premiums surged from 0.4% to 1.2% of vessel insured value.",
+      "freightImpact": "Triggered systemic mass diversion of European container liner loops (2M+ TEU capacity shifted to Cape of Good Hope, adding 12-16 days and $1.4M bunker per round voyage).",
+      "detailedSitrep": "The M/V Rubymar was struck by two anti-ship ballistic missiles in the Bab-el-Mandeb Strait while en route from Khorfakkan (UAE) to Varna (Bulgaria). The missile blast punctured the engine room, causing progressive flooding. After drifting for 12 days, the stern sank first in 100m of water. Subsea ROV surveys confirm the cargo hold remains compromised with high environmental danger to fisheries and marine ecosystems across Yemen and Eritrea.",
+      "relatedTickers": [
+        "FE-EUR-01",
+        "SCFI.INDEX",
+        "MAERSK.DC",
+        "VLSFO.SGP"
+      ]
+    },
+    {
+      "id": "inc-tutor",
+      "title": "M/V Tutor Uncrewed Surface Vessel Strike & Fatal Engine Room Blast",
+      "category": "MISSILE_ATTACK",
+      "vesselName": "M/V Tutor",
+      "vesselType": "Ultramax Bulk Carrier (82,357 DWT)",
+      "flag": "Liberia",
+      "imo": "9942627",
+      "locationName": "Southern Red Sea (66 NM SW of Al Hudaydah)",
+      "lat": 14.31,
+      "lon": 42.15,
+      "date": "2024-06-12 (Sank 2024-06-18)",
+      "casualties": {
+        "fatalities": 1,
+        "injured": 2,
+        "missing": 0,
+        "crewStatus": "1 Filipino crew member trapped and killed in engine room explosion; 21 crew members rescued by French / US military helicopters (Operation Aspides)."
+      },
+      "severity": "CRITICAL",
+      "status": "ACTIVE_HAZARD",
+      "environmentalImpact": "Carried 80,000 MT of thermal coal; submerged wreckage creating navigational obstruction in Red Sea deep-water shipping fairway.",
+      "insuranceImpact": "P&I Clubs declared complete exclusion zones for vessels with commercial links; dry bulk Capesize/Panamax war risk surcharges quadrupled overnight.",
+      "freightImpact": "Caused immediate chartering freeze for bulkers transiting Red Sea; dry bulk routes from South Africa to Mediterranean rerouted around Cape of Good Hope.",
+      "detailedSitrep": "The Greek-managed bulk carrier was deliberately targeted and struck by a bomb-laden autonomous uncrewed surface vessel (USV) at the waterline, followed by an airborne missile hit. The direct stern impact caused catastrophic flooding of the engine space and loss of all onboard propulsion and electrical power. Despite salvage efforts dispatched by Tsavliris Salvage, severe weather and uncontrolled flooding caused the ship to founder and sink 6 days later.",
+      "relatedTickers": [
+        "BDI.INDEX",
+        "FFA.CAPE.5TC",
+        "GOGL:US"
+      ]
+    },
+    {
+      "id": "inc-dali-baltimore",
+      "title": "Baltimore Francis Scott Key Bridge Catastrophic Collision (M/V Dali)",
+      "category": "COLLISION",
+      "vesselName": "M/V Dali",
+      "vesselType": "Neo-Panamax Container Ship (9,962 TEU / 116,851 DWT)",
+      "flag": "Singapore",
+      "imo": "9697428",
+      "locationName": "Patapsco River / Port of Baltimore, MD, USA",
+      "lat": 39.218,
+      "lon": -76.529,
+      "date": "2024-03-26 (Salvage & Reopening Completed)",
+      "casualties": {
+        "fatalities": 6,
+        "injured": 2,
+        "missing": 0,
+        "crewStatus": "6 highway maintenance construction workers lost their lives; 21 crew members unharmed but detained onboard during federal NTSB investigations."
+      },
+      "severity": "CRITICAL",
+      "status": "RESOLVED_MONITORING",
+      "environmentalImpact": "4,700 containers onboard including 56 hazardous materials containers (corrosives, lithium batteries, flammable liquids); 14 containers breached with localized containment booms deployed.",
+      "insuranceImpact": "Projected largest single marine casualty insurance payout in modern history ($2B - $4B total liability spanning Britannia P&I Club, Lloyd’s syndicates, and general average claims).",
+      "freightImpact": "Shut down the 9th largest US foreign trade port for 11 weeks; severed vital East Coast roll-on/roll-off (RoRo) automotive hub (847,000 vehicles/yr) and metallurgical coal export terminals.",
+      "detailedSitrep": "Departing Baltimore for Colombo, Sri Lanka, M/V Dali suffered two consecutive electrical blackouts and loss of steering control at 01:24 local time. Emergency Mayday distress radio was transmitted, allowing police to halt vehicle bridge traffic before the bow impacted Pier 17 of the Key Bridge at 8 knots. 4,000 tons of steel truss collapsed onto the vessel forecastle. Unified Command (US Navy, Army Corps of Engineers) deployed massive Donjon cranes to cut away wreckage and refloat the vessel to Sparrows Point shipyard.",
+      "relatedTickers": [
+        "TA-WB-04",
+        "USLAX",
+        "MAERSK.DC"
+      ]
+    },
+    {
+      "id": "inc-singapore-spill",
+      "title": "Singapore Strait Bunker Oil Spill & Pasir Panjang Collision",
+      "category": "OIL_SPILL",
+      "vesselName": "Vox Maxima (Dredger) & Marine Honour (Bunker Tanker)",
+      "vesselType": "Trailing Suction Hopper Dredger / Coastal Bunker Bunker",
+      "flag": "Netherlands / Singapore",
+      "imo": "9451634",
+      "locationName": "Pasir Panjang Terminal / Singapore Strait",
+      "lat": 1.272,
+      "lon": 103.785,
+      "date": "2024-06-14",
+      "casualties": {
+        "fatalities": 0,
+        "injured": 0,
+        "missing": 0,
+        "crewStatus": "All crew on both vessels safe without injuries."
+      },
+      "severity": "HIGH",
+      "status": "RESTRICTED_ZONE",
+      "environmentalImpact": "400 metric tons of low-sulfur marine fuel oil (VLSFO) spilled into maritime reserves, Sentosa beaches, East Coast Park, and Labrador Nature Reserve; 1.5 km of containment absorbent booms deployed.",
+      "insuranceImpact": "Bunker tanker Marine Honour P&I club handling multi-million dollar coastal clean-up, tourism compensation, and maritime decontamination claims.",
+      "freightImpact": "Temporary berth restrictions at Pasir Panjang container berths 3 and 4; bunker barge refueling delivery queues lengthened by 36-48 hours across Singapore anchorages.",
+      "detailedSitrep": "Dredger Vox Maxima experienced sudden engine and steering failure during maneuvering, colliding with stationary bunker barge Marine Honour berthed alongside container berth. One cargo tank ruptured. MPA Singapore coordinated 18 emergency response skimmer vessels and dispersant spraying to prevent slicks from entering western shipping fairways.",
+      "relatedTickers": [
+        "VLSFO.SGP",
+        "SGSIN",
+        "SCFI.INDEX"
+      ]
+    },
+    {
+      "id": "inc-kerch-blacksea",
+      "title": "Black Sea & Kerch Strait Shadow Fleet Tanker Drone Strikes & Sea Mines",
+      "category": "SEA_MINE",
+      "vesselName": "Sig (Product Tanker) & Shadow Fleet Tankers",
+      "vesselType": "Medium Range (MR) Product Tanker (6,600 DWT)",
+      "flag": "Russia",
+      "imo": "9604328",
+      "locationName": "Kerch Strait / Black Sea Grain Corridor",
+      "lat": 45.18,
+      "lon": 36.52,
+      "date": "2024-Present (High Threat Level)",
+      "casualties": {
+        "fatalities": 4,
+        "injured": 9,
+        "missing": 1,
+        "crewStatus": "Multiple casualties across commercial dry bulkers and shadow tankers from floating mine detonations and naval drone blasts."
+      },
+      "severity": "HIGH",
+      "status": "ACTIVE_HAZARD",
+      "environmentalImpact": "Fuel oil slick in Kerch Strait and Azov Sea; floating drifting naval mines present along Sulina, Constanța, and Danube grain export channels.",
+      "insuranceImpact": "Black Sea additional war risk premiums (AWRP) fluctuating between 1.0% to 2.5% per 7-day voyage; major Western reinsurers refusing coverage for non-compliant Russian shadow tankers.",
+      "freightImpact": "Handysize and Supramax grain freight rates from Danube/Odesa to Egypt elevated at $42/ton (+45% above historical benchmarks).",
+      "detailedSitrep": "Ongoing naval warfare, explosive maritime USV drones, and unmoored drifting Soviet-era contact mines have struck multiple commercial merchant vessels including bulkers M/V Georgia S, tanker Sig, and tugs operating between Taman, Novorossiysk, and Bosphorus approach lanes.",
+      "relatedTickers": [
+        "CO1:COM",
+        "BDI.INDEX",
+        "FE62.SGX"
+      ]
+    },
+    {
+      "id": "inc-gulf-guinea-piracy",
+      "title": "Gulf of Guinea Armed Boarding & Crew Kidnapping in Bight of Bonny",
+      "category": "PIRACY",
+      "vesselName": "M/T Monjasa Reformer & Tanker Fleet",
+      "vesselType": "Product Oil Tanker (13,700 DWT)",
+      "flag": "Liberia",
+      "imo": "9255878",
+      "locationName": "Bight of Bonny / Gulf of Guinea (140 NM offshore)",
+      "lat": 3.75,
+      "lon": 5.15,
+      "date": "2024-Present (Active Piracy Alert)",
+      "casualties": {
+        "fatalities": 2,
+        "injured": 5,
+        "missing": 0,
+        "crewStatus": "6 crew members held hostage in Niger Delta mangroves for 38 days before negotiated rescue; armed guards deployed on 70% of offshore West African tankers."
+      },
+      "severity": "HIGH",
+      "status": "RESTRICTED_ZONE",
+      "environmentalImpact": "Cargo siphoning and illicit ship-to-ship transfer hazards resulting in crude spills in shallow mangrove delta ecosystems.",
+      "insuranceImpact": "Kidnap & Ransom (K&R) marine underwriting mandatory; armed private maritime security company (PMSC) escorts costing $45,000 per voyage.",
+      "freightImpact": "West Africa to Europe (WAF-CONT) crude tanker dirty freight rates carry $2.50/bbl security premium.",
+      "detailedSitrep": "Heavily armed pirate skiffs equipped with climbing ladders and automatic weapons attacked commercial product tanker in international waters. The crew retreated to the armored citadel, but pirates breached emergency comms and abducted deck officers. Regional navies (Nigeria, French Navy Mission Corymbe) maintain intermittent frigate patrols.",
+      "relatedTickers": [
+        "CO1:COM",
+        "FRO:US"
+      ]
+    },
+    {
+      "id": "inc-panama-drought",
+      "title": "Panama Canal Gatun Lake Climate Crisis & Historic Draft Slashing",
+      "category": "DROUGHT",
+      "vesselName": "Global Neopanamax Fleet (Container, LNG & LPG)",
+      "vesselType": "All Commercial Transit Vessels",
+      "flag": "Global",
+      "imo": "N/A",
+      "locationName": "Gatun Lake / Panama Canal Locks",
+      "lat": 9.12,
+      "lon": -79.82,
+      "date": "2023-2024 (Recovering to 38 transits/day)",
+      "casualties": {
+        "fatalities": 0,
+        "injured": 0,
+        "missing": 0,
+        "crewStatus": "Vessels stranded in Pacific/Atlantic anchorages for up to 28 days awaiting auction slots."
+      },
+      "severity": "HIGH",
+      "status": "RESOLVED_MONITORING",
+      "environmentalImpact": "Severe freshwater evaporation and disrupted watershed management required dumping 200M gallons of freshwater per ship transit into ocean.",
+      "insuranceImpact": "Late delivery claims, demurrage disputes, and perishable cargo spoilage claims exceeded $650M across global agricultural and reefer shippers.",
+      "freightImpact": "Panama Canal transit auction slot prices spiked to an all-time record of $4,000,000 for a single transit slot; diverted LNG tankers from US Gulf to Asia via Cape of Good Hope (+22 days).",
+      "detailedSitrep": "An unprecedented multi-year El Niño drought severely dropped Gatun Lake water levels to historic lows of 79.2 feet (normal 88.0 ft). The Panama Canal Authority (ACP) was forced to slash daily booked transits from 38 down to 22 ships per day and impose strict 44ft draft limits, forcing boxships to discharge containers onto the trans-isthmus railroad.",
+      "relatedTickers": [
+        "SCFI.INDEX",
+        "TA-WB-04",
+        "USLAX"
+      ]
+    },
+    {
+      "id": "inc-gaemi-cyclone",
+      "title": "Super Typhoon Gaemi Coastal Shipwrecks & Tanker Capsizing",
+      "category": "SEVERE_WEATHER",
+      "vesselName": "M/T Terra Nova & M/V Basilis",
+      "vesselType": "Industrial Fuel Tanker (1.4M Liters Industrial Fuel)",
+      "flag": "Philippines",
+      "imo": "8780362",
+      "locationName": "Manila Bay / Taiwan Strait / Philippine Sea",
+      "lat": 14.48,
+      "lon": 120.61,
+      "date": "2024-07-25",
+      "casualties": {
+        "fatalities": 3,
+        "injured": 4,
+        "missing": 1,
+        "crewStatus": "1 crew member confirmed deceased, 16 rescued in harrowing nighttime storm operation by Philippine Coast Guard."
+      },
+      "severity": "HIGH",
+      "status": "ACTIVE_HAZARD",
+      "environmentalImpact": "1.4 million liters (370,000 gallons) of industrial fuel oil threatened Manila Bay, fishing grounds, and mangrove shorelines in Bataan and Cavite.",
+      "insuranceImpact": "Total hull loss and massive emergency pollution response mobilization funded by international Oil Pollution Compensation (IOPC) funds.",
+      "freightImpact": "Shut down major transshipment ports in Kaohsiung, Keelung, Fuzhou, and Ningbo for 4 days, causing 180+ container ships to drift in open ocean.",
+      "detailedSitrep": "Super Typhoon Gaemi generated 8-meter monster rogue waves, 140-knot wind gusts, and torrential storm surges in the South China Sea. Tanker MT Terra Nova listed heavily and capsized 7km off Limay, Bataan. Divers and salvage tugs deployed underwater siphoning pipes to extract viscous fuel oil before hull integrity failed completely.",
+      "relatedTickers": [
+        "CNSHA",
+        "CNNBO",
+        "FE-EUR-01"
+      ]
+    }
+  ],
+  "news": [
+    {
+      "id": "news-01",
+      "timestamp": "15:12:44 UTC",
+      "headline": "RED SEA MARITIME DISRUPTION: SUEZ DIVERSIONS REACH 68% OF GLOBAL ASIA-EUROPE CONTAINER TONNAGE",
+      "source": "BBG FREIGHT WIRE",
+      "priority": "FLASH",
+      "category": "FREIGHT",
+      "sentiment": "BULLISH",
+      "summary": "Major container liner alliances extend Cape of Good Hope transit schedules into Q4 2026. Spot Shanghai-to-Rotterdam rates jump +3.9% as effective global fleet capacity tightens by 9.4%. Bunker fuel replenishment at Port Louis and Durban reaches maximum capacity.",
+      "tickers": [
+        "SCFI.INDEX",
+        "MAERSK.DC",
+        "ZIM:US",
+        "VLSFO.SGP"
+      ]
+    },
+    {
+      "id": "news-02",
+      "timestamp": "15:08:12 UTC",
+      "headline": "OPEC+ EXTENDS VOLUNTARY CRUDE EXPORT CUTS THROUGH Q3; VLCC CHARTER RATES FIRM IN ARABIAN GULF",
+      "source": "BLOOMBERG COMMODITIES",
+      "priority": "URGENT",
+      "category": "COMMODITIES",
+      "sentiment": "BULLISH",
+      "summary": "Saudi Arabia and UAE confirm maintenance of 1.65M bpd voluntary cuts. Frontline VLCC day-rates surge past $46,800/day on tight tonnage supply in the Persian Gulf as Asian refiners secure Middle Eastern sour crude.",
+      "tickers": [
+        "CO1:COM",
+        "FRO:US",
+        "FFA.CAPE.5TC"
+      ]
+    },
+    {
+      "id": "news-03",
+      "timestamp": "14:55:30 UTC",
+      "headline": "US TREASURY YIELDS DROP AS CORE PCE DISINFLATION BEATS CONSENSUS; 2Y/10Y CURVE STEEPENS +6.5 BPS",
+      "source": "BBG RATES & MACRO",
+      "priority": "URGENT",
+      "category": "MACRO",
+      "sentiment": "BULLISH",
+      "summary": "Benchmark 10-Year yield slips to 4.285% while short-end SOFR expectations price in a 25 bps rate cut in September. Dollar index eases against major Asian export currencies, supporting emerging market trade flows.",
+      "tickers": [
+        "USGG10YR:IND",
+        "US2Y10Y:IND",
+        "EURUSD:CUR",
+        "USDCNY:CUR"
+      ]
+    },
+    {
+      "id": "news-04",
+      "timestamp": "14:32:19 UTC",
+      "headline": "CHINA STEEL MILLS REPLENISH IRON ORE INVENTORIES: PORT HEDLAND SHIPMENTS TO NINGBO SURGE",
+      "source": "BBG DRY BULK DESK",
+      "priority": "ROUTINE",
+      "category": "FREIGHT",
+      "sentiment": "BULLISH",
+      "summary": "Capesize C5 Western Australia to Qingdao benchmark jumps to $11.45/ton. Baltic Dry Index advances for the 5th consecutive session on strong Brazilian and Australian dry bulk fixtures.",
+      "tickers": [
+        "BDI.INDEX",
+        "FE62.SGX",
+        "FFA.CAPE.5TC"
+      ]
+    },
+    {
+      "id": "news-05",
+      "timestamp": "13:45:00 UTC",
+      "headline": "PANAMA CANAL DRAFT RESTRICTIONS EASE TO 45 FEET AFTER LATE SUMMER RAINFALL AT GATUN LAKE",
+      "source": "MARITIME TELEMETRY",
+      "priority": "ROUTINE",
+      "category": "FREIGHT",
+      "sentiment": "NEUTRAL",
+      "summary": "Panama Canal Authority increases daily booked transit slots to 38 vessels. US Gulf to Asia LNG carrier wait-times reduce from 14 days to 4.5 days.",
+      "tickers": [
+        "SCFI.INDEX",
+        "TA-WB-04"
+      ]
+    },
+    {
+      "id": "news-06",
+      "timestamp": "12:10:45 UTC",
+      "headline": "EU ETS MARITIME CARBON COMPLIANCE COSTS ADD UP TO $140,000 PER VOYAGE ON ASIA-ROTTERDAM ROUTE",
+      "source": "CARBON & ESG DESK",
+      "priority": "ROUTINE",
+      "category": "MACRO",
+      "sentiment": "BEARISH",
+      "summary": "With EU ETS EUA carbon allowance trading near €72/ton, carriers pass through green surcharges of $35-$65 per TEU across European import corridors.",
+      "tickers": [
+        "FE-EUR-01",
+        "MAERSK.DC"
+      ]
+    }
+  ],
+  "economicCalendar": [
+    {
+      "id": "eco-01",
+      "time": "12:30 UTC",
+      "country": "🇺🇸 US",
+      "event": "Core PCE Price Index (MoM)",
+      "actual": "0.2%",
+      "forecast": "0.2%",
+      "previous": "0.3%",
+      "impact": "HIGH",
+      "surprise": "INLINE",
+      "category": "Inflation"
+    },
+    {
+      "id": "eco-02",
+      "time": "12:30 UTC",
+      "country": "🇺🇸 US",
+      "event": "Personal Spending (MoM)",
+      "actual": "0.5%",
+      "forecast": "0.3%",
+      "previous": "0.4%",
+      "impact": "MEDIUM",
+      "surprise": "POSITIVE",
+      "category": "Consumer"
+    },
+    {
+      "id": "eco-03",
+      "time": "14:00 UTC",
+      "country": "🇺🇸 US",
+      "event": "Univ. of Michigan Consumer Sentiment",
+      "actual": "67.9",
+      "forecast": "68.0",
+      "previous": "66.4",
+      "impact": "MEDIUM",
+      "surprise": "INLINE",
+      "category": "Sentiment"
+    },
+    {
+      "id": "eco-04",
+      "time": "14:30 UTC",
+      "country": "🇺🇸 US",
+      "event": "EIA Crude Oil Weekly Inventory Change",
+      "actual": "-3.85M bbl",
+      "forecast": "-1.50M bbl",
+      "previous": "-4.65M bbl",
+      "impact": "HIGH",
+      "surprise": "POSITIVE",
+      "category": "Energy"
+    },
+    {
+      "id": "eco-05",
+      "time": "01:30 UTC (Tomorrow)",
+      "country": "🇨🇳 CN",
+      "event": "NBS Manufacturing PMI",
+      "actual": null,
+      "forecast": "49.8",
+      "previous": "49.4",
+      "impact": "HIGH",
+      "category": "Manufacturing"
+    },
+    {
+      "id": "eco-06",
+      "time": "09:00 UTC (Tomorrow)",
+      "country": "🇪🇺 EU",
+      "event": "Eurozone Harmonised CPI (YoY)",
+      "actual": null,
+      "forecast": "2.2%",
+      "previous": "2.6%",
+      "impact": "HIGH",
+      "category": "Inflation"
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD-98421",
+      "timestamp": "14:52:10",
+      "ticker": "BDI.INDEX",
+      "side": "BUY",
+      "type": "LIMIT",
+      "quantity": 20,
+      "limitPrice": 1840,
+      "status": "FILLED",
+      "filledQty": 20,
+      "avgFillPrice": 1839.5,
+      "timeInForce": "DAY",
+      "notes": "TWAP Execution Algo"
+    },
+    {
+      "id": "ORD-98422",
+      "timestamp": "14:58:33",
+      "ticker": "CO1:COM",
+      "side": "BUY",
+      "type": "LIMIT",
+      "quantity": 50,
+      "limitPrice": 84.4,
+      "status": "WORKING",
+      "filledQty": 15,
+      "avgFillPrice": 84.38,
+      "timeInForce": "DAY",
+      "notes": "Bunker hedge prompt barrel allocation"
+    },
+    {
+      "id": "ORD-98423",
+      "timestamp": "15:02:18",
+      "ticker": "FE-US-01",
+      "side": "BUY",
+      "type": "LIMIT",
+      "quantity": 10,
+      "limitPrice": 5120,
+      "status": "WORKING",
+      "filledQty": 0,
+      "avgFillPrice": 0,
+      "timeInForce": "GTC",
+      "notes": "Transpacific Eastbound hedge"
+    },
+    {
+      "id": "ORD-98420",
+      "timestamp": "14:15:00",
+      "ticker": "MAERSK.DC",
+      "side": "SELL",
+      "type": "LIMIT",
+      "quantity": 150,
+      "limitPrice": 11450,
+      "status": "FILLED",
+      "filledQty": 150,
+      "avgFillPrice": 11455,
+      "timeInForce": "DAY",
+      "notes": "Equity portfolio rebalance"
+    }
+  ],
+  "positions": [
+    {
+      "id": "pos-01",
+      "ticker": "BDI.INDEX",
+      "name": "Baltic Dry Index (BDI)",
+      "category": "FREIGHT_FFA",
+      "quantity": 40,
+      "entryPrice": 1795,
+      "currentPrice": 1845,
+      "unrealizedPnl": 2000,
+      "unrealizedPnlPct": 2.79,
+      "exposureNotional": 73800
+    },
+    {
+      "id": "pos-02",
+      "ticker": "CO1:COM",
+      "name": "Brent Crude Oil Front Month",
+      "category": "COMMODITIES",
+      "quantity": 150,
+      "entryPrice": 82.1,
+      "currentPrice": 84.62,
+      "unrealizedPnl": 378,
+      "unrealizedPnlPct": 3.07,
+      "exposureNotional": 12693
+    },
+    {
+      "id": "pos-03",
+      "ticker": "FE-EUR-01",
+      "name": "Shanghai to Rotterdam (FE-EUR-01)",
+      "category": "FREIGHT_FFA",
+      "quantity": 25,
+      "entryPrice": 6950,
+      "currentPrice": 7230,
+      "unrealizedPnl": 7000,
+      "unrealizedPnlPct": 4.03,
+      "exposureNotional": 180750
+    },
+    {
+      "id": "pos-04",
+      "ticker": "MAERSK.DC",
+      "name": "A.P. Møller - Mærsk A/S",
+      "category": "EQUITIES",
+      "quantity": 350,
+      "entryPrice": 10850,
+      "currentPrice": 11420,
+      "unrealizedPnl": 199500,
+      "unrealizedPnlPct": 5.25,
+      "exposureNotional": 3997000
+    },
+    {
+      "id": "pos-05",
+      "ticker": "VLSFO.SGP",
+      "name": "Singapore VLSFO 0.5% Marine Fuel",
+      "category": "COMMODITIES",
+      "quantity": 80,
+      "entryPrice": 615,
+      "currentPrice": 628.5,
+      "unrealizedPnl": 1080,
+      "unrealizedPnlPct": 2.2,
+      "exposureNotional": 50280
+    }
+  ]
+}

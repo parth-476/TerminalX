@@ -86,19 +86,19 @@ export const TerminalHeader: React.FC<TerminalHeaderProps> = ({
         terminalSound.playCommandGo();
       } else if (e.key === 'F4') {
         e.preventDefault();
-        onViewChange('FCST');
+        onViewChange('ANLY');
         terminalSound.playCommandGo();
       } else if (e.key === 'F5') {
         e.preventDefault();
-        onViewChange('PORT');
+        onViewChange('NEWS');
         terminalSound.playCommandGo();
       } else if (e.key === 'F6') {
         e.preventDefault();
-        onViewChange('VSL');
+        onViewChange('CHAT');
         terminalSound.playCommandGo();
       } else if (e.key === 'F7') {
         e.preventDefault();
-        onViewChange('NEWS');
+        onViewChange('XL');
         terminalSound.playCommandGo();
       } else if (e.key === 'F8') {
         e.preventDefault();
@@ -133,26 +133,30 @@ export const TerminalHeader: React.FC<TerminalHeaderProps> = ({
     } else if (raw === 'MARKET' || raw === 'MARKET <GO>' || raw === 'TRAD' || raw === 'QUOTE') {
       onViewChange('MARKET');
     } else if (
+      raw === 'ANLY' ||
+      raw === 'ANLY <GO>' ||
+      raw === 'CHART' ||
+      raw === 'DERIV' ||
       raw === 'FCST' ||
       raw === 'FCST <GO>' ||
       raw === 'FORECAST' ||
       raw === 'FREIGHT FORECAST'
     ) {
-      onViewChange('FCST');
+      onViewChange('ANLY');
     } else if (
       raw === 'PORT' ||
       raw === 'PORT <GO>' ||
       raw === 'PORTS' ||
       raw === 'INDIA PORT'
     ) {
-      onViewChange('PORT');
+      onViewChange('FRGT');
     } else if (
       raw === 'VSL' ||
       raw === 'VSL <GO>' ||
       raw === 'VESSEL' ||
       raw === 'VESSELS'
     ) {
-      onViewChange('VSL');
+      onViewChange('FRGT');
     } else if (
       raw === 'NEWS' ||
       raw === 'NEWS <GO>' ||
@@ -160,6 +164,10 @@ export const TerminalHeader: React.FC<TerminalHeaderProps> = ({
       raw === 'ECO <GO>'
     ) {
       onViewChange('NEWS');
+    } else if (raw === 'CHAT' || raw === 'CHAT <GO>' || raw === 'IB' || raw === 'MSG') {
+      onViewChange('CHAT');
+    } else if (raw === 'XL' || raw === 'XL <GO>' || raw === 'EXCEL' || raw === 'MODEL') {
+      onViewChange('XL');
     } else if (raw === 'OMS' || raw === 'OMS <GO>' || raw === 'EMSX' || raw === 'BLOTTER') {
       onViewChange('OMS');
     } else if (raw === 'AI' || raw === 'AI <GO>' || raw === 'ASK' || raw === 'COPILOT') {

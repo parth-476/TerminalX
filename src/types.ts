@@ -357,9 +357,12 @@ export type TerminalViewId =
   | 'WORKSPACE'
   | 'FRGT'
   | 'MARKET'
+  | 'ANLY'
+  | 'NEWS'
+  | 'CHAT'
+  | 'XL'
+  | 'OMS'
+  | 'AI'
   | 'FCST'
   | 'PORT'
-  | 'VSL'
-  | 'NEWS'
-  | 'OMS'
-  | 'AI';
+  | 'VSL';
