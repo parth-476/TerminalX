@@ -12,7 +12,8 @@
     "test": "node server/tests/runTests.js && node server/tests/httpIntegration.test.js",
     "preview": "vite preview",
     "clean": "rm -rf dist",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test:engines": "tsx tests/engine-smoke.ts && tsx tests/decision-audit-smoke.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

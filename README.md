@@ -2,21 +2,22 @@
 
 > **"Bloomberg Terminal for Freight, Global Shipping & Trade Logistics."**
 
-TerminalX is a high-performance financial and freight intelligence platform designed to monitor global shipping routes, real-time vessel telemetry, freight rate volatility, port congestion bottlenecks, and voyage cost economics.
+TerminalX is a high-performance financial and freight intelligence platform designed to monitor global shipping routes, real-time vessel telemetry, freight rate volatility, port congestion bottlenecks, voyage cost economics, and procurement timing decision-support.
 
 ---
 
 ## 🌐 Live Deployment
 
 - **Live Public URL**: [https://terminalx-global-freight-maritime-intelligence-uay75mc6bw.openbot.site](https://terminalx-global-freight-maritime-intelligence-uay75mc6bw.openbot.site)
-- **Local Dev Server**: `http://localhost:3000` (Vite) / `http://localhost:5000` (Monolith Express)
-- **Health Check Endpoint**: `/api/health`
+- **Local Full-Stack Server**: `http://localhost:5000` (Monolith Express serving API & frontend)
+- **Vite Dev Server**: `http://localhost:3000` (hot-reload development)
+- **System Health Check**: [http://localhost:5000/api/health](http://localhost:5000/api/health)
 
 ---
 
 ## 🏛️ System Architecture
 
-TerminalX was refactored from an over-complex, frontend-mocked setup into a clean, understandable, and production-ready monolithic full-stack application:
+TerminalX is organized as a clean, understandable, and production-ready monolithic full-stack application:
 
 ```
 terminalX/
@@ -42,15 +43,22 @@ terminalX/
 ├── src/                       # React 19 + TypeScript + Tailwind CSS Frontend
 │   ├── components/            # Visual Bloomberg dark-theme UI components
 │   │   ├── TerminalHeader.tsx # Top ticker tape, world clocks, command bar & F-keys
-│   │   ├── DeskWorkspaceView.tsx # F1: Quad workspace overview
+│   │   ├── CommandCenter/     # F1: Command center overview
 │   │   ├── FreightMap/        # F2: Global AIS radar, chokepoints & route calculator
 │   │   ├── MarketData/        # F3: Live tape, market depth & order blotter
-│   │   ├── Analytics/         # F4: Forward curves, derivatives & yield models
-│   │   ├── News/              # F5: Breaking wire & economic releases
-│   │   ├── Chat/              # F6: Instant Bloomberg (IB) chat network
-│   │   ├── Excel/             # F7: Spreadsheet BDP modeling
-│   │   └── Execution/         # F8: OMS execution tickets
-│   └── App.tsx                # Master container with live API synchronization & F9 AI Copilot
+│   │   ├── Forecast/          # F4: Freight forecast, validation & backtest curves
+│   │   ├── Ports/             # F5: Port intelligence + congestion forecast
+│   │   ├── Vessels/           # F6: Vessel intelligence, screening & draft alerts
+│   │   ├── News/              # F7: Breaking wire & economic calendar
+│   │   ├── Procurement/       # F8: Overseas cargo procurement comparison
+│   │   ├── Charter/           # F9: Integrated charter optimizer (FIX NOW / WAIT / WATCH)
+│   │   ├── Data/              # F10: World Bank macro + weather connectivity
+│   │   ├── Execution/         # OMS execution blotter
+│   │   ├── Analytics/         # Forward curves, derivatives & yield models
+│   │   ├── Chat/              # Instant Bloomberg (IB) chat network
+│   │   ├── Excel/             # Spreadsheet BDP modeling
+│   │   └── AI/                # Gemini AI analyst decision support
+│   └── App.tsx                # Master container with live API synchronization
 ├── Dockerfile                 # Production multi-stage Docker container
 ├── render.yaml                # 1-click Render web service deployment
 └── Procfile                   # Heroku / Railway process specification
@@ -66,12 +74,12 @@ terminalX/
 - **Order Blotter (OMS)**: Execution of simulated container freight hedging tickets and forward freight agreements (FFAs).
 
 ### 2. Port Intelligence & Congestion Tracking
-- **Bottleneck Identification**: Real-time congestion scoring for 27+ top world ports (Shanghai, Singapore, Rotterdam, Ningbo, Los Angeles).
+- **Bottleneck Identification**: Real-time congestion scoring for 27+ top world ports (Shanghai, Singapore, Rotterdam, Ningbo, Los Angeles, Visakhapatnam, Paradip, Haldia).
 - **Berth Queues**: Average wait days, vessels at berth, and local VLSFO bunker pricing.
 
 ### 3. Vessel Intelligence & Route Matching
-- **Telemetry**: IMO registry numbers, MMSI, heading, speed (knots), current draft, DWT, and operator alliances (2M, Ocean Alliance).
-- **Algorithmic Vessel Matching**: Matches candidate ships to cargo origins based on Haversine nautical mile proximity.
+- **Telemetry**: IMO registry numbers, MMSI, heading, speed (knots), current draft, DWT, and operator alliances.
+- **Algorithmic Vessel Matching**: Matches candidate ships to cargo origins based on Haversine nautical mile proximity and laycan dates.
 
 ### 4. Voyage Analytics & Route Comparison
 - **Parametric Economics**: Calculates sea days, total fuel burn (MT), charter cost, canal transit tolls, port dues, and EU ETS carbon compliance costs.
@@ -110,10 +118,8 @@ terminalX/
 - Node.js 18+ (tested on Node.js 22)
 - npm
 
-### 1. Clone & Install
+### 1. Install Dependencies
 ```bash
-git clone https://github.com/parth-476/TerminalX.git
-cd TerminalX
 npm install
 ```
 
@@ -126,16 +132,18 @@ GEMINI_API_KEY=your_gemini_api_key_here
 # DATABASE_URL=postgresql://user:password@localhost:5432/terminalx
 ```
 
-### 3. Run Backend & Frontend
+### 3. Run Tests
 ```bash
-# Run tests
 npm test
+```
 
-# Start full-stack monolith (serves both API and UI on port 5000)
+### 4. Run Application
+```bash
+# Production mode: Build frontend and start monolith server on port 5000
 npm run build
 npm start
 
-# Or run Vite dev server with hot reload (proxies /api to Express)
+# Development mode: Start Vite dev server on port 3000 (proxies /api to port 5000)
 npm run dev
 ```
 
@@ -144,7 +152,7 @@ npm run dev
 ## 🎓 Placement Interview Talking Points
 
 1. **Why Monolith over Microservices?**
-   - For an enterprise-style dashboard with unified data access, a well-structured Express monolith avoids network hop latency, distributed transaction complexity, and container orchestration overhead while staying easy to maintain and test.
+   - For an enterprise-style dashboard with unified data access, a well-structured Express monolith avoids network hop latency, distributed transaction complexity, and container orchestration overhead while staying easy to maintain, test, and deploy.
 
 2. **How does Voyage Cost calculation work?**
    - Transit hours = `Distance (nm) / Speed (knots)`.
