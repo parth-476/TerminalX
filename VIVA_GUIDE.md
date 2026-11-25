@@ -44,14 +44,12 @@ The project is built as a **clean, decoupled monolithic full-stack application**
 
 ```
 terminalX/
-├── server/                    # 1. BACKEND (Express REST API)
-│   ├── index.js               # Express entry point & static file server
-│   ├── database/db.js         # In-memory JSON + PostgreSQL database layer
-│   ├── routes/                # 5 simple route files (market, ports, vessels, analytics, ai)
-│   ├── services/              # Business logic (dataService.js, aiService.js)
-│   ├── utils/calculations.js  # Maritime math (Haversine, fuel burn, voyage costs)
-│   └── tests/                 # Automated validation tests (17 passing tests)
-├── src/                       # 2. FRONTEND (React 19 + TypeScript)
+├── server/                    # 1. BACKEND (Express REST API - Only 3 core files!)
+│   ├── index.js               # Express entry point & all REST routes in one file
+│   ├── calculations.js        # Pure maritime math (Haversine, fuel burn, voyage costs)
+│   ├── data.json              # Clean seed data (27 ports, 19 vessels, 8 lanes)
+│   └── test.js                # Automated validation tests (10 passing tests)
+├── src/                       # 2. FRONTEND (React 19 + TypeScript, Bloomberg dark terminal UI)
 │   ├── App.tsx                # Main container & tab router
 │   ├── components/            # UI Views (Header, Map, Market, Ports, Analytics)
 │   └── types.ts               # Shared TypeScript interfaces (Vessel, Port, FreightLane)

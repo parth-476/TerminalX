@@ -21,24 +21,16 @@ TerminalX uses a simple Express backend and a React + Vite frontend.
 
 ```
 terminalX/
-├── server/                    # Simple Express backend
-│   ├── index.js               # App setup, middleware, routes, static serving
-│   ├── database/
-│   │   ├── db.js              # Small in-memory JSON data loader
-│   │   └── seedData.json      # Seed data for ports, vessels, rates, etc.
-│   ├── routes/                # Basic route handlers
-│   │   ├── market.js
-│   │   ├── ports.js
-│   │   ├── vessels.js
-│   │   ├── analytics.js
-│   │   └── ai.js
-│   ├── services/
-│   │   ├── dataService.js     # Simple data access/filtering
-│   │   └── aiService.js       # Gemini call with local fallback
-│   ├── utils/
-│   │   └── calculations.js    # Voyage and market calculations
-│   └── tests/                 # Backend tests
-├── src/                       # React frontend
+├── server/                    # Ultra-simple Express backend
+│   ├── index.js               # App setup, all REST routes, static asset serving
+│   ├── calculations.js        # Voyage, distance, and route comparison math
+│   ├── data.json              # In-memory dataset (27 ports, 19 vessels, 8 lanes)
+│   └── test.js                # Automated backend test suite
+├── src/                       # React 19 + TypeScript frontend
+│   ├── App.tsx                # Main Bloomberg terminal layout & view routing
+│   ├── components/            # High-density dark terminal views (F1-F9)
+│   ├── data/                  # Static market & incident datasets
+│   └── utils/                 # Audio engine & derivatives pricing
 └── package.json
 ```
 
