@@ -39,7 +39,7 @@ export const TerminalHeader: React.FC<TerminalHeaderProps> = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [utcTime, setUtcTime] = useState('');
   const [nycTime, setNycTime] = useState('');
-  const [ldnTime, setLdnTime] = useState('');
+  const [ldnTime, setLdnTime] = useState('');   
   const [sgpTime, setSgpTime] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -86,19 +86,19 @@ export const TerminalHeader: React.FC<TerminalHeaderProps> = ({
         terminalSound.playCommandGo();
       } else if (e.key === 'F4') {
         e.preventDefault();
-        onViewChange('ANLY');
+        onViewChange('FCST');
         terminalSound.playCommandGo();
       } else if (e.key === 'F5') {
         e.preventDefault();
-        onViewChange('NEWS');
+        onViewChange('PORT');
         terminalSound.playCommandGo();
       } else if (e.key === 'F6') {
         e.preventDefault();
-        onViewChange('CHAT');
+        onViewChange('VSL');
         terminalSound.playCommandGo();
       } else if (e.key === 'F7') {
         e.preventDefault();
-        onViewChange('XL');
+        onViewChange('NEWS');
         terminalSound.playCommandGo();
       } else if (e.key === 'F8') {
         e.preventDefault();
@@ -132,14 +132,34 @@ export const TerminalHeader: React.FC<TerminalHeaderProps> = ({
       onViewChange('FRGT');
     } else if (raw === 'MARKET' || raw === 'MARKET <GO>' || raw === 'TRAD' || raw === 'QUOTE') {
       onViewChange('MARKET');
-    } else if (raw === 'ANLY' || raw === 'ANLY <GO>' || raw === 'CHART' || raw === 'DERIV') {
-      onViewChange('ANLY');
-    } else if (raw === 'NEWS' || raw === 'NEWS <GO>' || raw === 'ECO' || raw === 'ECO <GO>') {
+    } else if (
+      raw === 'FCST' ||
+      raw === 'FCST <GO>' ||
+      raw === 'FORECAST' ||
+      raw === 'FREIGHT FORECAST'
+    ) {
+      onViewChange('FCST');
+    } else if (
+      raw === 'PORT' ||
+      raw === 'PORT <GO>' ||
+      raw === 'PORTS' ||
+      raw === 'INDIA PORT'
+    ) {
+      onViewChange('PORT');
+    } else if (
+      raw === 'VSL' ||
+      raw === 'VSL <GO>' ||
+      raw === 'VESSEL' ||
+      raw === 'VESSELS'
+    ) {
+      onViewChange('VSL');
+    } else if (
+      raw === 'NEWS' ||
+      raw === 'NEWS <GO>' ||
+      raw === 'ECO' ||
+      raw === 'ECO <GO>'
+    ) {
       onViewChange('NEWS');
-    } else if (raw === 'CHAT' || raw === 'CHAT <GO>' || raw === 'IB' || raw === 'MSG') {
-      onViewChange('CHAT');
-    } else if (raw === 'XL' || raw === 'XL <GO>' || raw === 'EXCEL' || raw === 'MODEL') {
-      onViewChange('XL');
     } else if (raw === 'OMS' || raw === 'OMS <GO>' || raw === 'EMSX' || raw === 'BLOTTER') {
       onViewChange('OMS');
     } else if (raw === 'AI' || raw === 'AI <GO>' || raw === 'ASK' || raw === 'COPILOT') {
