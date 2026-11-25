@@ -55,6 +55,50 @@ app.use('/api/vessels', vesselsRouter);
 app.use('/api/analytics', analyticsRouter);
 app.use('/api/ai', aiRouter);
 
+// Unified Compatibility Routes (Replaces redundant serverless /api files)
+app.get('/api/freight-data', (req, res) => {
+  const lanes = db.get('freightLanes');
+  res.json({
+    status: { mode: 'DEMO', provider: 'TerminalX Unified Monolith Feed', cachedAt: new Date().toISOString() },
+    lanes,
+  });
+});
+
+app.get('/api/vessel-data', (req, res) => {
+  const vessels = db.get('vessels');
+  res.json({
+    status: { mode: 'DEMO', provider: 'TerminalX Unified Monolith Telemetry', vesselCount: vessels.length },
+    vessels,
+  });
+});
+
+app.get('/api/external-data', (req, res) => {
+  const type = String(req.query?.type || '').toLowerCase();
+  if (type === 'macro') {
+    return res.json({
+      source: 'WORLD BANK INDICATORS API (DEMO CACHE)',
+      country: req.query?.country || 'ind',
+      fetchedAt: new Date().toISOString(),
+      indicators: [
+        { code: 'NY.GDP.MKTP.KD.ZG', label: 'GDP GROWTH %', observations: [{ year: '2024', value: 7.2 }, { year: '2023', value: 7.0 }] },
+        { code: 'FP.CPI.TOTL.ZG', label: 'CPI INFLATION %', observations: [{ year: '2024', value: 4.8 }, { year: '2023', value: 5.4 }] },
+        { code: 'NE.TRD.GNFS.ZS', label: 'TRADE % GDP', observations: [{ year: '2024', value: 45.2 }, { year: '2023', value: 46.1 }] },
+      ],
+    });
+  }
+  return res.json({
+    source: 'OPEN-METEO API (DEMO CACHE)',
+    latitude: Number(req.query?.lat || 17.68),
+    longitude: Number(req.query?.lon || 83.21),
+    current: { temperature_2m: 29.4, wind_speed_10m: 14.2, weather_code: 1 },
+  });
+});
+
+app.post('/api/ai-analyst', (req, res, next) => {
+  req.url = '/chat';
+  aiRouter(req, res, next);
+});
+
 // System Health Check
 app.get('/api/health', (req, res) => {
   const dbStats = db.getStats();
